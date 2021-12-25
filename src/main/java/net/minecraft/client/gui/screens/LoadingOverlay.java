@@ -24,6 +24,8 @@ import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import space.nickyblackburn.screens.LoadingOverlayImage;
+import space.nickyblackburn.utils.*;
 @OnlyIn(Dist.CLIENT)
 public class LoadingOverlay extends Overlay {
    static final ResourceLocation MOJANG_STUDIOS_LOGO_LOCATION = new ResourceLocation("textures/gui/title/mojangstudios.png");
@@ -48,6 +50,8 @@ public class LoadingOverlay extends Overlay {
    private long fadeOutStart = -1L;
    private long fadeInStart = -1L;
 
+
+   
    public LoadingOverlay(Minecraft p_96172_, ReloadInstance p_96173_, Consumer<Optional<Throwable>> p_96174_, boolean p_96175_) {
       this.minecraft = p_96172_;
       this.reload = p_96173_;
@@ -56,8 +60,9 @@ public class LoadingOverlay extends Overlay {
    }
 
    public static void registerTextures(Minecraft p_96190_) {
-      
-      p_96190_.getTextureManager().register(MOJANG_STUDIOS_LOGO_LOCATION, new LoadingOverlay.LogoTexture());
+      LoadingOverlayImage overlay =  new LoadingOverlayImage();
+    
+      overlay.setLoadingImage(MOJANG_STUDIOS_LOGO_LOCATION, p_96190_);
    }
 
    private static int replaceAlpha(int p_169325_, int p_169326_) {
@@ -114,9 +119,10 @@ public class LoadingOverlay extends Overlay {
       RenderSystem.setShader(GameRenderer::getPositionTexShader);
       RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, f2);
 
-      blit(p_96178_, j2 - j1, k2 - i1, j1, (int)d1, -0.0625F, 0.0F, 120, 60, 120, 120);
-      blit(p_96178_, j2, k2 - i1, j1, (int)d1, 0.0625F, 60.0F, 120, 60, 120, 120);
+      LoadingOverlayImage overlay =  new LoadingOverlayImage();
       
+      overlay.setCustomLogoPosNonFull(this, p_96178_, Consts.px, Consts.py, Consts.pUOffset, Consts.pVOffset, Consts.pWidth, Consts.pHight, Consts.pTextureWidth, Consts.pTextureHeight);
+
 
       RenderSystem.defaultBlendFunc();
       RenderSystem.disableBlend();
