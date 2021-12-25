@@ -76,8 +76,17 @@ public class LoadingOverlayImage {
        component.blit(pose, j2, k2 - i1, j1, (int)d1, 0.0625F, 60.0F, 120, 60, 120, 120);
 
     }
-    
-    public void setCustomLogoPosNonFull(GuiComponent component,PoseStack pMatrixStack,int px,int py, int UOffset, int VOffest, int pWidth, int pHight, int pTextureWidth, int pTextureHight){
+
+    // seting small logo pos
+    public void setCustomLogoPosNonFull(LoadingOverlay component,PoseStack pMatrixStack,int px,int py, int UOffset, float VOffest, int pWidth, int pHight, int pTextureWidth, int pTextureHight){
+
+
+        component.blit(pMatrixStack,px, py, UOffset, VOffest,pWidth, pHight,pTextureWidth,pTextureHight);
+      
+    }
+
+      // seting logo pos
+      public void setCustomLogoPosFull(LoadingOverlay component,PoseStack pMatrixStack,int px,int py, int UOffset, float VOffest, int pWidth, int pHight, int pTextureWidth, int pTextureHight){
 
 
         component.blit(pMatrixStack,px, py, UOffset, VOffest,pWidth, pHight,pTextureWidth,pTextureHight);
