@@ -6,6 +6,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.IntSupplier;
@@ -28,8 +30,8 @@ import space.nickyblackburn.screens.LoadingOverlayImage;
 import space.nickyblackburn.utils.*;
 @OnlyIn(Dist.CLIENT)
 public class LoadingOverlay extends Overlay {
-   static final ResourceLocation MOJANG_STUDIOS_LOGO_LOCATION = new ResourceLocation("textures/gui/title/mojangstudios.png");
-   private static final int LOGO_BACKGROUND_COLOR = FastColor.ARGB32.color(255, 239, 50, 61);
+   static ResourceLocation MOJANG_STUDIOS_LOGO_LOCATION = new ResourceLocation("textures/gui/title/mojangstudios.png");
+   private static final int LOGO_BACKGROUND_COLOR = FastColor.ARGB32.color(255, 0, 0, 0);
    private static final int LOGO_BACKGROUND_COLOR_DARK = FastColor.ARGB32.color(255, 0, 0, 0);
    private static final IntSupplier BRAND_BACKGROUND = () -> {
       return Minecraft.getInstance().options.darkMojangStudiosBackground ? LOGO_BACKGROUND_COLOR_DARK : LOGO_BACKGROUND_COLOR;
@@ -60,9 +62,12 @@ public class LoadingOverlay extends Overlay {
    }
 
    public static void registerTextures(Minecraft p_96190_) {
-      LoadingOverlayImage overlay =  new LoadingOverlayImage();
-    
-      overlay.setLoadingImage(MOJANG_STUDIOS_LOGO_LOCATION, p_96190_);
+         LoadingOverlayImage image = new LoadingOverlayImage();
+        // ALLOWS ME TO Swich the loading image based on day
+       
+         MOJANG_STUDIOS_LOGO_LOCATION = new ResourceLocation(image.setLoadingImage());
+
+        p_96190_.getTextureManager().register(MOJANG_STUDIOS_LOGO_LOCATION, new LoadingOverlay.LogoTexture());
    }
 
    private static int replaceAlpha(int p_169325_, int p_169326_) {
