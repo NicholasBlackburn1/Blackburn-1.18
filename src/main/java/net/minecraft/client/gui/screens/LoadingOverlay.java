@@ -56,6 +56,7 @@ public class LoadingOverlay extends Overlay {
    }
 
    public static void registerTextures(Minecraft p_96190_) {
+      
       p_96190_.getTextureManager().register(MOJANG_STUDIOS_LOGO_LOCATION, new LoadingOverlay.LogoTexture());
    }
 
@@ -112,8 +113,11 @@ public class LoadingOverlay extends Overlay {
       RenderSystem.blendFunc(770, 1);
       RenderSystem.setShader(GameRenderer::getPositionTexShader);
       RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, f2);
+
       blit(p_96178_, j2 - j1, k2 - i1, j1, (int)d1, -0.0625F, 0.0F, 120, 60, 120, 120);
       blit(p_96178_, j2, k2 - i1, j1, (int)d1, 0.0625F, 60.0F, 120, 60, 120, 120);
+      
+
       RenderSystem.defaultBlendFunc();
       RenderSystem.disableBlend();
       int k1 = (int)((double)this.minecraft.getWindow().getGuiScaledHeight() * 0.8325D);
@@ -159,6 +163,7 @@ public class LoadingOverlay extends Overlay {
    }
 
    @OnlyIn(Dist.CLIENT)
+public
    static class LogoTexture extends SimpleTexture {
       public LogoTexture() {
          super(LoadingOverlay.MOJANG_STUDIOS_LOGO_LOCATION);
