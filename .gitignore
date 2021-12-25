@@ -18,3 +18,4 @@ gradle-app.setting
 run/
 build/
 out/
+bin/
