@@ -66,7 +66,6 @@ public class LoadingOverlay extends Overlay {
         // ALLOWS ME TO Swich the loading image based on day
        
          MOJANG_STUDIOS_LOGO_LOCATION = new ResourceLocation(image.setLoadingImage());
-
         p_96190_.getTextureManager().register(MOJANG_STUDIOS_LOGO_LOCATION, new LoadingOverlay.LogoTexture());
    }
 
