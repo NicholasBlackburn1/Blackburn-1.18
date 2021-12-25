@@ -29,39 +29,39 @@ public class LoadingOverlayImage {
 
         switch (calendar.get(Calendar.DAY_OF_WEEK) ) {
             case 1:
-                MOJANG_STUDIOS_LOGO_LOCATION = new ResourceLocation("textures/gui/title/logo.png");
+                MOJANG_STUDIOS_LOGO_LOCATION = new ResourceLocation("blackburn/title/logo.png");
               
                 break;
 
             case 2:
-                MOJANG_STUDIOS_LOGO_LOCATION = new ResourceLocation("textures/gui/title/logo2.png");
+                MOJANG_STUDIOS_LOGO_LOCATION = new ResourceLocation("blackburn/title/logo2.png");
                 break;
 
             case 3:
-                MOJANG_STUDIOS_LOGO_LOCATION = new ResourceLocation("textures/gui/title/logo3.png");
+                MOJANG_STUDIOS_LOGO_LOCATION = new ResourceLocation("blackburn/title/logo3.png");
                 break;
 
             case 4:
-                MOJANG_STUDIOS_LOGO_LOCATION = new ResourceLocation("textures/gui/title/logo4.png");
+                MOJANG_STUDIOS_LOGO_LOCATION = new ResourceLocation("blackburn/title/logo4.png");
                 break;
 
             case 5:
-                MOJANG_STUDIOS_LOGO_LOCATION = new ResourceLocation("textures/gui/title/logo5.png");
+                MOJANG_STUDIOS_LOGO_LOCATION = new ResourceLocation("textures/blackburn/title/logo5.png");
                 break;
                 
             case 6:
-                MOJANG_STUDIOS_LOGO_LOCATION = new ResourceLocation("textures/gui/title/logo6.png");
+                MOJANG_STUDIOS_LOGO_LOCATION = new ResourceLocation("textures/blackburn/title/logo6.png");
                 break;
             
                        
             case 7:
-                MOJANG_STUDIOS_LOGO_LOCATION = new ResourceLocation("textures/gui/title/logo7.png");
+                MOJANG_STUDIOS_LOGO_LOCATION = new ResourceLocation("textures/blackburn/title/logo7.png");
                 break;
         
             
         
             default:
-                MOJANG_STUDIOS_LOGO_LOCATION = new ResourceLocation("textures/gui/title/logo.png");
+                MOJANG_STUDIOS_LOGO_LOCATION = new ResourceLocation("textures/blackburn/title/logo.png");
                 break;
         }
         
