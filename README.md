@@ -1,5 +1,5 @@
 
-## Blackburn 1.18 Minecraft CLient 
+## Blackburn 1.18 Minecraft Client 
 
 ## what is it based on 
 
@@ -13,6 +13,7 @@ well, its going to run on forge 1.18 (or at least the mdk or even the forge api 
 4. Data Displays 
 5. Refreshable accounts
 6. and maby even vr support
+7. mod support hopefully
 
 
 ## why do  i do this 
