@@ -33,8 +33,11 @@ public class Consts {
     public static float pVOffsetfull = 0;
 
     public static String RELEASE = "DEBUG";
-    public static String VERSION = "1.17.1-Blackburn";
-    public static String Date = "Saterday, Sept 4";
+    public static String VERSION = "1.18.1-Blackburn";
+    public static String Date = null;
+
+    // CopyRight Text
+    public static String copyright = "CopyRighted By Nicky Blackburn";
 
 
     public static boolean enablePosInfo = false;
