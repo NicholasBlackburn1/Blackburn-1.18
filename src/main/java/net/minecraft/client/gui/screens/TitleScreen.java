@@ -41,6 +41,8 @@ import net.minecraft.world.level.storage.LevelStorageSource;
 import net.minecraft.world.level.storage.LevelSummary;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import space.nickyblackburn.screens.TitleScreenOverlay;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -98,13 +100,17 @@ public class TitleScreen extends Screen {
       return false;
    }
 
+   // Chnaged the copy right text out side of the main minecarft version
    protected void init() {
+
+      TitleScreenOverlay overlay = new TitleScreenOverlay();
+
       if (this.splash == null) {
          this.splash = this.minecraft.getSplashManager().getSplash();
       }
 
-      this.copyrightWidth = this.font.width("Copyright Mojang AB. Do not distribute!");
-      this.copyrightX = this.width - this.copyrightWidth - 2;
+      overlay.setCopyRightTexT(splash, minecraft, copyrightWidth, copyrightX, width, font, this);
+
       int i = 24;
       int j = this.height / 4 + 48;
       if (this.minecraft.isDemo()) {
@@ -112,27 +118,7 @@ public class TitleScreen extends Screen {
       } else {
          this.createNormalMenuOptions(j, 24);
       }
-
-      this.addRenderableWidget(new ImageButton(this.width / 2 - 124, j + 72 + 12, 20, 20, 0, 106, 20, Button.WIDGETS_LOCATION, 256, 256, (p_96791_) -> {
-         this.minecraft.setScreen(new LanguageSelectScreen(this, this.minecraft.options, this.minecraft.getLanguageManager()));
-      }, new TranslatableComponent("narrator.button.language")));
-      this.addRenderableWidget(new Button(this.width / 2 - 100, j + 72 + 12, 98, 20, new TranslatableComponent("menu.options"), (p_96788_) -> {
-         this.minecraft.setScreen(new OptionsScreen(this, this.minecraft.options));
-      }));
-      this.addRenderableWidget(new Button(this.width / 2 + 2, j + 72 + 12, 98, 20, new TranslatableComponent("menu.quit"), (p_96786_) -> {
-         this.minecraft.stop();
-      }));
-      this.addRenderableWidget(new ImageButton(this.width / 2 + 104, j + 72 + 12, 20, 20, 0, 0, 20, ACCESSIBILITY_TEXTURE, 32, 64, (p_96784_) -> {
-         this.minecraft.setScreen(new AccessibilityOptionsScreen(this, this.minecraft.options));
-      }, new TranslatableComponent("narrator.button.accessibility")));
-      this.minecraft.setConnectedToRealms(false);
-      if (this.minecraft.options.realmsNotifications && this.realmsNotificationsScreen == null) {
-         this.realmsNotificationsScreen = new RealmsNotificationsScreen();
-      }
-
-      if (this.realmsNotificationsEnabled()) {
-         this.realmsNotificationsScreen.init(this.minecraft, this.width, this.height);
-      }
+      overlay.setUpCustomMainMenu(minecraft, this, width, height, realmsNotificationsScreen, ACCESSIBILITY_TEXTURE);
 
    }
 
