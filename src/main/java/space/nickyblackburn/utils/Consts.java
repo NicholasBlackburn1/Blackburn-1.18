@@ -37,7 +37,9 @@ public class Consts {
     public static String Date = null;
 
 
-    
+    public static String ReleaseName = "Blackburn's";
+
+
     // CopyRight Text
     public static String copyright = "CopyRighted By Nicky Blackburn";
 

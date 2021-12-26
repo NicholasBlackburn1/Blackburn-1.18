@@ -105,13 +105,13 @@ public class TitleScreen extends Screen {
    protected void init() {
 
       TitleScreenOverlay overlay = new TitleScreenOverlay();
-
-      if (this.splash == null) {
-         this.splash = this.minecraft.getSplashManager().getSplash();
+      if (splash == null) {
+         splash = minecraft.getSplashManager().getSplash();
       }
 
-      overlay.setCopyRightTexT(splash, minecraft, copyrightWidth, copyrightX, width, font, this);
-
+      copyrightWidth = font.width(Consts.copyright);
+      this.copyrightX = width - copyrightWidth - 2;
+      
       int i = 24;
       int j = this.height / 4 + 48;
       
@@ -186,7 +186,7 @@ public class TitleScreen extends Screen {
          }
 
          // draws version string at the bottom
-         overlay.setDrawVersionName(this.minecraft,this,p_96739_,this.font,this.height);
+         overlay.setDrawVersionName(this.minecraft,this,p_96739_,this.font,this.height,l);
 
          // this sets the copyright text
          overlay.drawCopyRightString(this, p_96739_, this.font, Consts.copyright, this.height, this.width, this.copyrightX, this.copyrightWidth, p_96740_, p_96741_,f1);

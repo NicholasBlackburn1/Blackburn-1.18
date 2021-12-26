@@ -63,6 +63,7 @@ public class TitleScreenOverlay {
    
          copyrightWidth = font.width(Consts.copyright);
          copyrightX = width - copyrightWidth - 2;
+         
       
     }
 
@@ -77,9 +78,9 @@ public class TitleScreenOverlay {
       }
     }
 
-    public void setDrawVersionName(Minecraft minecraft,Screen screen, PoseStack pose,Font font, int height ){
+    public void setDrawVersionName(Minecraft minecraft,Screen screen, PoseStack pose,Font font, int height, int l ){
 
-      String s = Consts.VERSION + SharedConstants.getCurrentVersion().getName();
+      String s = Consts.ReleaseName + SharedConstants.getCurrentVersion().getName();
       if (minecraft.isDemo()) {
          s = s + " Demo";
       } else {
@@ -89,7 +90,7 @@ public class TitleScreenOverlay {
       if (Minecraft.checkModStatus().shouldReportAsModified()) {
          s = s + I18n.get("menu.modded");
       }
-      screen.drawString(pose, font, s, 2, this.height - 10, 16777215 | l);
+      screen.drawString(pose, font, s, 2, height - 10, 16777215 | l);
       
     }
 
