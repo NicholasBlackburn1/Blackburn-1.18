@@ -68,8 +68,19 @@ public class TitleScreenOverlay {
 
 
    // this allows me to make custom minecraft loading screens  by just calling this function
+   // int j is hight i think
     public  void setUpCustomMainMenu(Minecraft minecraft, Screen screen,  int width, int hight, int j, Screen realmsNotificationsScreen){
       
+      // Single player selection
+      screen.addRenderableWidget(new Button(width / 2 - 100, 24, 200, 20, new TranslatableComponent("menu.singleplayer"), (p_96781_) -> {
+         minecraft.setScreen(new SelectWorldScreen(screen));
+      }));
+      
+      // adds Multipayer selection
+      screen.addRenderableWidget(new Button(width / 2 - 100, j + 72 * 1, 200, 20, new TranslatableComponent("menu.multiplayer"), (p_169450_) -> {
+      minecraft.setScreen(new JoinMultiplayerScreen(screen));
+      }));
+
       // lang selection
       screen.addRenderableWidget(new ImageButton(width / 2 - 124, j + 72 + 12, 20, 20, 0, 106, 20, Button.WIDGETS_LOCATION, 256, 256, (p_96791_) -> {
          minecraft.setScreen(new LanguageSelectScreen(screen, minecraft.options, minecraft.getLanguageManager()));
