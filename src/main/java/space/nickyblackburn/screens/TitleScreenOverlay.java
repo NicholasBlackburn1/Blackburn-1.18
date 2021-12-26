@@ -70,31 +70,36 @@ public class TitleScreenOverlay {
    // this allows me to make custom minecraft loading screens  by just calling this function
    // int j is hight i think
     public  void setUpCustomMainMenu(Minecraft minecraft, Screen screen,  int width, int hight, int j, Screen realmsNotificationsScreen){
-      
+      Consts.dbg("Setting up custom title screen~");
       // Single player selection
-      screen.addRenderableWidget(new Button(width / 2 - 100, 24, 200, 20, new TranslatableComponent("menu.singleplayer"), (p_96781_) -> {
+      screen.addRenderableWidget(new Button(width / 2 - 200, j+72 - 50, 100, 20, new TranslatableComponent("menu.singleplayer"), (p_96781_) -> {
          minecraft.setScreen(new SelectWorldScreen(screen));
       }));
+      Consts.dbg("Regestering single player menu");
       
       // adds Multipayer selection
-      screen.addRenderableWidget(new Button(width / 2 - 100, j + 72 * 1, 200, 20, new TranslatableComponent("menu.multiplayer"), (p_169450_) -> {
+      screen.addRenderableWidget(new Button(width / 2 - 100, j + 72 - 24 , 100, 20, new TranslatableComponent("menu.multiplayer"), (p_169450_) -> {
       minecraft.setScreen(new JoinMultiplayerScreen(screen));
       }));
+      Consts.dbg("Regestering mutli player menu");
 
       // lang selection
       screen.addRenderableWidget(new ImageButton(width / 2 - 124, j + 72 + 12, 20, 20, 0, 106, 20, Button.WIDGETS_LOCATION, 256, 256, (p_96791_) -> {
          minecraft.setScreen(new LanguageSelectScreen(screen, minecraft.options, minecraft.getLanguageManager()));
       }, new TranslatableComponent("narrator.button.language")));
+      Consts.dbg("Regestering lang select menu");
 
       // Settings screen 
       screen.addRenderableWidget(new Button(width  / 2 - 200, j+72, 100, 20, new TranslatableComponent("menu.options"), (p_96788_) -> {
          minecraft.setScreen(new OptionsScreen(screen, minecraft.options));
       }));
+      Consts.dbg("Regestering Settings Menu select menu");
 
       // quit button 
       screen.addRenderableWidget(new Button(width /2 - 200, j + 72+ 25, 100, 20, new TranslatableComponent("menu.quit"), (p_96786_) -> {
          minecraft.stop();
       }));
+      Consts.dbg("Regestering quit");
 
    
       minecraft.setConnectedToRealms(false);
