@@ -113,39 +113,18 @@ public class TitleScreen extends Screen {
 
       int i = 24;
       int j = this.height / 4 + 48;
+      
+      // Creates my custom 
       if (this.minecraft.isDemo()) {
-         this.createDemoMenuOptions(j, 24);
+
+         overlay.setUpCustomMainMenu(minecraft, this, width, height, j, realmsNotificationsScreen);
+
       } else {
-         this.createNormalMenuOptions(j, 24);
+         overlay.setUpCustomMainMenu(minecraft, this, width, height, j, realmsNotificationsScreen);
+
       }
-      overlay.setUpCustomMainMenu(minecraft, this, width, height, j, realmsNotificationsScreen);
+      
 
-
-   }
-
-   private void createNormalMenuOptions(int p_96764_, int p_96765_) {
-      boolean flag = this.minecraft.allowsMultiplayer();
-      Button.OnTooltip button$ontooltip = flag ? Button.NO_TOOLTIP : new Button.OnTooltip() {
-         private final Component text = new TranslatableComponent("title.multiplayer.disabled");
-
-         public void onTooltip(Button p_169458_, PoseStack p_169459_, int p_169460_, int p_169461_) {
-            if (!p_169458_.active) {
-               TitleScreen.this.renderTooltip(p_169459_, TitleScreen.this.minecraft.font.split(this.text, Math.max(TitleScreen.this.width / 2 - 43, 170)), p_169460_, p_169461_);
-            }
-
-         }
-
-         public void narrateTooltip(Consumer<Component> p_169456_) {
-            p_169456_.accept(this.text);
-         }
-      };
-      (this.addRenderableWidget(new Button(this.width / 2 - 100, p_96764_ + p_96765_ * 1, 200, 20, new TranslatableComponent("menu.multiplayer"), (p_169450_) -> {
-         Screen screen = (Screen)(this.minecraft.options.skipMultiplayerWarning ? new JoinMultiplayerScreen(this) : new SafetyScreen(this));
-         this.minecraft.setScreen(screen);
-      }, button$ontooltip))).active = flag;
-      (this.addRenderableWidget(new Button(this.width / 2 - 100, p_96764_ + p_96765_ * 2, 200, 20, new TranslatableComponent("menu.online"), (p_96776_) -> {
-         this.realmsButtonClicked();
-      }, button$ontooltip))).active = flag;
    }
 
    private void createDemoMenuOptions(int p_96773_, int p_96774_) {
