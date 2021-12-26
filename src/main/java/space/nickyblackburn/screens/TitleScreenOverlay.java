@@ -76,7 +76,7 @@ public class TitleScreenOverlay {
       }, new TranslatableComponent("narrator.button.language")));
 
       // Settings screen 
-      screen.addRenderableWidget(new Button(width  / 2 - 200, j + 72+ 25, 100, 20, new TranslatableComponent("menu.options"), (p_96788_) -> {
+      screen.addRenderableWidget(new Button(width  / 2 - 200, j+72, 100, 20, new TranslatableComponent("menu.options"), (p_96788_) -> {
          minecraft.setScreen(new OptionsScreen(screen, minecraft.options));
       }));
 
