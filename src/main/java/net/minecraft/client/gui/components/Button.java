@@ -15,8 +15,8 @@ public class Button extends AbstractButton {
    protected final Button.OnPress onPress;
    protected final Button.OnTooltip onTooltip;
 
-   public Button(int p_93721_, int p_93722_, int p_93723_, int p_93724_, Component p_93725_, Button.OnPress p_93726_) {
-      this(p_93721_, p_93722_, p_93723_, p_93724_, p_93725_, p_93726_, NO_TOOLTIP);
+   public Button(int p_93721_, int x, int y, int p_93724_, Component p_93725_, Button.OnPress p_93726_) {
+      this(p_93721_, x, y, p_93724_, p_93725_, p_93726_, NO_TOOLTIP);
    }
 
    public Button(int p_93728_, int p_93729_, int p_93730_, int p_93731_, Component p_93732_, Button.OnPress p_93733_, Button.OnTooltip p_93734_) {
