@@ -118,7 +118,8 @@ public class TitleScreen extends Screen {
       } else {
          this.createNormalMenuOptions(j, 24);
       }
-      overlay.setUpCustomMainMenu(minecraft, this, width, height, realmsNotificationsScreen, ACCESSIBILITY_TEXTURE);
+      overlay.setUpCustomMainMenu(minecraft, this, width, height, j, realmsNotificationsScreen);
+
 
    }
 

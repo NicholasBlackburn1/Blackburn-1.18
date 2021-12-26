@@ -367,7 +367,7 @@ public class CreateWorldScreen extends Screen {
       return super.addWidget(p_100948_);
    }
 
-   protected <T extends GuiEventListener & Widget & NarratableEntry> T addRenderableWidget(T p_170199_) {
+   public <T extends GuiEventListener & Widget & NarratableEntry> T addRenderableWidget(T p_170199_) {
       return super.addRenderableWidget(p_170199_);
    }
 
