@@ -42,6 +42,7 @@ import net.minecraft.world.level.storage.LevelSummary;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import space.nickyblackburn.screens.TitleScreenOverlay;
+import space.nickyblackburn.utils.Consts;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -127,88 +128,14 @@ public class TitleScreen extends Screen {
 
    }
 
-   private void createDemoMenuOptions(int p_96773_, int p_96774_) {
-      boolean flag = this.checkDemoWorldPresence();
-      this.addRenderableWidget(new Button(this.width / 2 - 100, p_96773_, 200, 20, new TranslatableComponent("menu.playdemo"), (p_169444_) -> {
-         if (flag) {
-            this.minecraft.loadLevel("Demo_World");
-         } else {
-            RegistryAccess.RegistryHolder registryaccess$registryholder = RegistryAccess.builtin();
-            this.minecraft.createLevel("Demo_World", MinecraftServer.DEMO_SETTINGS, registryaccess$registryholder, WorldGenSettings.demoSettings(registryaccess$registryholder));
-         }
-
-      }));
-      this.resetDemoButton = this.addRenderableWidget(new Button(this.width / 2 - 100, p_96773_ + p_96774_ * 1, 200, 20, new TranslatableComponent("menu.resetdemo"), (p_169441_) -> {
-         LevelStorageSource levelstoragesource = this.minecraft.getLevelSource();
-
-         try {
-            LevelStorageSource.LevelStorageAccess levelstoragesource$levelstorageaccess = levelstoragesource.createAccess("Demo_World");
-
-            try {
-               LevelSummary levelsummary = levelstoragesource$levelstorageaccess.getSummary();
-               if (levelsummary != null) {
-                  this.minecraft.setScreen(new ConfirmScreen(this::confirmDemo, new TranslatableComponent("selectWorld.deleteQuestion"), new TranslatableComponent("selectWorld.deleteWarning", levelsummary.getLevelName()), new TranslatableComponent("selectWorld.deleteButton"), CommonComponents.GUI_CANCEL));
-               }
-            } catch (Throwable throwable1) {
-               if (levelstoragesource$levelstorageaccess != null) {
-                  try {
-                     levelstoragesource$levelstorageaccess.close();
-                  } catch (Throwable throwable) {
-                     throwable1.addSuppressed(throwable);
-                  }
-               }
-
-               throw throwable1;
-            }
-
-            if (levelstoragesource$levelstorageaccess != null) {
-               levelstoragesource$levelstorageaccess.close();
-            }
-         } catch (IOException ioexception) {
-            SystemToast.onWorldAccessFailure(this.minecraft, "Demo_World");
-            LOGGER.warn("Failed to access demo world", (Throwable)ioexception);
-         }
-
-      }));
-      this.resetDemoButton.active = flag;
-   }
-
-   private boolean checkDemoWorldPresence() {
-      try {
-         LevelStorageSource.LevelStorageAccess levelstoragesource$levelstorageaccess = this.minecraft.getLevelSource().createAccess("Demo_World");
-
-         boolean flag;
-         try {
-            flag = levelstoragesource$levelstorageaccess.getSummary() != null;
-         } catch (Throwable throwable1) {
-            if (levelstoragesource$levelstorageaccess != null) {
-               try {
-                  levelstoragesource$levelstorageaccess.close();
-               } catch (Throwable throwable) {
-                  throwable1.addSuppressed(throwable);
-               }
-            }
-
-            throw throwable1;
-         }
-
-         if (levelstoragesource$levelstorageaccess != null) {
-            levelstoragesource$levelstorageaccess.close();
-         }
-
-         return flag;
-      } catch (IOException ioexception) {
-         SystemToast.onWorldAccessFailure(this.minecraft, "Demo_World");
-         LOGGER.warn("Failed to read demo world data", (Throwable)ioexception);
-         return false;
-      }
-   }
-
    private void realmsButtonClicked() {
       this.minecraft.setScreen(new RealmsMainScreen(this));
    }
 
    public void render(PoseStack p_96739_, int p_96740_, int p_96741_, float p_96742_) {
+      TitleScreenOverlay overlay = new TitleScreenOverlay();
+
+
       if (this.fadeInStart == 0L && this.fading) {
          this.fadeInStart = Util.getMillis();
       }
@@ -258,22 +185,11 @@ public class TitleScreen extends Screen {
             p_96739_.popPose();
          }
 
-         String s = "Minecraft " + SharedConstants.getCurrentVersion().getName();
-         if (this.minecraft.isDemo()) {
-            s = s + " Demo";
-         } else {
-            s = s + ("release".equalsIgnoreCase(this.minecraft.getVersionType()) ? "" : "/" + this.minecraft.getVersionType());
-         }
+         // draws version string at the bottom
+         overlay.setDrawVersionName(this.minecraft,this,p_96739_,this.font,this.height);
 
-         if (Minecraft.checkModStatus().shouldReportAsModified()) {
-            s = s + I18n.get("menu.modded");
-         }
-
-         drawString(p_96739_, this.font, s, 2, this.height - 10, 16777215 | l);
-         drawString(p_96739_, this.font, "Copyright Mojang AB. Do not distribute!", this.copyrightX, this.height - 10, 16777215 | l);
-         if (p_96740_ > this.copyrightX && p_96740_ < this.copyrightX + this.copyrightWidth && p_96741_ > this.height - 10 && p_96741_ < this.height) {
-            fill(p_96739_, this.copyrightX, this.height - 1, this.copyrightX + this.copyrightWidth, this.height, 16777215 | l);
-         }
+         // this sets the copyright text
+         overlay.drawCopyRightString(this, p_96739_, this.font, Consts.copyright, this.height, this.width, this.copyrightX, this.copyrightWidth, p_96740_, p_96741_,f1);
 
          for(GuiEventListener guieventlistener : this.children()) {
             if (guieventlistener instanceof AbstractWidget) {

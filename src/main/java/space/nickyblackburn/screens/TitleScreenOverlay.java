@@ -66,37 +66,65 @@ public class TitleScreenOverlay {
       
     }
 
+    // Draws copy right info 
+    public void drawCopyRightString(Screen screen, PoseStack pose,Font font, String copyrightinfo, int height, int width, int copyrightX, int copyrightWidth, int p_96740_, int p_96741_ , float f1){
+      int l = Mth.ceil(f1 * 255.0F) << 24;
+
+      screen.drawString(pose, font, copyrightinfo, copyrightX, height - 10, 16777215 | l);
+
+      if (p_96740_ > copyrightX && p_96740_ < copyrightX + copyrightWidth && p_96741_ > height - 10 && p_96741_ < height) {
+         screen.fill(pose, copyrightX, height - 1, copyrightX + copyrightWidth, height, 16777215 | l);
+      }
+    }
+
+    public void setDrawVersionName(Minecraft minecraft,Screen screen, PoseStack pose,Font font, int height ){
+
+      String s = Consts.VERSION + SharedConstants.getCurrentVersion().getName();
+      if (minecraft.isDemo()) {
+         s = s + " Demo";
+      } else {
+         s = s + ("release".equalsIgnoreCase(minecraft.getVersionType()) ? "" : "/" + minecraft.getVersionType());
+      }
+
+      if (Minecraft.checkModStatus().shouldReportAsModified()) {
+         s = s + I18n.get("menu.modded");
+      }
+      screen.drawString(pose, font, s, 2, this.height - 10, 16777215 | l);
+      
+    }
 
    // this allows me to make custom minecraft loading screens  by just calling this function
    // int j is hight i think
     public  void setUpCustomMainMenu(Minecraft minecraft, Screen screen,  int width, int hight, int j, Screen realmsNotificationsScreen){
+
       Consts.dbg("Setting up custom title screen~");
+
       // Single player selection
-      screen.addRenderableWidget(new Button(width / 2 - 200, j+72 - 50, 100, 20, new TranslatableComponent("menu.singleplayer"), (p_96781_) -> {
+      screen.addRenderableWidget(new Button(width / 2 - 200, j+72 - 100, 100, 20, new TranslatableComponent("menu.singleplayer"), (p_96781_) -> {
          minecraft.setScreen(new SelectWorldScreen(screen));
       }));
       Consts.dbg("Regestering single player menu");
       
       // adds Multipayer selection
-      screen.addRenderableWidget(new Button(width / 2 - 100, j + 72 - 24 , 100, 20, new TranslatableComponent("menu.multiplayer"), (p_169450_) -> {
+      screen.addRenderableWidget(new Button(width / 2 - 200, j + 72 - 74 , 100, 20, new TranslatableComponent("menu.multiplayer"), (p_169450_) -> {
       minecraft.setScreen(new JoinMultiplayerScreen(screen));
       }));
       Consts.dbg("Regestering mutli player menu");
 
       // lang selection
-      screen.addRenderableWidget(new ImageButton(width / 2 - 124, j + 72 + 12, 20, 20, 0, 106, 20, Button.WIDGETS_LOCATION, 256, 256, (p_96791_) -> {
+      screen.addRenderableWidget(new ImageButton(width / 2 - 200, j + 72 + 12, 20, 20, 0, 106, 20, Button.WIDGETS_LOCATION, 256, 256, (p_96791_) -> {
          minecraft.setScreen(new LanguageSelectScreen(screen, minecraft.options, minecraft.getLanguageManager()));
       }, new TranslatableComponent("narrator.button.language")));
       Consts.dbg("Regestering lang select menu");
 
       // Settings screen 
-      screen.addRenderableWidget(new Button(width  / 2 - 200, j+72, 100, 20, new TranslatableComponent("menu.options"), (p_96788_) -> {
+      screen.addRenderableWidget(new Button(width  / 2 - 200, j+72 - 46, 100, 20, new TranslatableComponent("menu.options"), (p_96788_) -> {
          minecraft.setScreen(new OptionsScreen(screen, minecraft.options));
       }));
       Consts.dbg("Regestering Settings Menu select menu");
 
       // quit button 
-      screen.addRenderableWidget(new Button(width /2 - 200, j + 72+ 25, 100, 20, new TranslatableComponent("menu.quit"), (p_96786_) -> {
+      screen.addRenderableWidget(new Button(width /2 - 200, j + 72 - 20, 100, 20, new TranslatableComponent("menu.quit"), (p_96786_) -> {
          minecraft.stop();
       }));
       Consts.dbg("Regestering quit");
