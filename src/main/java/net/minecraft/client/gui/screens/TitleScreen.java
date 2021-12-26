@@ -124,9 +124,6 @@ public class TitleScreen extends Screen {
    }
 
    private void createNormalMenuOptions(int p_96764_, int p_96765_) {
-      this.addRenderableWidget(new Button(this.width / 2 - 100, p_96764_, 200, 20, new TranslatableComponent("menu.singleplayer"), (p_96781_) -> {
-         this.minecraft.setScreen(new SelectWorldScreen(this));
-      }));
       boolean flag = this.minecraft.allowsMultiplayer();
       Button.OnTooltip button$ontooltip = flag ? Button.NO_TOOLTIP : new Button.OnTooltip() {
          private final Component text = new TranslatableComponent("title.multiplayer.disabled");
