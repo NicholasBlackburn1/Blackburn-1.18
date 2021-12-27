@@ -89,6 +89,11 @@ public class Consts {
         dbg(s);
     }
 
+    public static void debug(String s)
+    {
+        dbg(s);
+    }
+
  
 
 }
