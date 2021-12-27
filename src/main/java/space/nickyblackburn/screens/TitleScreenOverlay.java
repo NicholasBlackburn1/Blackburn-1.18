@@ -84,22 +84,32 @@ public class TitleScreenOverlay {
       Calendar calendar = Calendar.getInstance();
       calendar.setTime(new Date());
       
+      // runs when time is lewdy
       if(calendar.get(Calendar.HOUR_OF_DAY) == 0 || calendar.get(Calendar.HOUR_OF_DAY) < 5){
        Consts.dbg("Showing lewdy Images...");
       }
 
+      // only runs when  time is not lewdy
       if(calendar.get(Calendar.HOUR_OF_DAY) != 0 || calendar.get(Calendar.HOUR_OF_DAY) > 5){
          Consts.dbg("Showing Non Lewdy Images...");
          
               
 
-         Consts.log("Finished registering default main menu here is list entry"+ Consts.background.toString()); 
+         Consts.log("Finished registering default main menu here is list entry"+ Consts.background.toString());
+         
+         // set's baground only when arrray is populated 
+         if(Consts.background.size() == 0){
+            Consts.log("Array is empty its first run");
+         } else{
+            output = Consts.background.get(1).toString().replaceAll("^\"+|\"+$", "");
+            Consts.log("Set background to"+" "+ output);
+         }
          
          
       } else{
          output = "blackburn/background/1.png";
       }
-      return "blackburn/background/1.png";
+      return output;
       
    }
 
@@ -155,10 +165,10 @@ public class TitleScreenOverlay {
     }
 
     // Sets the splash screen pos 
-    public void setSplashPos(Screen screen ,String Splash, PoseStack p_96739_, int width, Font font, int l){
+    public void setSplashPos(Screen screen ,String Splash, PoseStack p_96739_, int width, int splashX, Font font, int l){
       if (Splash != null) {
          p_96739_.pushPose();
-         p_96739_.translate((double)(width / 2 - 100), 70.0F, 0.0F);
+         p_96739_.translate((double)(width / 2 - splashX), 70.0F, 0.0F);
          p_96739_.mulPose(Vector3f.ZP.rotationDegrees(-20.0F));
          float f2 = 1.8F - Mth.abs(Mth.sin((float)(Util.getMillis() % 1000L) / 1000.0F * ((float)Math.PI * 2F)) * 0.1F);
          f2 = f2 * 100.0F / (float)(font.width(Splash) + 32);
@@ -205,15 +215,29 @@ public class TitleScreenOverlay {
       }));
       Consts.dbg("Regestering quit");
      
-
-
-
-      
    
       minecraft.setConnectedToRealms(false);
 
       if (minecraft.options.realmsNotifications && realmsNotificationsScreen == null) {
          realmsNotificationsScreen = new RealmsNotificationsScreen();
+      }
+
+   }
+
+   public void renderEdition(Screen screen,String splash, PoseStack p_96739_, Font font, int width, int j, int l){
+
+   
+      screen.blit(p_96739_, j + 88- 100, 67, 0.0F, 0.0F, 98, 14, 128, 16);
+
+      if (splash != null) {
+         p_96739_.pushPose();
+         p_96739_.translate((double)(width / 2 + 100), 70.0D, 0.0D);
+         p_96739_.mulPose(Vector3f.ZP.rotationDegrees(-20.0F));
+         float f2 = 1.8F - Mth.abs(Mth.sin((float)(Util.getMillis() % 1000L) / 1000.0F * ((float)Math.PI * 2F)) * 0.1F);
+         f2 = f2 * 100.0F / (float)(font.width(splash) + 32);
+         p_96739_.scale(f2, f2, f2);
+         screen.drawCenteredString(p_96739_, font, splash, 0, -8, 16776960 | l);
+         p_96739_.popPose();
       }
 
    }

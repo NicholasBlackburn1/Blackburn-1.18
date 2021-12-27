@@ -164,35 +164,10 @@ public class TitleScreen extends Screen {
       int l = Mth.ceil(f1 * 255.0F) << 24;
       if ((l & -67108864) != 0) {
          RenderSystem.setShader(GameRenderer::getPositionTexShader);
-         RenderSystem.setShaderTexture(0, MINECRAFT_LOGO);
-         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, f1);
-         if (this.minceraftEasterEgg) {
-            this.blitOutlineBlack(j, 30, (p_169447_, p_169448_) -> {
-               this.blit(p_96739_, p_169447_ + 0, p_169448_, 0, 0, 99, 44);
-               this.blit(p_96739_, p_169447_ + 99, p_169448_, 129, 0, 27, 44);
-               this.blit(p_96739_, p_169447_ + 99 + 26, p_169448_, 126, 0, 3, 44);
-               this.blit(p_96739_, p_169447_ + 99 + 26 + 3, p_169448_, 99, 0, 26, 44);
-               this.blit(p_96739_, p_169447_ + 155, p_169448_, 0, 45, 155, 44);
-            });
-         } else {
-            this.blitOutlineBlack(j, 30, (p_96768_, p_96769_) -> {
-               this.blit(p_96739_, p_96768_ + 0, p_96769_, 0, 0, 155, 44);
-               this.blit(p_96739_, p_96768_ + 155, p_96769_, 0, 45, 155, 44);
-            });
-         }
 
+         // Renders adition
          RenderSystem.setShaderTexture(0, MINECRAFT_EDITION);
-         blit(p_96739_, j + 88, 67, 0.0F, 0.0F, 98, 14, 128, 16);
-         if (this.splash != null) {
-            p_96739_.pushPose();
-            p_96739_.translate((double)(this.width / 2 + 90), 70.0D, 0.0D);
-            p_96739_.mulPose(Vector3f.ZP.rotationDegrees(-20.0F));
-            float f2 = 1.8F - Mth.abs(Mth.sin((float)(Util.getMillis() % 1000L) / 1000.0F * ((float)Math.PI * 2F)) * 0.1F);
-            f2 = f2 * 100.0F / (float)(this.font.width(this.splash) + 32);
-            p_96739_.scale(f2, f2, f2);
-            drawCenteredString(p_96739_, this.font, this.splash, 0, -8, 16776960 | l);
-            p_96739_.popPose();
-         }
+         overlay.renderEdition(this,splash, p_96739_, font, width, j, l);
 
          // draws version string at the bottom
          overlay.setDrawVersionName(this.minecraft,this,p_96739_,this.font,this.height,l);
