@@ -83,6 +83,12 @@ public class Consts {
         dbg(s);
     }
 
+
+    public static void info(String s)
+    {
+        dbg(s);
+    }
+
  
 
 }
