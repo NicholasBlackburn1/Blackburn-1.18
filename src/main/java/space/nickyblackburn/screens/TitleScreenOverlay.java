@@ -78,7 +78,7 @@ public class TitleScreenOverlay {
 
    private String output = "";
    // Allows me to  pull custom random furry background on my client 
-   public String setBackgroundScreen(List nonLewdy){
+   public String setBackgroundScreen(){
       
 
       Calendar calendar = Calendar.getInstance();
@@ -94,9 +94,9 @@ public class TitleScreenOverlay {
          
          
       } else{
-         output = "blackburn/background/customfurry.png";
+         output = "blackburn/background/1.png";
       }
-      return output;
+      return "blackburn/background/1.png";
       
    }
 
@@ -163,35 +163,37 @@ public class TitleScreenOverlay {
       Consts.dbg("Setting up custom title screen~");
 
       // Single player selection
-      screen.addRenderableWidget(new Button(width / 2 - 200, j+72 - 100, 100, 20, new TranslatableComponent("menu.singleplayer"), (p_96781_) -> {
+      screen.addRenderableWidget(new Button(width / 2  + 100, j+72 -100, 100, 20, new TranslatableComponent("menu.singleplayer"), (p_96781_) -> {
          minecraft.setScreen(new SelectWorldScreen(screen));
       }));
       Consts.dbg("Regestering single player menu");
       
       // adds Multipayer selection
-      screen.addRenderableWidget(new Button(width / 2 - 200, j + 72 - 74 , 100, 20, new TranslatableComponent("menu.multiplayer"), (p_169450_) -> {
+      screen.addRenderableWidget(new Button(width / 2 + 100, j + 72 - 74 , 100, 20, new TranslatableComponent("menu.multiplayer"), (p_169450_) -> {
       minecraft.setScreen(new JoinMultiplayerScreen(screen));
       }));
       Consts.dbg("Regestering mutli player menu");
 
       // lang selection
-      screen.addRenderableWidget(new ImageButton(width / 2 - 200, j + 72 + 12, 20, 20, 0, 106, 20, Button.WIDGETS_LOCATION, 256, 256, (p_96791_) -> {
+      screen.addRenderableWidget(new ImageButton(width / 2 + 100, j + 72 + 12, 20, 20, 0, 106, 20, Button.WIDGETS_LOCATION, 256, 256, (p_96791_) -> {
          minecraft.setScreen(new LanguageSelectScreen(screen, minecraft.options, minecraft.getLanguageManager()));
       }, new TranslatableComponent("narrator.button.language")));
       Consts.dbg("Regestering lang select menu");
 
       // Settings screen 
-      screen.addRenderableWidget(new Button(width  / 2 - 200, j+72 - 46, 100, 20, new TranslatableComponent("menu.options"), (p_96788_) -> {
+      screen.addRenderableWidget(new Button(width  / 2  + 100, j+72 - 46, 100, 20, new TranslatableComponent("menu.options"), (p_96788_) -> {
          minecraft.setScreen(new OptionsScreen(screen, minecraft.options));
       }));
       Consts.dbg("Regestering Settings Menu select menu");
 
       // quit button 
-      screen.addRenderableWidget(new Button(width /2 - 200, j + 72 - 20, 100, 20, new TranslatableComponent("menu.quit"), (p_96786_) -> {
+      screen.addRenderableWidget(new Button(width /2 + 100, j + 72 - 20, 100, 20, new TranslatableComponent("menu.quit"), (p_96786_) -> {
          minecraft.stop();
       }));
       Consts.dbg("Regestering quit");
-
+      
+      GuiUtils gui = new GuiUtils();
+      gui.dumpLayoutJson();
    
       minecraft.setConnectedToRealms(false);
 

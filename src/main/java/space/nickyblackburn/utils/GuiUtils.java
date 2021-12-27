@@ -14,6 +14,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import space.nickyblackburn.utils.*;
 
 import com.google.common.util.concurrent.Runnables;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -21,12 +26,20 @@ import com.mojang.math.Vector3f;
 import com.mojang.realmsclient.RealmsMainScreen;
 import com.mojang.realmsclient.gui.screens.RealmsNotificationsScreen;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
+import java.util.Map.Entry;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import javax.annotation.Nullable;
 import javax.imageio.ImageIO;
@@ -108,4 +121,43 @@ public class GuiUtils {
     Consts.dbg("Regestered Menu item"+new TranslatableComponent(buttonText).toString()+ " ");
  }
 
+// should load json form location
+ public static void loadFromJson(InputStream p_128109_) {
+   Gson json = new Gson();
+   JsonArray jsonobject = json.fromJson(new InputStreamReader(p_128109_, StandardCharsets.UTF_8), JsonArray.class);
+
+   for(Entry<String, JsonElement> entry : jsonobject.getAsJsonObject().entrySet()) {
+      Consts.debug(entry.toString());
+   }
+
+}
+
+ // Dumps json so i cam then hope fully get daya from it 
+ public void dumpLayoutJson(){
+   try{
+   InputStream inputstream = GuiUtils.class.getResourceAsStream("/assets/minecraft/blackburn/backgrounds.json");
+
+   try {
+      loadFromJson(inputstream);
+
+   } catch (Throwable throwable1) {
+
+      if (inputstream != null) {
+         try {
+            inputstream.close();
+         } catch (Throwable throwable) {
+            throwable1.addSuppressed(throwable);
+         }
+      }
+
+      throw throwable1;
+   }
+
+   if (inputstream != null) {
+      inputstream.close();
+   }
+} catch (JsonParseException | IOException ioexception) {
+   Consts.error("Couldn't read strings from {}"+"/assets/blackburn/backgrounds.json" +" "+ioexception.toString());
+}
+ }
 }
