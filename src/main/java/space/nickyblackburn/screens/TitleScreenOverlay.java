@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
@@ -72,10 +74,11 @@ import org.jsoup.select.Elements;
 
 public class TitleScreenOverlay {
 
-   private ImagePuller puller = new ImagePuller();
+   public List nonLewdyBackgrounds = new LinkedList<>();
+
    private String output = "";
    // Allows me to  pull custom random furry background on my client 
-   public String setBackgroundScreen(){
+   public String setBackgroundScreen(List nonLewdy){
       
 
       Calendar calendar = Calendar.getInstance();
@@ -198,73 +201,6 @@ public class TitleScreenOverlay {
 
    }
 
- /**
-  *  main menu button
-  * @param minecraft  this 
-  * @param screen this 
-  * @param ButtonWidth the width of the button
-  * @param j some magic number mojan made 
-  * @param ButtonLocationY Is the y axis of where the button sits on the screen 
-  * @param ButtonLocationX is the x axis of where the button sitis on the screen
-  * @param ButtonLength the length of the button 
-  */
-
-   // Allows 
-   // Allows me to custom set single player button pos 
-   public void setSinglePlayerButtonLocal(Minecraft minecraft,Screen screen, int ButtonWidth, int j, int ButtonLocationY, int ButtonLocationX, int ButtonLenght){
-
-      Consts.dbg("Setting up Single player button");
-      // Single player selection                                                           norm 100
-      screen.addRenderableWidget(new Button(ButtonWidth / 2 - ButtonLocationX, j+72 - ButtonLocationY, ButtonLenght, 20, new TranslatableComponent("menu.singleplayer"), (p_96781_) -> {
-         minecraft.setScreen(new SelectWorldScreen(screen));
-      }));
-      Consts.dbg("Set up Single player button Sucessfully");
-   }
-
- /**
-  *  main menu button
-  * @param minecraft  this 
-  * @param screen this 
-  * @param ButtonWidth the width of the button
-  * @param j some magic number mojan made 
-  * @param ButtonLocationY Is the y axis of where the button sits on the screen 
-  * @param ButtonLocationX is the x axis of where the button sitis on the screen
-  * @param ButtonLength the length of the button 
-  */
-
-   // Allows me to make the minecraft main menu change the layout pos of the buttons based on the bakground 
-   public void setMultiplayerButtonLocal(Minecraft minecraft,Screen screen, int ButtonWidth, int j, int ButtonLocationY, int ButtonLocationX,int ButtonLength){
-
-      Consts.dbg("Regestering mutli player menu");
-      // adds Multipayer selection
-      screen.addRenderableWidget(new Button(ButtonWidth / 2 - ButtonLocationX, j + 72 - ButtonLocationY , ButtonLength, 20, new TranslatableComponent("menu.multiplayer"), (p_169450_) -> {
-      minecraft.setScreen(new JoinMultiplayerScreen(screen));
-      }));
-      Consts.dbg("Done Registering multiplayermenu");
-         
-   }
-  
- /**
-  *  main menu button
-  * @param minecraft  this 
-  * @param screen this 
-  * @param ButtonWidth the width of the button
-  * @param j some magic number mojan made 
-  * @param ButtonLocationY Is the y axis of where the button sits on the screen 
-  * @param ButtonLocationX is the x axis of where the button sitis on the screen
-  * @param ButtonLength the length of the button 
-  */
-
-   // Allows 
-   public void setSettingsMenuButtonLocal(Minecraft minecraft,Screen screen, int ButtonWidth, int j, int ButtonLocationY, int ButtonLocationX, int ButtonLenght){
-
-      // Settings screen 
-      screen.addRenderableWidget(new Button(ButtonWidth  / 2 - ButtonLocationX, j+72 - ButtonLocationY, ButtonLenght, 20, new TranslatableComponent("menu.options"), (p_96788_) -> {
-         minecraft.setScreen(new OptionsScreen(screen, minecraft.options));
-      }));
-      Consts.dbg("Regestering Settings Menu select menu");
-
-   }
   
    
 }
