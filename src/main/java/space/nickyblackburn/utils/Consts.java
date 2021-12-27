@@ -1,10 +1,13 @@
 package space.nickyblackburn.utils;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 
 public class Consts {
     
-
+    public static List background = new LinkedList<>();
 
     private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();
    

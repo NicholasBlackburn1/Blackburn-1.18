@@ -130,8 +130,19 @@ public class GuiUtils {
    int i  = 0;
 
    for(Entry<String, JsonElement> entry : jsonobject.get(random.nextInt(26)).getAsJsonObject().entrySet()) {
-      Consts.debug(entry.toString());
-      
+      Consts.debug(entry.getKey().toString());
+
+      if(entry.getKey().toString().equals("image")){
+
+         Consts.error("Got image "+" "+ entry.getValue().toString());
+         Consts.background.add(entry.getValue().toString());
+      }
+      else{
+         Consts.background.add(entry.getValue());
+      }
+
+      Consts.log("Linked List for data"+ " "+ Consts.background.toString());
+
    }
 
 }
