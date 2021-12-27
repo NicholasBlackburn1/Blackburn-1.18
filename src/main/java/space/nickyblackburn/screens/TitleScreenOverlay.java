@@ -1,3 +1,8 @@
+/***
+ * TODO: get the main menu screen to randomly choose a pick out of a list of picturs and the locations of the buttons for that pic
+ */
+
+
 package space.nickyblackburn.screens;
 
 import net.minecraft.client.Minecraft;
@@ -68,10 +73,10 @@ import org.jsoup.select.Elements;
 public class TitleScreenOverlay {
 
    private ImagePuller puller = new ImagePuller();
-
+   private String output = "";
    // Allows me to  pull custom random furry background on my client 
    public String setBackgroundScreen(){
-      String output = "";
+      
 
       Calendar calendar = Calendar.getInstance();
       calendar.setTime(new Date());
@@ -84,21 +89,11 @@ public class TitleScreenOverlay {
          Consts.dbg("Showing Non Lewdy Images...");
 
          
-         try {
-
-            puller.getElementOfImage("https://imgur.com/gallery/rFfup");
-
-         } catch (IOException e) {
-            
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-         }
-         
          
       } else{
          output = "blackburn/background/customfurry.png";
       }
-      return "blackburn/background/customfurry.png";
+      return output;
       
    }
 
@@ -183,7 +178,7 @@ public class TitleScreenOverlay {
       Consts.dbg("Regestering lang select menu");
 
       // Settings screen 
-      screen.addRenderableWidget(new Button(width  / 2 - 200, j+72 - 46, 100, 20, new TranslatableComponent("menu.options"), (p_96788_) -> {
+      screen.addRenderableWidget(new Button(width  / 2 - 200, j+72 - 46, 140, 20, new TranslatableComponent("menu.options"), (p_96788_) -> {
          minecraft.setScreen(new OptionsScreen(screen, minecraft.options));
       }));
       Consts.dbg("Regestering Settings Menu select menu");
@@ -200,6 +195,39 @@ public class TitleScreenOverlay {
       if (minecraft.options.realmsNotifications && realmsNotificationsScreen == null) {
          realmsNotificationsScreen = new RealmsNotificationsScreen();
       }
+
+   }
+
+   // Allows me to custom set single player button pos 
+   public void setSinglePlayerButtonLocal(Minecraft minecraft,Screen screen, int ButtonWidth, int j, int ButtonLocationX, int ButtonLocationY){
+
+      Consts.dbg("Setting up Single player button");
+      // Single player selection                                                           norm 100
+      screen.addRenderableWidget(new Button(ButtonWidth / 2 - 200, j+72 - ButtonLocationX, ButtonLocationY, 20, new TranslatableComponent("menu.singleplayer"), (p_96781_) -> {
+         minecraft.setScreen(new SelectWorldScreen(screen));
+      }));
+      Consts.dbg("Set up Single player button Sucessfully");
+   }
+
+   // Allows me to make the minecraft main menu change the layout pos of the buttons based on the bakground 
+   public void setMultiplayerButtonLocal(Minecraft minecraft,Screen screen, int ButtonWidth, int j, int ButtonLocationX, int ButtonLocationY){
+
+      Consts.dbg("Regestering mutli player menu");
+      // adds Multipayer selection
+      screen.addRenderableWidget(new Button(ButtonWidth / 2 - 200, j + 72 - ButtonLocationX , ButtonLocationY, 20, new TranslatableComponent("menu.multiplayer"), (p_169450_) -> {
+      minecraft.setScreen(new JoinMultiplayerScreen(screen));
+      }));
+      Consts.dbg("Done Registering multiplayermenu");
+         
+   }
+
+   public void setSettingsMenuButtonLocal(Minecraft minecraft,Screen screen, int ButtonWidth, int j, int ButtonLocationX, int ButtonLocationY){
+
+      // Settings screen 
+      screen.addRenderableWidget(new Button(ButtonWidth  / 2 - 200, j+72 - ButtonLocationX, ButtonLocationY, 20, new TranslatableComponent("menu.options"), (p_96788_) -> {
+         minecraft.setScreen(new OptionsScreen(screen, minecraft.options));
+      }));
+      Consts.dbg("Regestering Settings Menu select menu");
 
    }
   
