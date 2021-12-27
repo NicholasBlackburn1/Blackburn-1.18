@@ -17,11 +17,16 @@ import com.mojang.math.Vector3f;
 import com.mojang.realmsclient.RealmsMainScreen;
 import com.mojang.realmsclient.gui.screens.RealmsNotificationsScreen;
 import java.io.IOException;
+import java.net.URL;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.function.Consumer;
 import javax.annotation.Nullable;
+import javax.imageio.ImageIO;
+
 import net.minecraft.SharedConstants;
 import net.minecraft.Util;
 
@@ -53,7 +58,49 @@ import net.minecraftforge.api.distmarker.Dist;
 import  net.minecraft.client.gui.screens.LanguageSelectScreen;
 import net.minecraft.client.gui.screens.OptionsScreen;
 
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+
 public class TitleScreenOverlay {
+
+   private ImagePuller puller = new ImagePuller();
+
+   // Allows me to  pull custom random furry background on my client 
+   public String setBackgroundScreen(){
+      String output = "";
+
+      Calendar calendar = Calendar.getInstance();
+      calendar.setTime(new Date());
+      
+      if(calendar.get(Calendar.HOUR_OF_DAY) == 0 || calendar.get(Calendar.HOUR_OF_DAY) < 5){
+       Consts.dbg("Showing lewdy Images...");
+      }
+
+      if(calendar.get(Calendar.HOUR_OF_DAY) != 0 || calendar.get(Calendar.HOUR_OF_DAY) > 5){
+         Consts.dbg("Showing Non Lewdy Images...");
+
+         
+         try {
+
+            puller.getElementOfImage("https://imgur.com/gallery/rFfup");
+
+         } catch (IOException e) {
+            
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+         }
+         
+         
+      } else{
+         output = "blackburn/background/customfurry.png";
+      }
+      return "blackburn/background/customfurry.png";
+      
+   }
 
 
    public void setCopyRightTexT(String splash, Minecraft minecraft, int copyrightWidth, int copyrightX, int width,Font font,Screen screen){
@@ -78,6 +125,8 @@ public class TitleScreenOverlay {
       }
     }
 
+
+    // sets version info on main menu to blackburn + version name 
     public void setDrawVersionName(Minecraft minecraft,Screen screen, PoseStack pose,Font font, int height, int l ){
 
       String s = Consts.ReleaseName + SharedConstants.getCurrentVersion().getName();
@@ -92,6 +141,21 @@ public class TitleScreenOverlay {
       }
       screen.drawString(pose, font, s, 2, height - 10, 16777215 | l);
       
+    }
+
+    // Sets the splash screen pos 
+    public void setSplashPos(Screen screen ,String Splash, PoseStack p_96739_, int width, Font font, int l){
+      if (Splash != null) {
+         p_96739_.pushPose();
+         p_96739_.translate((double)(width / 2 - 100), 70.0F, 0.0F);
+         p_96739_.mulPose(Vector3f.ZP.rotationDegrees(-20.0F));
+         float f2 = 1.8F - Mth.abs(Mth.sin((float)(Util.getMillis() % 1000L) / 1000.0F * ((float)Math.PI * 2F)) * 0.1F);
+         f2 = f2 * 100.0F / (float)(font.width(Splash) + 32);
+         p_96739_.scale(f2, f2, f2);
+         screen.drawCenteredString(p_96739_, font, Splash, 0, -8, 16776960 | l);
+         p_96739_.popPose();
+      }
+
     }
 
    // this allows me to make custom minecraft loading screens  by just calling this function

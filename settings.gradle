@@ -1,4 +1,4 @@
-rootProject.name = 'mcp-reborn'
+rootProject.name = 'Blackburn-1.18'
 
 include ':mcp'
 project(":mcp").projectDir = file("projects/mcp")
