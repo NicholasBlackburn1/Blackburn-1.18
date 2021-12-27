@@ -124,10 +124,14 @@ public class GuiUtils {
 // should load json form location
  public static void loadFromJson(InputStream p_128109_) {
    Gson json = new Gson();
-   JsonArray jsonobject = json.fromJson(new InputStreamReader(p_128109_, StandardCharsets.UTF_8), JsonArray.class);
+   Random random = new Random();
 
-   for(Entry<String, JsonElement> entry : jsonobject.getAsJsonObject().entrySet()) {
+   JsonArray jsonobject = json.fromJson(new InputStreamReader(p_128109_, StandardCharsets.UTF_8), JsonArray.class);
+   int i  = 0;
+
+   for(Entry<String, JsonElement> entry : jsonobject.get(random.nextInt(26)).getAsJsonObject().entrySet()) {
       Consts.debug(entry.toString());
+      
    }
 
 }
