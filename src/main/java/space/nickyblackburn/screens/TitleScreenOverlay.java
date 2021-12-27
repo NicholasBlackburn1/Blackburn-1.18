@@ -178,7 +178,7 @@ public class TitleScreenOverlay {
       Consts.dbg("Regestering lang select menu");
 
       // Settings screen 
-      screen.addRenderableWidget(new Button(width  / 2 - 200, j+72 - 46, 140, 20, new TranslatableComponent("menu.options"), (p_96788_) -> {
+      screen.addRenderableWidget(new Button(width  / 2 - 200, j+72 - 46, 100, 20, new TranslatableComponent("menu.options"), (p_96788_) -> {
          minecraft.setScreen(new OptionsScreen(screen, minecraft.options));
       }));
       Consts.dbg("Regestering Settings Menu select menu");
@@ -198,33 +198,68 @@ public class TitleScreenOverlay {
 
    }
 
+ /**
+  *  main menu button
+  * @param minecraft  this 
+  * @param screen this 
+  * @param ButtonWidth the width of the button
+  * @param j some magic number mojan made 
+  * @param ButtonLocationY Is the y axis of where the button sits on the screen 
+  * @param ButtonLocationX is the x axis of where the button sitis on the screen
+  * @param ButtonLength the length of the button 
+  */
+
+   // Allows 
    // Allows me to custom set single player button pos 
-   public void setSinglePlayerButtonLocal(Minecraft minecraft,Screen screen, int ButtonWidth, int j, int ButtonLocationX, int ButtonLocationY){
+   public void setSinglePlayerButtonLocal(Minecraft minecraft,Screen screen, int ButtonWidth, int j, int ButtonLocationY, int ButtonLocationX, int ButtonLenght){
 
       Consts.dbg("Setting up Single player button");
       // Single player selection                                                           norm 100
-      screen.addRenderableWidget(new Button(ButtonWidth / 2 - 200, j+72 - ButtonLocationX, ButtonLocationY, 20, new TranslatableComponent("menu.singleplayer"), (p_96781_) -> {
+      screen.addRenderableWidget(new Button(ButtonWidth / 2 - ButtonLocationX, j+72 - ButtonLocationY, ButtonLenght, 20, new TranslatableComponent("menu.singleplayer"), (p_96781_) -> {
          minecraft.setScreen(new SelectWorldScreen(screen));
       }));
       Consts.dbg("Set up Single player button Sucessfully");
    }
 
+ /**
+  *  main menu button
+  * @param minecraft  this 
+  * @param screen this 
+  * @param ButtonWidth the width of the button
+  * @param j some magic number mojan made 
+  * @param ButtonLocationY Is the y axis of where the button sits on the screen 
+  * @param ButtonLocationX is the x axis of where the button sitis on the screen
+  * @param ButtonLength the length of the button 
+  */
+
    // Allows me to make the minecraft main menu change the layout pos of the buttons based on the bakground 
-   public void setMultiplayerButtonLocal(Minecraft minecraft,Screen screen, int ButtonWidth, int j, int ButtonLocationX, int ButtonLocationY){
+   public void setMultiplayerButtonLocal(Minecraft minecraft,Screen screen, int ButtonWidth, int j, int ButtonLocationY, int ButtonLocationX,int ButtonLength){
 
       Consts.dbg("Regestering mutli player menu");
       // adds Multipayer selection
-      screen.addRenderableWidget(new Button(ButtonWidth / 2 - 200, j + 72 - ButtonLocationX , ButtonLocationY, 20, new TranslatableComponent("menu.multiplayer"), (p_169450_) -> {
+      screen.addRenderableWidget(new Button(ButtonWidth / 2 - ButtonLocationX, j + 72 - ButtonLocationY , ButtonLength, 20, new TranslatableComponent("menu.multiplayer"), (p_169450_) -> {
       minecraft.setScreen(new JoinMultiplayerScreen(screen));
       }));
       Consts.dbg("Done Registering multiplayermenu");
          
    }
+  
+ /**
+  *  main menu button
+  * @param minecraft  this 
+  * @param screen this 
+  * @param ButtonWidth the width of the button
+  * @param j some magic number mojan made 
+  * @param ButtonLocationY Is the y axis of where the button sits on the screen 
+  * @param ButtonLocationX is the x axis of where the button sitis on the screen
+  * @param ButtonLength the length of the button 
+  */
 
-   public void setSettingsMenuButtonLocal(Minecraft minecraft,Screen screen, int ButtonWidth, int j, int ButtonLocationX, int ButtonLocationY){
+   // Allows 
+   public void setSettingsMenuButtonLocal(Minecraft minecraft,Screen screen, int ButtonWidth, int j, int ButtonLocationY, int ButtonLocationX, int ButtonLenght){
 
       // Settings screen 
-      screen.addRenderableWidget(new Button(ButtonWidth  / 2 - 200, j+72 - ButtonLocationX, ButtonLocationY, 20, new TranslatableComponent("menu.options"), (p_96788_) -> {
+      screen.addRenderableWidget(new Button(ButtonWidth  / 2 - ButtonLocationX, j+72 - ButtonLocationY, ButtonLenght, 20, new TranslatableComponent("menu.options"), (p_96788_) -> {
          minecraft.setScreen(new OptionsScreen(screen, minecraft.options));
       }));
       Consts.dbg("Regestering Settings Menu select menu");
