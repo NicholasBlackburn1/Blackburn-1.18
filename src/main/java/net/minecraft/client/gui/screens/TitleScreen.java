@@ -67,7 +67,7 @@ public class TitleScreen extends Screen {
    private final PanoramaRenderer panorama = new PanoramaRenderer(CUBE_MAP);
    private final boolean fading;
    private long fadeInStart;
-
+   private int i = 0;
    public TitleScreen() {
       this(false);
    }
@@ -103,10 +103,17 @@ public class TitleScreen extends Screen {
 
    // Chnaged the copy right text out side of the main minecarft version
    protected void init() {
+      i++;
 
       TitleScreenOverlay overlay = new TitleScreenOverlay();
+
       if (splash == null) {
          splash = minecraft.getSplashManager().getSplash();
+      }
+
+      // runs only on 2nd startup of main menu
+      if(i == 2){
+         overlay.BlackburnTitleInit();
       }
 
       this.PANORAMA_OVERLAY = new ResourceLocation(overlay.setBackgroundScreen());

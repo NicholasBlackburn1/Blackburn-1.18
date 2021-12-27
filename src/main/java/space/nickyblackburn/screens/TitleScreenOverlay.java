@@ -74,7 +74,7 @@ import org.jsoup.select.Elements;
 
 public class TitleScreenOverlay {
 
-   public List nonLewdyBackgrounds = new LinkedList<>();
+
 
    private String output = "";
    // Allows me to  pull custom random furry background on my client 
@@ -90,7 +90,10 @@ public class TitleScreenOverlay {
 
       if(calendar.get(Calendar.HOUR_OF_DAY) != 0 || calendar.get(Calendar.HOUR_OF_DAY) > 5){
          Consts.dbg("Showing Non Lewdy Images...");
+         
+              
 
+         Consts.log("Finished registering default main menu here is list entry"+ Consts.background.toString()); 
          
          
       } else{
@@ -100,8 +103,17 @@ public class TitleScreenOverlay {
       
    }
 
+   // Allows me to init my classes in the tile screen
+   public void BlackburnTitleInit(){
+      GuiUtils gui = new GuiUtils();
+      gui.dumpLayoutJson();
+         
+   }
 
    public void setCopyRightTexT(String splash, Minecraft minecraft, int copyrightWidth, int copyrightX, int width,Font font,Screen screen){
+       
+      
+
         if (splash == null) {
             splash = minecraft.getSplashManager().getSplash();
          }
@@ -109,6 +121,7 @@ public class TitleScreenOverlay {
          copyrightWidth = font.width(Consts.copyright);
          copyrightX = width - copyrightWidth - 2;
          
+        
       
     }
 
@@ -191,9 +204,11 @@ public class TitleScreenOverlay {
          minecraft.stop();
       }));
       Consts.dbg("Regestering quit");
+     
+
+
+
       
-      GuiUtils gui = new GuiUtils();
-      gui.dumpLayoutJson();
    
       minecraft.setConnectedToRealms(false);
 
