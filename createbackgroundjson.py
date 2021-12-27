@@ -15,7 +15,7 @@ output = []
 
 
 while id < 26:
-    data = {'id':id,'image':str(basedir)+str(id)+str(fileextention),'posX': 0, 'posY':0}
+    data = {'id':id,'image':str(basedir)+str(id)+str(fileextention),'sb_posX': 0, 'sb_posY':0,'mb_posX':0,'mb_posY':0,'settings_posX':0, 'settings_posY':0, 'quit_posX':0, 'quit_posY':0}
     print(json.dumps(data, sort_keys=True, indent=4))
 
     output.append(data)
