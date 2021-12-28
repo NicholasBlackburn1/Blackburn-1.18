@@ -100,6 +100,16 @@ public class GuiUtils {
     Consts.dbg("Set up "+new TranslatableComponent(buttonText).toString()+"Sucessfully");
  }
 
+ public void CreatebuttonwithoutImageQuit(Minecraft minecraft,Screen titlescreen, int ButtonWidth, int j, int ButtonLocationY, int ButtonLocationX, int ButtonLenght,  String buttonText){
+
+   Consts.dbg("Setting up "+new TranslatableComponent(buttonText).toString()+ "......");
+   titlescreen.addRenderableWidget(new Button(ButtonWidth / 2 - ButtonLocationX, j+72 - ButtonLocationY, ButtonLenght, 20, new TranslatableComponent(buttonText), (p_96781_) -> {
+      minecraft.stop();
+   }));
+   Consts.dbg("Set up "+new TranslatableComponent(buttonText).toString()+"Sucessfully");
+}
+
+
 
 
 /**

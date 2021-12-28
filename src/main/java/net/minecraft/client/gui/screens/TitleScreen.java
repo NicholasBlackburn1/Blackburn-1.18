@@ -130,8 +130,14 @@ public class TitleScreen extends Screen {
          overlay.setUpCustomMainMenu(minecraft, this, width, height, j, realmsNotificationsScreen);
 
       } else {
-         overlay.setUpCustomMainMenu(minecraft, this, width, height, j, realmsNotificationsScreen);
 
+         if(Consts.background.size() == 0){
+            Consts.warn("Cannot Register new Main menu  because list is 0");
+         } else{
+            Consts.log("Registering main menu");
+            overlay.LoadCustomMainMenu(minecraft, this, j);
+            Consts.log("Registered main menu");
+         }
       }
       
 
