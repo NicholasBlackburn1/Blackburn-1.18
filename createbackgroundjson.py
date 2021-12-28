@@ -27,27 +27,24 @@ def create_baseFile(id,basedir,fileextention):
     print("Starting to Open file for writing")
     while id < 26:
         data = {'id':id,'image':str(basedir)+str(id)+str(fileextention),'sp_posX': addToFile(id,"sp_posX"), 'sp_posY':addToFile(id,"sp_posY"),'mp_posX':addToFile(id,"mp_posX"),'mp_posY':addToFile(id,"mp_posY"),'settings_posX':addToFile(id,"settings_posX"),
-         'settings_posY':0, 'quit_posX':0, 'quit_posY':0,'splash_posX':0, 'splash_posY':0,'edition_posX':0,'edition_posY':0, 'lang_posX':0, 'lang_posY':0}
-        print(json.dumps(data, sort_keys=True, indent=4))
-
+        'settings_posY':addToFile(id,"settings_posY"), 'quit_posX':addToFile(id,"quit_posX"), 'quit_posY':addToFile(id,"quit_posY"),'splash_posX':addToFile(id,"splash_posX"), 
+        'splash_posY':addToFile(id,"splash_posY"),'edition_posX':addToFile(id,"edition_posX"),'edition_posY':addToFile(id,"edition_posY"),
+        'lang_posX':addToFile(id,"lang_posX"), 'lang_posY':addToFile(id,"lang_posY")}
+     
         output.append(data)
         id +=1
+
         if(id == 26):
             with open('src/main/resources/assets/minecraft/blackburn/backgrounds.json', 'a', encoding='utf8') as outfile:
-                print(json.dumps(data, sort_keys=True, indent=4))
-                json.dump(output, outfile, sort_keys=True, indent=4)
-
+                print(json.dumps(data, sort_keys=False, indent=4))
+                json.dump(output, outfile, sort_keys=False, indent=4)
+        
 # adds keys that are missing into file 
 def addToFile(id,key):
    
     section = "sect" + str(id) 
     out = section.strip("\"")
-
-    print("Config Sections"+ " "+ str(readConfig(id)[out]))
-    print("Config data"+ " "+ str(readConfig(id)[out][str(key)]))
-
-    return readConfig(id)[out][str(key)]
-
+    return int(readConfig(id)[out][str(key)])
     
     
 
@@ -60,4 +57,4 @@ def addToFile(id,key):
 
 
 
-addToFile()
+create_baseFile(id,basedir,fileextention)
