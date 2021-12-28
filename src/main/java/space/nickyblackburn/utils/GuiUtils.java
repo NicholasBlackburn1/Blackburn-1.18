@@ -2,6 +2,10 @@ package space.nickyblackburn.utils;
 
 /**
  * this is a class to store most of my gui stuff buttons and etc functiosn 
+ * JSON STRING FOR MENU {'id':id,'image':str(basedir)+str(id)+str(fileextention),'sp_posX': addToFile(id,"sp_posX"), 'sp_posY':addToFile(id,"sp_posY"),'mp_posX':addToFile(id,"mp_posX"),'mp_posY':addToFile(id,"mp_posY"),'settings_posX':addToFile(id,"settings_posX"),
+        'settings_posY':addToFile(id,"settings_posY"), 'quit_posX':addToFile(id,"quit_posX"), 'quit_posY':addToFile(id,"quit_posY"),'splash_posX':addToFile(id,"splash_posX"), 
+        'splash_posY':addToFile(id,"splash_posY"),'edition_posX':addToFile(id,"edition_posX"),'edition_posY':addToFile(id,"edition_posY"),
+        'lang_posX':addToFile(id,"lang_posX"), 'lang_posY':addToFile(id,"lang_posY")}
  */
 
 import net.minecraft.client.Minecraft;
