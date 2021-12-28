@@ -15,6 +15,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import space.nickyblackburn.utils.*;
 
 import com.google.common.util.concurrent.Runnables;
+import com.google.gson.JsonPrimitive;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -235,12 +236,27 @@ public class TitleScreenOverlay {
 
    }
 
-   public void LoadCustomMainMenu(Minecraft minecraft, Screen titlescreen, Screen onClickedScreen,int j){
+   // This allows me to load and displays all the buttons and the logo ans the splashcreen all from the file 
+   public void LoadCustomMainMenu(Minecraft minecraft, Screen titlescreen,int j){
       GuiUtils gui = new GuiUtils();   
+      JsonPrimitive x,y ;
       int buttonwidth = (int) Consts.background.get(2);
+
+      x = (JsonPrimitive) Consts.background.get(4);
+      y = ( JsonPrimitive) Consts.background.get(3);
+      gui.CreatebuttonwithoutImage(minecraft, titlescreen, new SelectWorldScreen(titlescreen), buttonwidth, j, x.getAsInt(), y.getAsInt(), 20, "menu.singleplayer");
+     
+      x = (JsonPrimitive) Consts.background.get(6);
+      y = (JsonPrimitive) Consts.background.get(5);
+      gui.CreatebuttonwithoutImage(minecraft, titlescreen, new JoinMultiplayerScreen(titlescreen), buttonwidth, j, x.getAsInt(), y.getAsInt(), 20, "menu.multiplayer");
       
-      gui.CreatebuttonwithoutImage(minecraft, titlescreen, onClickedScreen, buttonwidth, j, (int) Consts.background.get(4), (int) Consts.background.get(3), 20, "menu.singleplayer");
-      gui.CreatebuttonwithoutImage(minecraft, titlescreen, onClickedScreen, buttonwidth, j, (int) Consts.background.get(6), (int) Consts.background.get(5), 20, "menu.multiplayer");
+      x = (JsonPrimitive) Consts.background.get(8);
+      y = (JsonPrimitive) Consts.background.get(7);
+      gui.CreatebuttonwithoutImage(minecraft, titlescreen, new OptionsScreen(titlescreen, minecraft.options), buttonwidth, j, x.getAsInt(), y.getAsInt(), 20, "menu.options");
+      
+      x = (JsonPrimitive) Consts.background.get(10);
+      y = (JsonPrimitive) Consts.background.get(9);
+      gui.CreatebuttonwithoutImageQuit(minecraft, titlescreen, buttonwidth, j, x.getAsInt(), y.getAsInt(), 20, "menu.quit");
    }
 
   
