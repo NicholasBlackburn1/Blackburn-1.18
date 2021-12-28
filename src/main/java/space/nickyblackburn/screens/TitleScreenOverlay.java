@@ -168,7 +168,7 @@ public class TitleScreenOverlay {
     public void setSplashPos(Screen screen ,String Splash, PoseStack p_96739_, int width, int splashX, Font font, int l){
       if (Splash != null) {
          p_96739_.pushPose();
-         p_96739_.translate((double)(width / 2 - splashX), 70.0F, 0.0F);
+         p_96739_.translate((double)(splashX), 70.0F, 1.0F);
          p_96739_.mulPose(Vector3f.ZP.rotationDegrees(-20.0F));
          float f2 = 1.8F - Mth.abs(Mth.sin((float)(Util.getMillis() % 1000L) / 1000.0F * ((float)Math.PI * 2F)) * 0.1F);
          f2 = f2 * 100.0F / (float)(font.width(Splash) + 32);
@@ -224,20 +224,13 @@ public class TitleScreenOverlay {
 
    }
 
-   public void renderEdition(Screen screen,String splash, PoseStack p_96739_, Font font, int width, int j, int l){
+   public void renderEdition(Screen screen,String splash, PoseStack p_96739_, Font font, int width, int edition_X, int splashint,int j, int l){
 
    
-      screen.blit(p_96739_, j + 88- 100, 67, 0.0F, 0.0F, 98, 14, 128, 16);
+      screen.blit(p_96739_, j + 88 +edition_X, 67, 0.0F, 0.0F, 98, 14, 128, 16);
 
       if (splash != null) {
-         p_96739_.pushPose();
-         p_96739_.translate((double)(width / 2 + 100), 70.0D, 0.0D);
-         p_96739_.mulPose(Vector3f.ZP.rotationDegrees(-20.0F));
-         float f2 = 1.8F - Mth.abs(Mth.sin((float)(Util.getMillis() % 1000L) / 1000.0F * ((float)Math.PI * 2F)) * 0.1F);
-         f2 = f2 * 100.0F / (float)(font.width(splash) + 32);
-         p_96739_.scale(f2, f2, f2);
-         screen.drawCenteredString(p_96739_, font, splash, 0, -8, 16776960 | l);
-         p_96739_.popPose();
+        setSplashPos(screen, splash, p_96739_, width, width / 2 + splashint, font, l);
       }
 
    }

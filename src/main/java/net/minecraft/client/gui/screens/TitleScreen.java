@@ -167,7 +167,7 @@ public class TitleScreen extends Screen {
 
          // Renders adition
          RenderSystem.setShaderTexture(0, MINECRAFT_EDITION);
-         overlay.renderEdition(this,splash, p_96739_, font, width, j, l);
+         overlay.renderEdition(this,splash, p_96739_, font, this.width / 2 - 130, 100, -120, j, l);
 
          // draws version string at the bottom
          overlay.setDrawVersionName(this.minecraft,this,p_96739_,this.font,this.height,l);
