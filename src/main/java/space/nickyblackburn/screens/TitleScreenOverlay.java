@@ -166,7 +166,7 @@ public class TitleScreenOverlay {
     }
 
     // Sets the splash screen pos 
-    public void setSplashPos(Screen screen ,String Splash, PoseStack p_96739_, int width, int splashX, Font font, int l){
+    public void setSplashPos(Screen screen ,String Splash, PoseStack p_96739_, int width, int splashX,  Font font, int l){
       if (Splash != null) {
          p_96739_.pushPose();
          p_96739_.translate((double)(splashX), 70.0F, 1.0F);
