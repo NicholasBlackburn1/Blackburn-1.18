@@ -239,24 +239,25 @@ public class TitleScreenOverlay {
    // This allows me to load and displays all the buttons and the logo ans the splashcreen all from the file 
    public void LoadCustomMainMenu(Minecraft minecraft, Screen titlescreen,int j){
       GuiUtils gui = new GuiUtils();   
-      JsonPrimitive x,y ;
-      int buttonwidth = (int) Consts.background.get(2);
+      JsonPrimitive x,y,buttonwidth ;
+      buttonwidth = (JsonPrimitive) Consts.background.get(2);
 
       x = (JsonPrimitive) Consts.background.get(4);
       y = ( JsonPrimitive) Consts.background.get(3);
-      gui.CreatebuttonwithoutImage(minecraft, titlescreen, new SelectWorldScreen(titlescreen), buttonwidth, j, x.getAsInt(), y.getAsInt(), 20, "menu.singleplayer");
+
+      gui.CreatebuttonwithoutImage(minecraft, titlescreen, new SelectWorldScreen(titlescreen), buttonwidth.getAsInt(), j, x.getAsInt(), y.getAsInt(), 20, "menu.singleplayer");
      
       x = (JsonPrimitive) Consts.background.get(6);
       y = (JsonPrimitive) Consts.background.get(5);
-      gui.CreatebuttonwithoutImage(minecraft, titlescreen, new JoinMultiplayerScreen(titlescreen), buttonwidth, j, x.getAsInt(), y.getAsInt(), 20, "menu.multiplayer");
+      gui.CreatebuttonwithoutImage(minecraft, titlescreen, new JoinMultiplayerScreen(titlescreen), buttonwidth.getAsInt(), j, x.getAsInt(), y.getAsInt(), 20, "menu.multiplayer");
       
       x = (JsonPrimitive) Consts.background.get(8);
       y = (JsonPrimitive) Consts.background.get(7);
-      gui.CreatebuttonwithoutImage(minecraft, titlescreen, new OptionsScreen(titlescreen, minecraft.options), buttonwidth, j, x.getAsInt(), y.getAsInt(), 20, "menu.options");
+      gui.CreatebuttonwithoutImage(minecraft, titlescreen, new OptionsScreen(titlescreen, minecraft.options), buttonwidth.getAsInt(), j, x.getAsInt(), y.getAsInt(), 20, "menu.options");
       
       x = (JsonPrimitive) Consts.background.get(10);
       y = (JsonPrimitive) Consts.background.get(9);
-      gui.CreatebuttonwithoutImageQuit(minecraft, titlescreen, buttonwidth, j, x.getAsInt(), y.getAsInt(), 20, "menu.quit");
+      gui.CreatebuttonwithoutImageQuit(minecraft, titlescreen, buttonwidth.getAsInt(), j, x.getAsInt(), y.getAsInt(), 20, "menu.quit");
    }
 
   
