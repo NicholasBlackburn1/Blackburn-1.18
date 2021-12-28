@@ -189,7 +189,9 @@ public class TitleScreenOverlay {
       // Single player selection
       screen.addRenderableWidget(new Button(width / 2  + 100, j+72 -100, 100, 20, new TranslatableComponent("menu.singleplayer"), (p_96781_) -> {
          minecraft.setScreen(new SelectWorldScreen(screen));
+
       }));
+      Consts.warn("the pos of the  button "+"menu.singleplayer"+" X:"+ " "+Integer.toString(width / 2  + 100)+" "+ " Y:"+Integer.toString(j+72 -100));
       Consts.dbg("Regestering single player menu");
       
       // adds Multipayer selection
@@ -243,18 +245,20 @@ public class TitleScreenOverlay {
      
 
       Consts.log("array for buttons is "+ Consts.background.toString());
+
+      // Suppost to be at X: 313  Y:80
+      // not this X: 113  Y:280
       x = (JsonPrimitive) Consts.background.get(4);
       y = ( JsonPrimitive) Consts.background.get(3);
-
-      gui.CreatebuttonwithoutImage(minecraft, titlescreen, new SelectWorldScreen(titlescreen), buttonwidth, j, y.getAsInt(), x.getAsInt(), 20, "menu.singleplayer");
+      gui.CreatebuttonwithoutImage(minecraft, titlescreen, new SelectWorldScreen(titlescreen), buttonwidth, j, x.getAsInt(), y.getAsInt(), 20, "menu.singleplayer");
      
       x = (JsonPrimitive) Consts.background.get(6);
       y = (JsonPrimitive) Consts.background.get(5);
-      gui.CreatebuttonwithoutImage(minecraft, titlescreen, new JoinMultiplayerScreen(titlescreen), buttonwidth, j, y.getAsInt(), x.getAsInt(), 20, "menu.multiplayer");
+      gui.CreatebuttonwithoutImage(minecraft, titlescreen, new JoinMultiplayerScreen(titlescreen), buttonwidth, j, x.getAsInt(), y.getAsInt(), 20, "menu.multiplayer");
       
       x = (JsonPrimitive) Consts.background.get(8);
       y = (JsonPrimitive) Consts.background.get(7);
-      gui.CreatebuttonwithoutImage(minecraft, titlescreen, new OptionsScreen(titlescreen, minecraft.options), buttonwidth, j, y.getAsInt(), x.getAsInt(), 20, "menu.options");
+      gui.CreatebuttonwithoutImage(minecraft, titlescreen, new OptionsScreen(titlescreen, minecraft.options), buttonwidth, j, x.getAsInt(), y.getAsInt(), 20, "menu.options");
       
       x = (JsonPrimitive) Consts.background.get(10);
       y = (JsonPrimitive) Consts.background.get(9);

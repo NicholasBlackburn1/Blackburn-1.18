@@ -137,6 +137,8 @@ public class TitleScreen extends Screen {
          } else{
             Consts.log("Registering main menu");
             overlay.LoadCustomMainMenu(minecraft,this,width, j);
+
+            
             //overlay.setUpCustomMainMenu(minecraft, this, width,height, j, realmsNotificationsScreen);
             Consts.log("Registered main menu");
          }

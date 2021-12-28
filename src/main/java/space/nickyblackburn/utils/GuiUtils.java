@@ -125,8 +125,32 @@ public class GuiUtils {
 
  public void CreatebuttonwithoutImageQuit(Minecraft minecraft,Screen titlescreen, int ButtonWidth, int j, int ButtonLocationY, int ButtonLocationX, int ButtonLenght,  String buttonText){
 
+
+   int width = 0;
+   int y = 0;
+
+ Consts.dbg("Setting up "+buttonText+ "......");
+ 
+ Consts.dbg("abs of ButtonLocationx" + Integer.toString(Math.abs(ButtonLocationX)));
+ Consts.dbg("abs of ButtonLocationy" + Integer.toString(Math.abs(ButtonLocationY)));
+ 
+// convirts negive numbers into actual lfull numebrs just uses negitive as detector 
+ if(ButtonLocationX < 0 ){
+  width =  ButtonWidth / 2 -  Math.abs(ButtonLocationX);
+ }else{
+  width = ButtonWidth / 2 + ButtonLocationX;
+ }
+
+ if(ButtonLocationY < 0){
+    y = j+72 - Math.abs(ButtonLocationY);
+ } else{
+    y = j+72 + ButtonLocationY;
+ }
+
+
+ Consts.warn("the pos of the  button "+(buttonText)+" X:"+ " "+Integer.toString(width)+" "+ " Y:"+Integer.toString(y));
    Consts.dbg("Setting up "+new TranslatableComponent(buttonText).toString()+ "......");
-   titlescreen.addRenderableWidget(new Button(ButtonWidth / 2 - ButtonLocationX, j+72 - ButtonLocationY, 100, 20, new TranslatableComponent(buttonText), (p_96781_) -> {
+   titlescreen.addRenderableWidget(new Button(width, y, 100, 20, new TranslatableComponent(buttonText), (p_96781_) -> {
       minecraft.stop();
    }));
    Consts.dbg("Set up "+new TranslatableComponent(buttonText).toString()+"Sucessfully");
