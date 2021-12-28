@@ -26,6 +26,7 @@ import com.google.gson.JsonParseException;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.datafixers.kinds.Const;
 import com.mojang.math.Vector3f;
 import com.mojang.realmsclient.RealmsMainScreen;
 import com.mojang.realmsclient.gui.screens.RealmsNotificationsScreen;
@@ -92,11 +93,31 @@ public class GuiUtils {
   * @param texturehight the place where if you have to hight it shows other mapped textures to the buttons set to 20 unless crazy wide button
   */
    public void CreatebuttonwithoutImage(Minecraft minecraft,Screen titlescreen, Screen onClickedScreen, int ButtonWidth, int j, int ButtonLocationY, int ButtonLocationX, int ButtonLenght,  String buttonText){
+      int width = 0;
+      int y = 0;
 
-    Consts.dbg("Setting up "+new TranslatableComponent(buttonText).toString()+ "......");
-      
-    Consts.warn("the pos of the  button "+new TranslatableComponent(buttonText).toString()+" X:"+ " "+Integer.toString(ButtonWidth / 2 - ButtonLocationX)+" "+ " Y:"+Integer.toString(j+72 - ButtonLocationY));
-    titlescreen.addRenderableWidget(new Button(ButtonWidth / 2 - ButtonLocationX, j+72 - ButtonLocationY, ButtonLenght, 20, new TranslatableComponent(buttonText), (p_96781_) -> {
+    Consts.dbg("Setting up "+buttonText+ "......");
+    
+    Consts.dbg("abs of ButtonLocationx" + Integer.toString(Math.abs(ButtonLocationX)));
+    Consts.dbg("abs of ButtonLocationy" + Integer.toString(Math.abs(ButtonLocationY)));
+    
+   
+   
+    if(ButtonLocationX < 0 ){
+     width =  ButtonWidth / 2 -  Math.abs(ButtonLocationX);
+    }else{
+     width = ButtonWidth / 2 + ButtonLocationX;
+    }
+
+    if(ButtonLocationY < 0){
+       y = j+72 - Math.abs(ButtonLocationY);
+    } else{
+       y = j+72 + ButtonLocationY;
+    }
+
+
+    Consts.warn("the pos of the  button "+(buttonText)+" X:"+ " "+Integer.toString(width)+" "+ " Y:"+Integer.toString(y));
+    titlescreen.addRenderableWidget(new Button(width, y, 100, 20, new TranslatableComponent(buttonText), (p_96781_) -> {
        minecraft.setScreen(onClickedScreen);
     }));
     Consts.dbg("Set up "+new TranslatableComponent(buttonText).toString()+"Sucessfully");
@@ -105,7 +126,7 @@ public class GuiUtils {
  public void CreatebuttonwithoutImageQuit(Minecraft minecraft,Screen titlescreen, int ButtonWidth, int j, int ButtonLocationY, int ButtonLocationX, int ButtonLenght,  String buttonText){
 
    Consts.dbg("Setting up "+new TranslatableComponent(buttonText).toString()+ "......");
-   titlescreen.addRenderableWidget(new Button(ButtonWidth / 2 - ButtonLocationX, j+72 - ButtonLocationY, ButtonLenght, 20, new TranslatableComponent(buttonText), (p_96781_) -> {
+   titlescreen.addRenderableWidget(new Button(ButtonWidth / 2 - ButtonLocationX, j+72 - ButtonLocationY, 100, 20, new TranslatableComponent(buttonText), (p_96781_) -> {
       minecraft.stop();
    }));
    Consts.dbg("Set up "+new TranslatableComponent(buttonText).toString()+"Sucessfully");
@@ -147,11 +168,12 @@ public class GuiUtils {
 
    for(Entry<String, JsonElement> entry : jsonobject.get(1).getAsJsonObject().entrySet()) {
       Consts.debug(entry.getKey().toString());
-
+      Consts.keys.add(entry.getKey().toString());
       Consts.background.add(entry.getValue());
 
+      Consts.log("Linked list for keys"+ " "+ entry.getKey().toString()+ " "+ entry.getValue().toString());
       Consts.log("Linked List for data"+ " "+ Consts.background.toString());
-
+      
    }
 
 }
