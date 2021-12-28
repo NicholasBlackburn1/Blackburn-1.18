@@ -235,6 +235,12 @@ public class TitleScreenOverlay {
 
    }
 
+   public void LoadCustomMainMenu(Minecraft minecraft, Screen titlescreen, Screen onClickedScreen,int j){
+      GuiUtils gui = new GuiUtils();   
+      
+      gui.CreatebuttonwithoutImage(minecraft, titlescreen, onClickedScreen, 100, j, Consts.background.get(3), Consts.background.get(2), , "menu.singleplayer");
+   }
+
   
    
 }
