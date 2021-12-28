@@ -1,6 +1,7 @@
 package net.minecraft.client.gui.screens;
 
 import com.google.common.util.concurrent.Runnables;
+import com.google.gson.JsonPrimitive;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -177,7 +178,14 @@ public class TitleScreen extends Screen {
 
          // Renders adition
          RenderSystem.setShaderTexture(0, MINECRAFT_EDITION);
-         overlay.renderEdition(this,splash, p_96739_, font, this.width / 2 - 130, 100, -120, j, l);
+
+         // sets Edition Placemnt & splash text
+         JsonPrimitive x, y, splashy;
+         x = (JsonPrimitive) Consts.background.get(13);
+         y = ( JsonPrimitive) Consts.background.get(14);
+         splashy = (JsonPrimitive) Consts.background.get(11);
+         
+         overlay.renderEdition(this,splash, p_96739_, font, this.width, x.getAsInt(),y.getAsInt(),splashy.getAsInt(), j, l);
 
          // draws version string at the bottom
          overlay.setDrawVersionName(this.minecraft,this,p_96739_,this.font,this.height,l);
