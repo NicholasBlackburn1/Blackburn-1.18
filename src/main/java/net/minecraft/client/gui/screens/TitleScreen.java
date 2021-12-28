@@ -112,7 +112,7 @@ public class TitleScreen extends Screen {
       }
 
       // runs only on 2nd startup of main menu
-      if(i == 2){
+      if(i == 1){
          overlay.BlackburnTitleInit();
       }
 
@@ -133,6 +133,7 @@ public class TitleScreen extends Screen {
 
          if(Consts.background.size() == 0){
             Consts.warn("Cannot Register new Main menu  because list is 0");
+
          } else{
             Consts.log("Registering main menu");
             overlay.LoadCustomMainMenu(minecraft, this, j);

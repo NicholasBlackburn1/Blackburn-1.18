@@ -94,6 +94,8 @@ public class GuiUtils {
    public void CreatebuttonwithoutImage(Minecraft minecraft,Screen titlescreen, Screen onClickedScreen, int ButtonWidth, int j, int ButtonLocationY, int ButtonLocationX, int ButtonLenght,  String buttonText){
 
     Consts.dbg("Setting up "+new TranslatableComponent(buttonText).toString()+ "......");
+      
+    Consts.warn("the pos of the  button "+new TranslatableComponent(buttonText).toString()+" X:"+ " "+Integer.toString(ButtonWidth / 2 - ButtonLocationX)+" "+ " Y:"+Integer.toString(j+72 - ButtonLocationY));
     titlescreen.addRenderableWidget(new Button(ButtonWidth / 2 - ButtonLocationX, j+72 - ButtonLocationY, ButtonLenght, 20, new TranslatableComponent(buttonText), (p_96781_) -> {
        minecraft.setScreen(onClickedScreen);
     }));
@@ -143,7 +145,7 @@ public class GuiUtils {
    JsonArray jsonobject = json.fromJson(new InputStreamReader(p_128109_, StandardCharsets.UTF_8), JsonArray.class);
    int i  = 0;
 
-   for(Entry<String, JsonElement> entry : jsonobject.get(random.nextInt(26)).getAsJsonObject().entrySet()) {
+   for(Entry<String, JsonElement> entry : jsonobject.get(1).getAsJsonObject().entrySet()) {
       Consts.debug(entry.getKey().toString());
 
       Consts.background.add(entry.getValue());
