@@ -7,7 +7,8 @@ from json import decoder
 from os import write 
 import configparser
 from re import I 
-
+import os 
+from pathlib import Path
 id = 0
 fileid = 0
 
@@ -24,6 +25,7 @@ def readConfig(i):
 
 # creates basic json structurie
 def create_baseFile(id,basedir,fileextention):
+
     print("Starting to Open file for writing")
     while id < 26:
         data = {'id':id,'image':str(basedir)+str(id)+str(fileextention),'buttonLenght':addToFile(id,"buttonLength"),'sp_posX': addToFile(id,"sp_posX"), 'sp_posY':addToFile(id,"sp_posY"),'mp_posX':addToFile(id,"mp_posX"),'mp_posY':addToFile(id,"mp_posY"),'settings_posX':addToFile(id,"settings_posX"),
