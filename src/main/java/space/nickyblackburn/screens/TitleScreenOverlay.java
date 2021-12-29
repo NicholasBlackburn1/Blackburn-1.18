@@ -228,21 +228,16 @@ public class TitleScreenOverlay {
    }
 
    public void renderEdition(Screen screen,String splash, PoseStack p_96739_, Font font, int width, int editionX,int editionY, int splashX, int j,int l){
-      int x = 0;
+      int x = editionX;
       int y =0;
       
       int spshx = 0;
 
-    if(editionX < 0 ){
-      x =  width / 2 -  Math.abs(editionX);
-     }else{
-      x = width / 2 + editionX;
-     }
  
      if(editionY < 0){
-        y = j+72 - Math.abs(editionY);
+        y = j - Math.abs(editionY);
      } else{
-        y = j+72 + editionY;
+        y = j + editionY;
      }
 
      if(splashX < 0){
@@ -252,7 +247,7 @@ public class TitleScreenOverlay {
      }
 
  
-      screen.blit(p_96739_, j + 88 +x, y, 0.0F, 0.0F, 98, 14, 128, 16);
+      screen.blit(p_96739_,x, y, 0.0F, 0.0F, 98, 14, 128, 16);
 
       if (splash != null) {
         setSplashPos(screen, splash, p_96739_, width, spshx, font, l);
