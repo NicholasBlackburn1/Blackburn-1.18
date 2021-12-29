@@ -227,13 +227,37 @@ public class TitleScreenOverlay {
 
    }
 
-   public void renderEdition(Screen screen,String splash, PoseStack p_96739_, Font font, int width, int editionX,int editionY, int splashX, int j,int l){
-      int x = editionX;
+   /**
+    * This is for redering the splash title and editon ifno
+    * @param screen
+    * @param splash
+    * @param p_96739_
+    * @param font
+    * @param width
+    * @param editionX
+    * @param editionY
+    * @param splashX
+    * @param j
+    * @param l
+    * TODO: need to add Boolean for full screen or not  to set edition to the right hight 
+    */
+   public void renderEdition(Screen screen,String splash, PoseStack p_96739_, Font font, int width, int editionX,int editionY, int splashX, int j,int l, int editionXFull, boolean isfullscreen){
+      int x = 0;
       int y =0;
-      
       int spshx = 0;
 
- 
+      // sets it so it can detect if its full sdcreen
+      if(isfullscreen){
+         x = editionXFull;
+         Consts.log("Set editon to full screen"+ " "+ x);
+         
+         
+      } else{
+         x = CalculateX(editionX, width);
+      
+      }
+
+      // allows me to detect when a number in my config is - and turns it from neg to postive and subtracts it 
      if(editionY < 0){
         y = j - Math.abs(editionY);
      } else{
@@ -246,9 +270,8 @@ public class TitleScreenOverlay {
       spshx =width / 2 + splashX;
      }
 
- 
+      
       screen.blit(p_96739_,x, y, 0.0F, 0.0F, 98, 14, 128, 16);
-
       if (splash != null) {
         setSplashPos(screen, splash, p_96739_, width, spshx, font, l);
       }
@@ -283,6 +306,16 @@ public class TitleScreenOverlay {
       gui.CreatebuttonwithoutImageQuit(minecraft, titlescreen, buttonwidth, j, x.getAsInt(), y.getAsInt(), 20, "menu.quit");
    }
 
+
+   private int CalculateX(int input,int width){
+      int x = 0 ;
+      if(input < 0){
+         x =  width / 2 -  Math.abs(input);
+        }else{
+         x =width / 2 + x;
+        }
+      return x;
+   }  
   
    
 }
