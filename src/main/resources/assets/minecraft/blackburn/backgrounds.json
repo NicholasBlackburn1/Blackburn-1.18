@@ -15,7 +15,8 @@
         "splash_posY": "0",
         "edition_posX": "0",
         "edition_posY": "0",
-        "edition_posXNonFull": "0",
+        "edition_posXNonFull": "340",
+        "edition_posy_nonfull": "-40",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -31,11 +32,12 @@
         "settings_posY": "-46",
         "quit_posX": "100",
         "quit_posY": "-20",
-        "splash_posX": "130",
+        "splash_posX": "100",
         "splash_posY": "-120",
-        "edition_posX": "100",
-        "edition_posY": "67",
-        "edition_posXNonFull": "0",
+        "edition_posX": "340",
+        "edition_posY": "-40",
+        "edition_posXNonFull": "100",
+        "edition_posy_nonfull": "-40",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -55,7 +57,8 @@
         "splash_posY": "0",
         "edition_posX": "0",
         "edition_posY": "0",
-        "edition_posXNonFull": "0",
+        "edition_posXNonFull": "340",
+        "edition_posy_nonfull": "-40",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -75,7 +78,8 @@
         "splash_posY": "-120",
         "edition_posX": "100",
         "edition_posY": "67",
-        "edition_posXNonFull": "0",
+        "edition_posXNonFull": "340",
+        "edition_posy_nonfull": "-40",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -95,7 +99,8 @@
         "splash_posY": "-120",
         "edition_posX": "100",
         "edition_posY": "67",
-        "edition_posXNonFull": "0",
+        "edition_posXNonFull": "340",
+        "edition_posy_nonfull": "-40",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -115,7 +120,8 @@
         "splash_posY": "0",
         "edition_posX": "0",
         "edition_posY": "0",
-        "edition_posXNonFull": "0",
+        "edition_posXNonFull": "340",
+        "edition_posy_nonfull": "-40",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -135,7 +141,8 @@
         "splash_posY": "0",
         "edition_posX": "0",
         "edition_posY": "0",
-        "edition_posXNonFull": "0",
+        "edition_posXNonFull": "340",
+        "edition_posy_nonfull": "-40",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -155,7 +162,8 @@
         "splash_posY": "0",
         "edition_posX": "0",
         "edition_posY": "",
-        "edition_posXNonFull": "0",
+        "edition_posXNonFull": "340",
+        "edition_posy_nonfull": "-40",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -175,7 +183,8 @@
         "splash_posY": "-120",
         "edition_posX": "200",
         "edition_posY": "67",
-        "edition_posXNonFull": "0",
+        "edition_posXNonFull": "340",
+        "edition_posy_nonfull": "-40",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -195,7 +204,8 @@
         "splash_posY": "-120",
         "edition_posX": "100",
         "edition_posY": "67",
-        "edition_posXNonFull": "0",
+        "edition_posXNonFull": "340",
+        "edition_posy_nonfull": "-40",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -215,7 +225,8 @@
         "splash_posY": "0",
         "edition_posX": "0",
         "edition_posY": "0",
-        "edition_posXNonFull": "0",
+        "edition_posXNonFull": "340",
+        "edition_posy_nonfull": "-40",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -235,7 +246,8 @@
         "splash_posY": "-120",
         "edition_posX": "200",
         "edition_posY": "67",
-        "edition_posXNonFull": "0",
+        "edition_posXNonFull": "340",
+        "edition_posy_nonfull": "-40",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -255,7 +267,8 @@
         "splash_posY": "0",
         "edition_posX": "0",
         "edition_posY": "0",
-        "edition_posXNonFull": "0",
+        "edition_posXNonFull": "340",
+        "edition_posy_nonfull": "-40",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -275,7 +288,8 @@
         "splash_posY": "-120",
         "edition_posX": "100",
         "edition_posY": "67",
-        "edition_posXNonFull": "0",
+        "edition_posXNonFull": "340",
+        "edition_posy_nonfull": "-40",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -295,7 +309,8 @@
         "splash_posY": "0",
         "edition_posX": "0",
         "edition_posY": "0",
-        "edition_posXNonFull": "0",
+        "edition_posXNonFull": "340",
+        "edition_posy_nonfull": "-40",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -315,7 +330,8 @@
         "splash_posY": "0",
         "edition_posX": "0",
         "edition_posY": "0",
-        "edition_posXNonFull": "0",
+        "edition_posXNonFull": "340",
+        "edition_posy_nonfull": "-40",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -335,7 +351,8 @@
         "splash_posY": "-120",
         "edition_posX": "100",
         "edition_posY": "67",
-        "edition_posXNonFull": "0",
+        "edition_posXNonFull": "340",
+        "edition_posy_nonfull": "-40",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -355,7 +372,8 @@
         "splash_posY": "0",
         "edition_posX": "0",
         "edition_posY": "0",
-        "edition_posXNonFull": "0",
+        "edition_posXNonFull": "340",
+        "edition_posy_nonfull": "-40",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -375,7 +393,8 @@
         "splash_posY": "0",
         "edition_posX": "0",
         "edition_posY": "0",
-        "edition_posXNonFull": "0",
+        "edition_posXNonFull": "340",
+        "edition_posy_nonfull": "-40",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -395,7 +414,8 @@
         "splash_posY": "0",
         "edition_posX": "0",
         "edition_posY": "0",
-        "edition_posXNonFull": "0",
+        "edition_posXNonFull": "340",
+        "edition_posy_nonfull": "-40",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -415,7 +435,8 @@
         "splash_posY": "-120",
         "edition_posX": "100",
         "edition_posY": "67",
-        "edition_posXNonFull": "0",
+        "edition_posXNonFull": "340",
+        "edition_posy_nonfull": "-40",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -435,7 +456,8 @@
         "splash_posY": "-120",
         "edition_posX": "100",
         "edition_posY": "67",
-        "edition_posXNonFull": "0",
+        "edition_posXNonFull": "340",
+        "edition_posy_nonfull": "-40",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -455,7 +477,8 @@
         "splash_posY": "-120",
         "edition_posX": "-200",
         "edition_posY": "250",
-        "edition_posXNonFull": "0",
+        "edition_posXNonFull": "340",
+        "edition_posy_nonfull": "-40",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -475,7 +498,8 @@
         "splash_posY": "0",
         "edition_posX": "0",
         "edition_posY": "0",
-        "edition_posXNonFull": "0",
+        "edition_posXNonFull": "340",
+        "edition_posy_nonfull": "-40",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -495,7 +519,8 @@
         "splash_posY": "-120",
         "edition_posX": "100",
         "edition_posY": "67",
-        "edition_posXNonFull": "0",
+        "edition_posXNonFull": "540",
+        "edition_posy_nonfull": "-40",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -515,7 +540,8 @@
         "splash_posY": "-120",
         "edition_posX": "340",
         "edition_posY": "-40",
-        "edition_posXNonFull": "340",
+        "edition_posXNonFull": "300",
+        "edition_posy_nonfull": "-40",
         "lang_posX": "0",
         "lang_posY": "0"
     }

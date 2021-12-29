@@ -250,13 +250,14 @@ public class TitleScreenOverlay {
       if(isfullscreen){
          x = editionXfull;
          y = CalculateY(editionYfull, j);
-         Consts.log("Set editon to full screen"+ " "+ x);
+         Consts.log("Set editon to full screen"+ " "+ x+ ","+y);
         
          
          
       } else{
          x = CalculateX(editionXSmol, width);
          y = CalculateY(editionYSmol, j);
+         Consts.log("Set editon to smol screen"+ " "+ x+ ","+y);
       
       }
 
@@ -310,7 +311,8 @@ public class TitleScreenOverlay {
       if(input < 0){
          x =  width / 2 -  Math.abs(input);
         }else{
-         x =width / 2 + x;
+         x =width / 2 + input;
+         Consts.warn("x is "+x);
         }
       return x;
    }  

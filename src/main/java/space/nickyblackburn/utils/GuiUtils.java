@@ -190,7 +190,7 @@ public class GuiUtils {
    JsonArray jsonobject = json.fromJson(new InputStreamReader(p_128109_, StandardCharsets.UTF_8), JsonArray.class);
    int i  = 0;
 
-   for(Entry<String, JsonElement> entry : jsonobject.get(25).getAsJsonObject().entrySet()) {
+   for(Entry<String, JsonElement> entry : jsonobject.get(random.nextInt(27)).getAsJsonObject().entrySet()) {
       Consts.debug(entry.getKey().toString());
       Consts.keys.add(entry.getKey().toString());
       Consts.background.add(entry.getValue());
