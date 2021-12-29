@@ -241,28 +241,26 @@ public class TitleScreenOverlay {
     * @param l
     * TODO: need to add Boolean for full screen or not  to set edition to the right hight 
     */
-   public void renderEdition(Screen screen,String splash, PoseStack p_96739_, Font font, int width, int editionX,int editionY, int splashX, int j,int l, int editionXFull, boolean isfullscreen){
+   public void renderEdition(Screen screen,String splash, PoseStack p_96739_, Font font, int width, int editionXfull,int editionYfull, int splashX, int j,int l, int editionXSmol, int editionYSmol, boolean isfullscreen){
       int x = 0;
       int y =0;
       int spshx = 0;
 
       // sets it so it can detect if its full sdcreen
       if(isfullscreen){
-         x = editionXFull;
+         x = editionXfull;
+         y = CalculateY(editionYfull, j);
          Consts.log("Set editon to full screen"+ " "+ x);
+        
          
          
       } else{
-         x = CalculateX(editionX, width);
+         x = CalculateX(editionXSmol, width);
+         y = CalculateY(editionYSmol, j);
       
       }
 
-      // allows me to detect when a number in my config is - and turns it from neg to postive and subtracts it 
-     if(editionY < 0){
-        y = j - Math.abs(editionY);
-     } else{
-        y = j + editionY;
-     }
+     
 
      if(splashX < 0){
       spshx =  width / 2 -  Math.abs(splashX);
@@ -306,7 +304,7 @@ public class TitleScreenOverlay {
       gui.CreatebuttonwithoutImageQuit(minecraft, titlescreen, buttonwidth, j, x.getAsInt(), y.getAsInt(), 20, "menu.quit");
    }
 
-
+   // does maths for the x an dy pos 
    private int CalculateX(int input,int width){
       int x = 0 ;
       if(input < 0){
@@ -316,6 +314,17 @@ public class TitleScreenOverlay {
         }
       return x;
    }  
+
+   private int CalculateY(int input, int j){
+         int y = 0;
+         // allows me to detect when a number in my config is - and turns it from neg to postive and subtracts it 
+      if(input < 0){
+         y = j - Math.abs(input);
+      } else{
+         y = j + input;
+      }
+      return y;
+   }
   
    
 }
