@@ -83,7 +83,7 @@ public class LoadingOverlayImage {
     }
 
     // seting logo pos
-    public void setCustomLogoPosFull(LoadingOverlay component, PoseStack pMatrixStack, int px, int py, int UOffset,
+    public void setCustomLogoPosFull(LoadingOverlay component, PoseStack pMatrixStack, int windowWidth,int px, int py, int UOffset,
             float VOffest, int pWidth, int pHight, int pTextureWidth, int pTextureHight) {
 
         component.blit(pMatrixStack, px, py, UOffset, VOffest, pWidth, pHight, pTextureWidth, pTextureHight);
