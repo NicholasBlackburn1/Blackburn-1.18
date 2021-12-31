@@ -182,7 +182,27 @@ public class GuiUtils {
     Consts.dbg("Regestered Menu item"+new TranslatableComponent(buttonText).toString()+ " ");
  }
 
-// should load json form location
+
+ /***
+  * This Allows me to easly check to see if program is in dev mode
+  * @param random random java 
+  * @param background background int 
+  * @param backgroundCount the size of the background list 
+  * @return
+  */
+ public static int getBackgroundnum(Random random,int background, int backgroundCount){
+    int output = 0;
+   if(Consts.devMode){
+      output = background;
+   }
+   else{
+      output = random.nextInt(backgroundCount);
+   }
+   return output;
+ }
+
+
+ // loads data from json fiels 
  public static void loadFromJson(InputStream p_128109_) {
    Gson json = new Gson();
    Random random = new Random();
@@ -190,7 +210,7 @@ public class GuiUtils {
    JsonArray jsonobject = json.fromJson(new InputStreamReader(p_128109_, StandardCharsets.UTF_8), JsonArray.class);
    int i  = 0;
 
-   for(Entry<String, JsonElement> entry : jsonobject.get(8).getAsJsonObject().entrySet()) {
+   for(Entry<String, JsonElement> entry : jsonobject.get(getBackgroundnum(random,20,26)).getAsJsonObject().entrySet()) {
       Consts.debug(entry.getKey().toString());
       Consts.keys.add(entry.getKey().toString());
       Consts.background.add(entry.getValue());

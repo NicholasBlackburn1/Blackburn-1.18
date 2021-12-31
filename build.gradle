@@ -25,7 +25,7 @@ configurations {
     compile.extendsFrom shade
 }
 
-group = 'me.yourname'
+group = 'nicky.blackburn'
 version = '1.0.0'
 
 ext {
@@ -43,11 +43,7 @@ repositories {
 dependencies {
     implementation 'net.minecraftforge:forgespi:' + spi_version
     // https://mvnrepository.com/artifact/org.jsoup/jsoup
-    implementation group: 'org.jsoup', name: 'jsoup', version: '1.14.3'
-    compile group: 'org.jsoup', name: 'jsoup', version: '1.14.3'
-    shade group: 'org.jsoup', name: 'jsoup', version: '1.14.3'
-    implementation("org.json:json:20190722")
-    implementation("commons-configuration:commons-configuration:1.7")
+
 
 //    Use the shade to add the lib to the jar
 //    or use compile if you want to load the lib from the version.json
