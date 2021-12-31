@@ -11,6 +11,8 @@ public class Consts {
     public static List background = new ArrayList<Integer>();
     public static List keys = new ArrayList<Integer>();
 
+    public static boolean devMode = false;
+
     private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();
    
     // this is the logo dimention on the loading screen

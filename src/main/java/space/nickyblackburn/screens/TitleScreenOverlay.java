@@ -67,10 +67,6 @@ import  net.minecraft.client.gui.screens.LanguageSelectScreen;
 import net.minecraft.client.gui.screens.OptionsScreen;
 
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 
 public class TitleScreenOverlay {
@@ -248,7 +244,7 @@ public class TitleScreenOverlay {
 
       // sets it so it can detect if its full sdcreen
       if(isfullscreen){
-         x = editionXfull;
+         x = CalculateX(editionXfull,width);
          y = CalculateY(editionYfull, j);
          
          
