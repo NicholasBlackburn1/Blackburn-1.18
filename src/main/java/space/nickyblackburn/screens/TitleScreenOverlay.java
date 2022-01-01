@@ -162,11 +162,11 @@ public class TitleScreenOverlay {
     }
 
     // Sets the splash screen pos 
-    public void setSplashPos(Screen screen ,String Splash, PoseStack p_96739_, int width, int splashX,  Font font, int l){
+    public void setSplashPos(Screen screen ,String Splash, PoseStack p_96739_, int width, int splashX, int splashRot, Font font, int l){
       if (Splash != null) {
          p_96739_.pushPose();
          p_96739_.translate((double)(splashX), 70.0F, 1.0F);
-         p_96739_.mulPose(Vector3f.ZP.rotationDegrees(-20.0F));
+         p_96739_.mulPose(Vector3f.ZP.rotationDegrees(splashRot));
          float f2 = 1.8F - Mth.abs(Mth.sin((float)(Util.getMillis() % 1000L) / 1000.0F * ((float)Math.PI * 2F)) * 0.1F);
          f2 = f2 * 100.0F / (float)(font.width(Splash) + 32);
          p_96739_.scale(f2, f2, f2);
@@ -237,7 +237,7 @@ public class TitleScreenOverlay {
     * @param l
     * TODO: need to add Boolean for full screen or not  to set edition to the right hight 
     */
-   public void renderEdition(Screen screen,String splash, PoseStack p_96739_, Font font, int width, int editionXfull,int editionYfull, int splashX, int j,int l, int editionXSmol, int editionYSmol, boolean isfullscreen){
+   public void renderEdition(Screen screen,String splash, PoseStack p_96739_, Font font, int width, int editionXfull,int editionYfull, int splashX, int j,int l, int editionXSmol, int editionYSmol,int splashrot, boolean isfullscreen){
       int x = 0;
       int y =0;
       int spshx = 0;
@@ -266,7 +266,7 @@ public class TitleScreenOverlay {
       
       screen.blit(p_96739_,x, y, 0.0F, 0.0F, 98, 14, 128, 16);
       if (splash != null) {
-        setSplashPos(screen, splash, p_96739_, width, spshx, font, l);
+        setSplashPos(screen, splash, p_96739_, width, spshx,splashrot, font, l);
       }
 
    }
