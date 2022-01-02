@@ -76,9 +76,24 @@ public class LoadingOverlayImage {
 
     // seting small logo pos
     public void setCustomLogoPosNonFull(LoadingOverlay component, PoseStack pMatrixStack, int px, int py, int UOffset,
-            float VOffest, int pWidth, int pHight, int pTextureWidth, int pTextureHight) {
+            float VOffest, int pWidth, int pHight, int pTextureWidth, int pTextureHight, int screenWitdh,int j){
+                
+        int width = 0 ;
+    if(px < 0 ){
+        width =  screenWitdh / 2 -  Math.abs(px);
+       }else{
+        width = screenWitdh / 2 + px;
+       }
 
-        component.blit(pMatrixStack, px, py, UOffset, VOffest, pWidth, pHight, pTextureWidth, pTextureHight);
+       int y = 0;
+   
+       if(py < 0){
+          y = j+72 - Math.abs(py);
+       } else{
+          y = j+72 + py;
+       }
+   
+        component.blit(pMatrixStack, width, y, UOffset, VOffest, pWidth, pHight, pTextureWidth, pTextureHight);
 
     }
 
