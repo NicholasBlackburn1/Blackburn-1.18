@@ -125,7 +125,7 @@ public class LoadingOverlay extends Overlay {
 
       LoadingOverlayImage overlay =  new LoadingOverlayImage();
       
-      overlay.setCustomLogoPosNonFull(this, p_96178_, Consts.px, Consts.py, Consts.pUOffset, Consts.pVOffset, Consts.pWidth, Consts.pHight, Consts.pTextureWidth, Consts.pTextureHeight);
+      overlay.setCustomLogoPosNonFull(this, p_96178_, Consts.px, Consts.py, Consts.pUOffset, Consts.pVOffset, Consts.pWidth, Consts.pHight, Consts.pTextureWidth, Consts.pTextureHeight,i,i/ 2 - 137);
 
 
       RenderSystem.defaultBlendFunc();

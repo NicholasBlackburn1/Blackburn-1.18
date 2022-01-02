@@ -11,13 +11,13 @@ public class Consts {
     public static List background = new ArrayList<Integer>();
     public static List keys = new ArrayList<Integer>();
 
-    public static boolean devMode = true;
+    public static boolean devMode = false;
 
     private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();
    
     // this is the logo dimention on the loading screen
-    public static int px =  160;
-    public static int py = 50;
+    public static int px =  -50;
+    public static int py = -100;
     public static int  pTextureWidth = 120;
     public static int pTextureHeight= 120;
 
