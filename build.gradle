@@ -26,7 +26,7 @@ configurations {
 }
 
 group = 'space.nickyblackburn'
-version = '1.0.1'
+version = '1.0.1-unlocked'
 
 ext {
     minecraft_version = '1.18.1'
