@@ -54,14 +54,14 @@ public class TitleScreen extends Screen {
    private static final String DEMO_LEVEL_ID = "Demo_World";
    public static final String COPYRIGHT_TEXT = "Copyright Mojang AB. Do not distribute!";
    public static final CubeMap CUBE_MAP = new CubeMap(new ResourceLocation("textures/gui/title/background/panorama"));
-   private static  ResourceLocation PANORAMA_OVERLAY = new ResourceLocation("textures/gui/title/background/panorama_overlay.png");
+   private static  ResourceLocation PANORAMA_OVERLAY = new ResourceLocation("blackburn/logo/edition.png");
    private static final ResourceLocation ACCESSIBILITY_TEXTURE = new ResourceLocation("textures/gui/accessibility.png");
    private final boolean minceraftEasterEgg;
    @Nullable
    private String splash;
    private Button resetDemoButton;
    private static final ResourceLocation MINECRAFT_LOGO = new ResourceLocation("textures/gui/title/minecraft.png");
-   private static final ResourceLocation MINECRAFT_EDITION = new ResourceLocation("textures/gui/title/edition.png");
+   private static final ResourceLocation MINECRAFT_EDITION = new ResourceLocation("blackburn/logo/edition.png");
    private Screen realmsNotificationsScreen;
    private int copyrightWidth;
    private int copyrightX;
