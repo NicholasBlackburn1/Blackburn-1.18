@@ -42,6 +42,7 @@ import net.minecraft.world.level.storage.LevelStorageSource;
 import net.minecraft.world.level.storage.LevelSummary;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import space.nickyblackburn.screens.CopyRightScreen;
 import space.nickyblackburn.screens.TitleScreenOverlay;
 import space.nickyblackburn.utils.Consts;
 
@@ -220,7 +221,7 @@ public class TitleScreen extends Screen {
          return true;
       } else {
          if (p_96735_ > (double)this.copyrightX && p_96735_ < (double)(this.copyrightX + this.copyrightWidth) && p_96736_ > (double)(this.height - 10) && p_96736_ < (double)this.height) {
-            this.minecraft.setScreen(new WinScreen(false, Runnables.doNothing()));
+            this.minecraft.setScreen(new CopyRightScreen(title));
          }
 
          return false;
