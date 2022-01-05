@@ -19,7 +19,8 @@
         "edition_posXNonFull": "340",
         "edition_posy_nonfull": "-40",
         "edition_width": "128",
-        "edition_hight": "16",
+        "edition_hight": "19",
+        "edition_texture_width": "128",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -38,12 +39,13 @@
         "splash_posX": "100",
         "splash_posY": "-120",
         "splash_rot": "-20",
-        "edition_posX": "100",
+        "edition_posX": "120",
         "edition_posY": "-40",
         "edition_posXNonFull": "100",
         "edition_posy_nonfull": "-40",
         "edition_width": "128",
-        "edition_hight": "16",
+        "edition_hight": "19",
+        "edition_texture_width": "128",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -67,7 +69,8 @@
         "edition_posXNonFull": "-100",
         "edition_posy_nonfull": "-40",
         "edition_width": "128",
-        "edition_hight": "16",
+        "edition_hight": "19",
+        "edition_texture_width": "128",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -91,7 +94,8 @@
         "edition_posXNonFull": "100",
         "edition_posy_nonfull": "-40",
         "edition_width": "128",
-        "edition_hight": "16",
+        "edition_hight": "19",
+        "edition_texture_width": "128",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -115,7 +119,8 @@
         "edition_posXNonFull": "100",
         "edition_posy_nonfull": "-40",
         "edition_width": "128",
-        "edition_hight": "16",
+        "edition_hight": "19",
+        "edition_texture_width": "128",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -139,7 +144,8 @@
         "edition_posXNonFull": "100",
         "edition_posy_nonfull": "-40",
         "edition_width": "128",
-        "edition_hight": "16",
+        "edition_hight": "19",
+        "edition_texture_width": "128",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -163,7 +169,8 @@
         "edition_posXNonFull": "100",
         "edition_posy_nonfull": "-40",
         "edition_width": "128",
-        "edition_hight": "16",
+        "edition_hight": "19",
+        "edition_texture_width": "128",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -187,7 +194,8 @@
         "edition_posXNonFull": "230",
         "edition_posy_nonfull": "-40",
         "edition_width": "128",
-        "edition_hight": "16",
+        "edition_hight": "19",
+        "edition_texture_width": "128",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -211,7 +219,8 @@
         "edition_posXNonFull": "-205",
         "edition_posy_nonfull": "-40",
         "edition_width": "128",
-        "edition_hight": "16",
+        "edition_hight": "19",
+        "edition_texture_width": "128",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -235,7 +244,8 @@
         "edition_posXNonFull": "100",
         "edition_posy_nonfull": "-40",
         "edition_width": "128",
-        "edition_hight": "16",
+        "edition_hight": "19",
+        "edition_texture_width": "128",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -259,7 +269,8 @@
         "edition_posXNonFull": "200",
         "edition_posy_nonfull": "-40",
         "edition_width": "128",
-        "edition_hight": "16",
+        "edition_hight": "19",
+        "edition_texture_width": "128",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -283,7 +294,8 @@
         "edition_posXNonFull": "100",
         "edition_posy_nonfull": "-40",
         "edition_width": "128",
-        "edition_hight": "16",
+        "edition_hight": "19",
+        "edition_texture_width": "128",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -307,7 +319,8 @@
         "edition_posXNonFull": "-200",
         "edition_posy_nonfull": "-40",
         "edition_width": "128",
-        "edition_hight": "16",
+        "edition_hight": "19",
+        "edition_texture_width": "128",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -331,7 +344,8 @@
         "edition_posXNonFull": "100",
         "edition_posy_nonfull": "-40",
         "edition_width": "128",
-        "edition_hight": "16",
+        "edition_hight": "19",
+        "edition_texture_width": "128",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -355,7 +369,8 @@
         "edition_posXNonFull": "100",
         "edition_posy_nonfull": "-40",
         "edition_width": "128",
-        "edition_hight": "16",
+        "edition_hight": "19",
+        "edition_texture_width": "128",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -379,7 +394,8 @@
         "edition_posXNonFull": "100",
         "edition_posy_nonfull": "-40",
         "edition_width": "128",
-        "edition_hight": "16",
+        "edition_hight": "19",
+        "edition_texture_width": "128",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -403,7 +419,8 @@
         "edition_posXNonFull": "100",
         "edition_posy_nonfull": "-40",
         "edition_width": "128",
-        "edition_hight": "16",
+        "edition_hight": "19",
+        "edition_texture_width": "128",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -427,7 +444,8 @@
         "edition_posXNonFull": "100",
         "edition_posy_nonfull": "-40",
         "edition_width": "128",
-        "edition_hight": "16",
+        "edition_hight": "19",
+        "edition_texture_width": "128",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -451,7 +469,8 @@
         "edition_posXNonFull": "100",
         "edition_posy_nonfull": "-40",
         "edition_width": "128",
-        "edition_hight": "16",
+        "edition_hight": "19",
+        "edition_texture_width": "128",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -475,7 +494,8 @@
         "edition_posXNonFull": "100",
         "edition_posy_nonfull": "-40",
         "edition_width": "128",
-        "edition_hight": "16",
+        "edition_hight": "19",
+        "edition_texture_width": "128",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -499,7 +519,8 @@
         "edition_posXNonFull": "100",
         "edition_posy_nonfull": "-40",
         "edition_width": "128",
-        "edition_hight": "16",
+        "edition_hight": "19",
+        "edition_texture_width": "128",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -523,7 +544,8 @@
         "edition_posXNonFull": "340",
         "edition_posy_nonfull": "-40",
         "edition_width": "128",
-        "edition_hight": "16",
+        "edition_hight": "19",
+        "edition_texture_width": "128",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -547,7 +569,8 @@
         "edition_posXNonFull": "-200",
         "edition_posy_nonfull": "-40",
         "edition_width": "128",
-        "edition_hight": "16",
+        "edition_hight": "19",
+        "edition_texture_width": "128",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -571,7 +594,8 @@
         "edition_posXNonFull": "100",
         "edition_posy_nonfull": "-40",
         "edition_width": "128",
-        "edition_hight": "16",
+        "edition_hight": "19",
+        "edition_texture_width": "128",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -595,7 +619,8 @@
         "edition_posXNonFull": "100",
         "edition_posy_nonfull": "-40",
         "edition_width": "126",
-        "edition_hight": "16",
+        "edition_hight": "49",
+        "edition_texture_width": "128",
         "lang_posX": "0",
         "lang_posY": "0"
     },
@@ -619,7 +644,8 @@
         "edition_posXNonFull": "100",
         "edition_posy_nonfull": "-40",
         "edition_width": "128",
-        "edition_hight": "16",
+        "edition_hight": "19",
+        "edition_texture_width": "128",
         "lang_posX": "0",
         "lang_posY": "0"
     }

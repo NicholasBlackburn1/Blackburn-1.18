@@ -50,6 +50,7 @@ def addToFile(id,key):
    
     section = "sect" + str(id) 
     out = section.strip("\"")
+    print(out)
     return readConfig(id)[out][str(key)]
     
     
