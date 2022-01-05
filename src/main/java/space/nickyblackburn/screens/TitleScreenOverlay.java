@@ -236,10 +236,10 @@ public class TitleScreenOverlay {
     * @param j
     * @param l
     * @param edtionImageWidth the edition image width 
-    * @param editionImage the edtion image hight
+    * @param editionImage the edtion image
     * TODO: need to add Boolean for full screen or not  to set edition to the right hight 
     */
-   public void renderEdition(Screen screen,String splash, PoseStack p_96739_, Font font, int width, int editionXfull,int editionYfull, int splashX, int j,int l, int editionXSmol, int editionYSmol, int editionImageWidth, int editionImageHight, int splashrot, boolean isfullscreen){
+   public void renderEdition(Screen screen,String splash, PoseStack p_96739_, Font font, int width, int editionXfull,int editionYfull, int splashX, int j,int l, int editionXSmol, int editionYSmol, int editionImageWidth, int editionImageHight, int editionTextureWidth, int splashrot, boolean isfullscreen){
       int x = 0;
       int y =0;
       int spshx = 0;
@@ -266,7 +266,7 @@ public class TitleScreenOverlay {
      }
 
       
-      screen.blit(p_96739_,x, y, 0.0F, 0.0F, 200, 14, editionImageWidth, editionImageHight);
+      screen.blit(p_96739_,x, y, 0.0F, 0.0F, editionTextureWidth, 14, editionImageWidth, editionImageHight);
       if (splash != null) {
         setSplashPos(screen, splash, p_96739_, width, spshx,splashrot, font, l);
       }

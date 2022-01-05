@@ -62,7 +62,7 @@ public class TitleScreen extends Screen {
    private String splash;
    private Button resetDemoButton;
    private static final ResourceLocation MINECRAFT_LOGO = new ResourceLocation("textures/gui/title/minecraft.png");
-   private static final ResourceLocation MINECRAFT_EDITION = new ResourceLocation("blackburn/logo/edition.png");
+   private static final ResourceLocation MINECRAFT_EDITION = new ResourceLocation("blackburn/logo/uwuedition.png");
    private Screen realmsNotificationsScreen;
    private int copyrightWidth;
    private int copyrightX;
@@ -181,8 +181,9 @@ public class TitleScreen extends Screen {
          RenderSystem.setShaderTexture(0, MINECRAFT_EDITION);
 
          // sets Edition Placemnt & splash text
-         JsonPrimitive editionXFull, editionYFull, splashy, editionXSmall,editionYSmol,editionImageWidth,editionImageHight,splashRot;
+         JsonPrimitive editionXFull, editionYFull, splashy, editionXSmall,editionYSmol,editionImageWidth,editionImageHight,editionTextureWidth,splashRot;
 
+         editionImageHight = (JsonPrimitive) Consts.background.get(20);
          editionImageWidth = (JsonPrimitive) Consts.background.get(18);
          editionImageHight = (JsonPrimitive) Consts.background.get(19);
 
@@ -195,7 +196,7 @@ public class TitleScreen extends Screen {
          splashy = (JsonPrimitive) Consts.background.get(11);
          splashRot = (JsonPrimitive) Consts.background.get(13);
          
-         overlay.renderEdition(this,splash, p_96739_, font, this.width, editionXFull.getAsInt(),editionYFull.getAsInt(),splashy.getAsInt(), j, l,editionXSmall.getAsInt(),editionYSmol.getAsInt(),editionImageWidth.getAsInt(),editionImageHight.getAsInt(),splashRot.getAsInt(),minecraft.getWindow().isFullscreen());
+         overlay.renderEdition(this,splash, p_96739_, font, this.width, editionXFull.getAsInt(),editionYFull.getAsInt(),splashy.getAsInt(), j, l,editionXSmall.getAsInt(),editionYSmol.getAsInt(),editionImageWidth.getAsInt(),editionImageHight.getAsInt(),editionTextureWidth.getAsInt(),ashRot.getAsInt(),minecraft.getWindow().isFullscreen());
 
          // draws version string at the bottom
          overlay.setDrawVersionName(this.minecraft,this,p_96739_,this.font,this.height,l);
