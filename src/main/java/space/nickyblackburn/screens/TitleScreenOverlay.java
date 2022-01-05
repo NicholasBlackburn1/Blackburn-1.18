@@ -266,7 +266,7 @@ public class TitleScreenOverlay {
      }
 
       
-      screen.blit(p_96739_,x, y, 0.0F, 0.0F, editionTextureWidth, 14, editionImageWidth, editionImageHight);
+      screen.blit(p_96739_,x, y, 0.0F, 0.0F, editionTextureWidth, 20, editionImageWidth, editionImageHight);
       if (splash != null) {
         setSplashPos(screen, splash, p_96739_, width, spshx,splashrot, font, l);
       }

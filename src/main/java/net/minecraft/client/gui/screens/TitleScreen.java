@@ -183,7 +183,7 @@ public class TitleScreen extends Screen {
          // sets Edition Placemnt & splash text
          JsonPrimitive editionXFull, editionYFull, splashy, editionXSmall,editionYSmol,editionImageWidth,editionImageHight,editionTextureWidth,splashRot;
 
-         editionImageHight = (JsonPrimitive) Consts.background.get(20);
+         editionTextureWidth = (JsonPrimitive) Consts.background.get(20);
          editionImageWidth = (JsonPrimitive) Consts.background.get(18);
          editionImageHight = (JsonPrimitive) Consts.background.get(19);
 
@@ -196,7 +196,7 @@ public class TitleScreen extends Screen {
          splashy = (JsonPrimitive) Consts.background.get(11);
          splashRot = (JsonPrimitive) Consts.background.get(13);
          
-         overlay.renderEdition(this,splash, p_96739_, font, this.width, editionXFull.getAsInt(),editionYFull.getAsInt(),splashy.getAsInt(), j, l,editionXSmall.getAsInt(),editionYSmol.getAsInt(),editionImageWidth.getAsInt(),editionImageHight.getAsInt(),editionTextureWidth.getAsInt(),ashRot.getAsInt(),minecraft.getWindow().isFullscreen());
+         overlay.renderEdition(this,splash, p_96739_, font, this.width, editionXFull.getAsInt(),editionYFull.getAsInt(),splashy.getAsInt(), j, l,editionXSmall.getAsInt(),editionYSmol.getAsInt(),editionImageWidth.getAsInt(),editionImageHight.getAsInt(),editionTextureWidth.getAsInt(),splashRot.getAsInt(),minecraft.getWindow().isFullscreen());
 
          // draws version string at the bottom
          overlay.setDrawVersionName(this.minecraft,this,p_96739_,this.font,this.height,l);
