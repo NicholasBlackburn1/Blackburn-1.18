@@ -181,7 +181,10 @@ public class TitleScreen extends Screen {
          RenderSystem.setShaderTexture(0, MINECRAFT_EDITION);
 
          // sets Edition Placemnt & splash text
-         JsonPrimitive editionXFull, editionYFull, splashy, editionXSmall,editionYSmol,splashRot;
+         JsonPrimitive editionXFull, editionYFull, splashy, editionXSmall,editionYSmol,editionImageWidth,editionImageHight,splashRot;
+
+         editionImageWidth = (JsonPrimitive) Consts.background.get(18);
+         editionImageHight = (JsonPrimitive) Consts.background.get(19);
 
          editionXSmall = (JsonPrimitive) Consts.background.get(16);
          editionYSmol = (JsonPrimitive) Consts.background.get(17);
@@ -192,7 +195,7 @@ public class TitleScreen extends Screen {
          splashy = (JsonPrimitive) Consts.background.get(11);
          splashRot = (JsonPrimitive) Consts.background.get(13);
          
-         overlay.renderEdition(this,splash, p_96739_, font, this.width, editionXFull.getAsInt(),editionYFull.getAsInt(),splashy.getAsInt(), j, l,editionXSmall.getAsInt(),editionYSmol.getAsInt(),splashRot.getAsInt(),minecraft.getWindow().isFullscreen());
+         overlay.renderEdition(this,splash, p_96739_, font, this.width, editionXFull.getAsInt(),editionYFull.getAsInt(),splashy.getAsInt(), j, l,editionXSmall.getAsInt(),editionYSmol.getAsInt(),editionImageWidth.getAsInt(),editionImageHight.getAsInt(),splashRot.getAsInt(),minecraft.getWindow().isFullscreen());
 
          // draws version string at the bottom
          overlay.setDrawVersionName(this.minecraft,this,p_96739_,this.font,this.height,l);
@@ -221,7 +224,7 @@ public class TitleScreen extends Screen {
          return true;
       } else {
          if (p_96735_ > (double)this.copyrightX && p_96735_ < (double)(this.copyrightX + this.copyrightWidth) && p_96736_ > (double)(this.height - 10) && p_96736_ < (double)this.height) {
-            this.minecraft.setScreen(new CopyRightScreen(title));
+            this.minecraft.setScreen(new CopyRightScreen(this.title));
          }
 
          return false;
