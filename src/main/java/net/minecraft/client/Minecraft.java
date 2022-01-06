@@ -1125,7 +1125,7 @@ public class Minecraft extends ReentrantBlockableEventLoop<Runnable> implements 
    }
 
    public void resizeDisplay() {
-      int i = this.window.calculateScale(this.options.guiScale, this.isEnforceUnicode());
+      int i = this.window.calculateScale(0, this.isEnforceUnicode());
       
       this.window.setGuiScale((double)i);
       if (this.screen != null) {
