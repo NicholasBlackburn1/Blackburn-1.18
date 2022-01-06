@@ -277,7 +277,7 @@ public class TitleScreenOverlay {
 
             case 3:
             x = editionPos(minecraft, isfullscreen, editionXfull, editionYfull, editionXSmol, editionYSmol,minecraft.window.getGuiScaledHeight())[0];
-            y = editionPos(minecraft, isfullscreen, editionXfull, editionYfull, editionXSmol, editionYSmol,minecraft.window.getGuiScaledHeight())[1];
+            y = editionPos(minecraft, isfullscreen, editionXfull, editionYfull, editionXSmol, editionYSmol,minecraft.window.getGuiScaledHeight()/2 -60)[1];
             Consts.log("edition x and y are for gui scale  3  are "+ " "+ "x: "+x + " "+ "y: "+y);
             break;
 
