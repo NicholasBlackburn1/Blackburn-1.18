@@ -19,3 +19,5 @@ run/
 build/
 out/
 bin/
+*.jar
+*.zip
