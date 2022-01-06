@@ -196,7 +196,7 @@ public class TitleScreen extends Screen {
          splashy = (JsonPrimitive) Consts.background.get(11);
          splashRot = (JsonPrimitive) Consts.background.get(13);
          
-         overlay.renderEdition(this,splash, p_96739_, font, this.width, editionXFull.getAsInt(),editionYFull.getAsInt(),splashy.getAsInt(), j, l,editionXSmall.getAsInt(),editionYSmol.getAsInt(),editionImageWidth.getAsInt(),editionImageHight.getAsInt(),editionTextureWidth.getAsInt(),splashRot.getAsInt(),minecraft.getWindow().isFullscreen());
+         overlay.renderEdition(this,splash, p_96739_, font, this.width,this.height, editionXFull.getAsInt(),editionYFull.getAsInt(),splashy.getAsInt(), j, l,editionXSmall.getAsInt(),editionYSmol.getAsInt(),editionImageWidth.getAsInt(),editionImageHight.getAsInt(),editionTextureWidth.getAsInt(),splashRot.getAsInt(),minecraft.getWindow().isFullscreen());
 
          // draws version string at the bottom
          overlay.setDrawVersionName(this.minecraft,this,p_96739_,this.font,this.height,l);

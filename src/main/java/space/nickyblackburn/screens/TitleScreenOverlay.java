@@ -1,5 +1,6 @@
 /***
  * TODO: get the main menu screen to randomly choose a pick out of a list of picturs and the locations of the buttons for that pic
+ * and also get it to work correctly on non auto gui layout
  */
 
 
@@ -239,11 +240,12 @@ public class TitleScreenOverlay {
     * @param editionImage the edtion image
     * TODO: need to add Boolean for full screen or not  to set edition to the right hight 
     */
-   public void renderEdition(Screen screen,String splash, PoseStack p_96739_, Font font, int width, int editionXfull,int editionYfull, int splashX, int j,int l, int editionXSmol, int editionYSmol, int editionImageWidth, int editionImageHight, int editionTextureWidth, int splashrot, boolean isfullscreen){
+   public void renderEdition(Screen screen,String splash, PoseStack p_96739_, Font font, int width, int hight, int editionXfull,int editionYfull, int splashX, int j,int l, int editionXSmol, int editionYSmol, int editionImageWidth, int editionImageHight, int editionTextureWidth, int splashrot, boolean isfullscreen){
       int x = 0;
       int y =0;
      
       int spshx = 0;
+      int editionhight = 0;
 
       // sets it so it can detect if its full sdcreen
       if(isfullscreen){
@@ -266,6 +268,12 @@ public class TitleScreenOverlay {
       spshx =  width / 2 -  Math.abs(splashX);
      }else{
       spshx =width / 2 + splashX;
+     }
+     
+     if(editionImageHight < 0){
+        editionhight = hight / 2 - Math.abs(editionImageHight);
+     } else{
+        editionhight = hight / 2 + editionImageHight;
      }
 
       
