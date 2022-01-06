@@ -1,4 +1,4 @@
-package space.nickyblackburn;
+package net.blackburn;
 
 import  net.minecraft.client.main.Main;
 

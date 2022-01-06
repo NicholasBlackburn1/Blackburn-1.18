@@ -118,7 +118,7 @@
     },
     "assets": "1.18",
     "complianceLevel": 1,
-    "id": "1.18.1",
+    "id": "Blackburn1.18-1.0.0",
     "javaVersion": {
         "component": "java-runtime-beta",
         "majorVersion": 17

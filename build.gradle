@@ -25,7 +25,7 @@ configurations {
     compile.extendsFrom shade
 }
 
-group = 'nicky.blackburn'
+group = 'space.nickyblackburn'
 version = '1.0.0'
 
 ext {
@@ -72,9 +72,27 @@ patcher {
 jar {
     configurations.shade.each { dep ->
         from(project.zipTree(dep)) {
-            exclude 'META-INF', 'META-INF/**'
+            
+        manifest {
+        if (!configurations.compile.isEmpty()) {
+            attributes(
+                    'Class-Path': configurations.compile.collect{it.toURI().toString()}.join(' '),
+                    'Main-Class': 'net.blackburn.Start')
         }
     }
+        sourceSets {
+        main {
+        resources {
+            srcDirs "src/main/resources/assets"
+            srcDirs "src/main/resources/data"
+        }
+    }
+    }
+     //exclude 'META-INF', 'META-INF/**'
+        }
+        
+
+}
 }
 
 task runclient(type: JavaExec) {
