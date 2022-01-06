@@ -242,22 +242,20 @@ public class TitleScreenOverlay {
    public void renderEdition(Screen screen,String splash, PoseStack p_96739_, Font font, int width, int editionXfull,int editionYfull, int splashX, int j,int l, int editionXSmol, int editionYSmol, int editionImageWidth, int editionImageHight, int editionTextureWidth, int splashrot, boolean isfullscreen){
       int x = 0;
       int y =0;
-      int editionX = 0;
-      int editionY = 0;
-
+     
       int spshx = 0;
 
       // sets it so it can detect if its full sdcreen
       if(isfullscreen){
          x = CalculateX(editionXfull,width);
          y = CalculateY(editionYfull, j);
-         editionX  = CalculateX(editionImageWidth,width);
-         editionY = CalculateY(editionImageHight, j);
+         
+         
       } else{
          x = CalculateX(editionXSmol, width);
          y = CalculateY(editionYSmol, j);
-         editionX  = CalculateX(editionImageWidth,width);
-         editionY = CalculateY(editionImageHight, j);
+   ;
+     
       }
 
 
@@ -271,7 +269,7 @@ public class TitleScreenOverlay {
      }
 
       
-      screen.blit(p_96739_,x, y, 0.0F, 0.0F, editionTextureWidth, 20, editionImageWidth, editionImageHight);
+      screen.blit(p_96739_,x, y, 0.0F, 0.0F, editionTextureWidth, 20, editionImageWidth,editionImageHight);
       if (splash != null) {
         setSplashPos(screen, splash, p_96739_, width, spshx,splashrot, font, l);
       }
