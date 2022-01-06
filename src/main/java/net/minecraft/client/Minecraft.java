@@ -270,7 +270,7 @@ public class Minecraft extends ReentrantBlockableEventLoop<Runnable> implements 
    private final TextureManager textureManager;
    private final DataFixer fixerUpper;
    private final VirtualScreen virtualScreen;
-   private final Window window;
+   public final Window window;
    private final Timer timer = new Timer(20.0F, 0L);
    private final RenderBuffers renderBuffers;
    public final LevelRenderer levelRenderer;
@@ -1126,6 +1126,7 @@ public class Minecraft extends ReentrantBlockableEventLoop<Runnable> implements 
 
    public void resizeDisplay() {
       int i = this.window.calculateScale(this.options.guiScale, this.isEnforceUnicode());
+      
       this.window.setGuiScale((double)i);
       if (this.screen != null) {
          this.screen.resize(this, this.window.getGuiScaledWidth(), this.window.getGuiScaledHeight());

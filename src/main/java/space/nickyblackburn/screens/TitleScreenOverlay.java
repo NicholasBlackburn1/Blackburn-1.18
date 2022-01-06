@@ -240,43 +240,57 @@ public class TitleScreenOverlay {
     * @param editionImage the edtion image
     * TODO: need to add Boolean for full screen or not  to set edition to the right hight 
     */
-   public void renderEdition(Screen screen,String splash, PoseStack p_96739_, Font font, int width, int hight, int editionXfull,int editionYfull, int splashX, int j,int l, int editionXSmol, int editionYSmol, int editionImageWidth, int editionImageHight, int editionTextureWidth, int splashrot, boolean isfullscreen){
+   public void renderEdition(Screen screen,String splash, PoseStack p_96739_, Minecraft minecraft,Font font, int width, int hight, int editionXfull,int editionYfull, int splashX, int j,int l, int editionXSmol, int editionYSmol, int editionImageWidth, int editionImageHight, int editionTextureWidth, int splashrot, boolean isfullscreen){
       int x = 0;
       int y =0;
      
       int spshx = 0;
       int editionhight = 0;
 
-      // sets it so it can detect if its full sdcreen
-      if(isfullscreen){
-         x = CalculateX(editionXfull,width);
-         y = CalculateY(editionYfull, j);
-         
-         
-      } else{
-         x = CalculateX(editionXSmol, width);
-         y = CalculateY(editionYSmol, j);
-   ;
      
-      }
 
-
-
-     
 
      if(splashX < 0){
       spshx =  width / 2 -  Math.abs(splashX);
      }else{
       spshx =width / 2 + splashX;
      }
-     
-     if(editionImageHight < 0){
-        editionhight = hight / 2 - Math.abs(editionImageHight);
-     } else{
-        editionhight = hight / 2 + editionImageHight;
-     }
+   
+      switch (minecraft.options.guiScale) {
+         case 0:
+            
+            x = editionPos(minecraft, isfullscreen, editionXfull, editionYfull, editionXSmol, editionYSmol,j)[0];
+            y = editionPos(minecraft, isfullscreen, editionXfull, editionYfull, editionXSmol, editionYSmol,j)[1];
+            Consts.log("edition x and y are for gui scale  0 are "+ " "+ "x: "+x + " "+ "y: "+y);
+            break;
 
+            case 1:
+            Consts.log("edition x and y are for gui scale  1 are "+ " "+ "x: "+x + " "+ "y: "+y);
+            break;
+
+            case 2:
+            
+            x = editionPos(minecraft, isfullscreen, editionXfull, editionYfull, editionXSmol, editionYSmol,minecraft.window.getGuiScaledHeight()/2-127)[0];
+            y = editionPos(minecraft, isfullscreen, editionXfull, editionYfull, editionXSmol, editionYSmol,minecraft.window.getGuiScaledHeight()/2-127)[1];
+            Consts.log("edition x and y are for gui scale  2  are "+ " "+ "x: "+x + " "+ "y: "+y);
+            break;
+
+            case 3:
+            Consts.log("edition x and y are for gui scale  3  are "+ " "+ "x: "+x + " "+ "y: "+y);
+            break;
+
+            case 4:
+            Consts.log("edition x and y are for gui scale  4  are "+ " "+ "x: "+x + " "+ "y: "+y);
+            break;
+
+         
+         default:
+            break;
+      }
+
+    
       
+
       screen.blit(p_96739_,x, y, 0.0F, 0.0F, editionTextureWidth, 20, editionImageWidth,editionImageHight);
       if (splash != null) {
         setSplashPos(screen, splash, p_96739_, width, spshx,splashrot, font, l);
@@ -334,6 +348,29 @@ public class TitleScreenOverlay {
       }
       return y;
    }
-  
+   
+   // this allows me to d othe maths for edtion pos in a method 
+   private int[] editionPos(Minecraft minecraft,boolean isfullscreen, int editionXfull, int editionYfull, int editionXSmol, int editionYSmol, int j){
+      int outputx = 0;
+      int outputy =0;
+      
+      int[] ans = new int[2];
+
+      if(isfullscreen){
+         outputx = CalculateX(editionXfull,minecraft.window.getGuiScaledWidth());
+         outputy = CalculateY(editionYfull, j);
+         
+         
+      } else{
+         outputx = CalculateX(editionXSmol, minecraft.window.getGuiScaledWidth());
+         outputy = CalculateY(editionYSmol, j);
+
+   
+      }
+      ans[0] = outputx;
+      ans[1]= outputy;
+
+      return ans;
+   }
    
 }
