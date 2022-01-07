@@ -348,7 +348,7 @@ public class Minecraft extends ReentrantBlockableEventLoop<Runnable> implements 
    public HitResult hitResult;
    private int rightClickDelay;
    protected int missTime;
-   private volatile boolean pause;
+   public volatile boolean pause;
    private float pausePartialTick;
    private long lastNanoTime = Util.getNanos();
    private long lastTime;
@@ -1638,8 +1638,13 @@ public class Minecraft extends ReentrantBlockableEventLoop<Runnable> implements 
          this.musicManager.tick();
       }
 
+
+      ClientStartup start = new ClientStartup();
+      start.sendStartupMessages(this);
+      
       this.soundManager.tick(this.pause);
       if (this.level != null) {
+ 
          if (!this.pause) {
             if (!this.options.joinedFirstServer && this.isMultiplayerServer()) {
                Component component = new TranslatableComponent("tutorial.socialInteractions.title");
@@ -1688,7 +1693,7 @@ public class Minecraft extends ReentrantBlockableEventLoop<Runnable> implements 
       this.profiler.pop();
    }
 
-   private boolean isMultiplayerServer() {
+   public boolean isMultiplayerServer() {
       return !this.isLocalServer || this.singleplayerServer != null && this.singleplayerServer.isPublished();
    }
 
@@ -2061,9 +2066,7 @@ public class Minecraft extends ReentrantBlockableEventLoop<Runnable> implements 
       this.updateScreenAndTick(p_91321_);
 
       if (this.level != null) {
-         // Send a simple message
-         ClientStartup start = new ClientStartup();
-         start.sendStartupMessages();
+       
 
          if (integratedserver != null) {
             this.profiler.push("waitForServer");
