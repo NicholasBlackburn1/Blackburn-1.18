@@ -13,6 +13,8 @@ public class Consts {
     public static List background = new ArrayList<Integer>();
     public static List keys = new ArrayList<Integer>();
     public static Minecraft minecraft  = Minecraft.getInstance();
+
+    
     public static boolean devMode = false;
 
     private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();
@@ -60,6 +62,11 @@ public class Consts {
     public boolean getEnablePos(){
         return enablePosInfo;
     }
+
+
+    // commands stuff
+
+    public static String commandprefix = "command.blackburn.";
 
 
     public static void dbg(String s)

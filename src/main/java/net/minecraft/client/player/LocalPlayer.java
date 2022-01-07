@@ -182,7 +182,9 @@ public class LocalPlayer extends AbstractClientPlayer {
       return this.isPassenger() ? super.getViewYRot(p_108753_) : this.getYRot();
    }
 
+   // adding stuff here to
    public void tick() {
+      
       if (this.level.hasChunkAt(this.getBlockX(), this.getBlockZ())) {
          super.tick();
          if (this.isPassenger()) {
