@@ -1,3 +1,6 @@
+/***
+ * this is where i register cmmands
+ */
 package space.nickyblackburn.commands;
 
 public class RegisterCommands {
@@ -8,6 +11,6 @@ public class RegisterCommands {
     }
 
     public void runCommands(){
-        
+
     }
 }

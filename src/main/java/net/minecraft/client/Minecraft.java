@@ -248,6 +248,8 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import space.nickyblackburn.ClientStartup;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -2057,7 +2059,12 @@ public class Minecraft extends ReentrantBlockableEventLoop<Runnable> implements 
       this.gameMode = null;
       NarratorChatListener.INSTANCE.clear();
       this.updateScreenAndTick(p_91321_);
+
       if (this.level != null) {
+         // Send a simple message
+         ClientStartup start = new ClientStartup();
+         start.sendStartupMessages();
+
          if (integratedserver != null) {
             this.profiler.push("waitForServer");
 
