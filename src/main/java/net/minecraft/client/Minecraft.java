@@ -249,6 +249,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import space.nickyblackburn.ClientStartup;
+import space.nickyblackburn.utils.Consts;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
@@ -435,6 +436,7 @@ public class Minecraft extends ReentrantBlockableEventLoop<Runnable> implements 
       }
 
       Util.timeSource = RenderSystem.initBackendSystem();
+      Consts.showStart = true;
       this.virtualScreen = new VirtualScreen(this);
       this.window = this.virtualScreen.newWindow(displaydata, this.options.fullscreenVideoModeString, this.createTitle());
       this.setWindowActive(true);
@@ -1638,14 +1640,20 @@ public class Minecraft extends ReentrantBlockableEventLoop<Runnable> implements 
          this.musicManager.tick();
       }
 
+      // Allows me to send mesages at start up
+   
 
-      ClientStartup start = new ClientStartup();
-      start.sendStartupMessages(this);
-      
+
       this.soundManager.tick(this.pause);
       if (this.level != null) {
- 
+         
          if (!this.pause) {
+            ClientStartup start = new ClientStartup();
+
+            start.sendStartupMessages(this);
+            Consts.showStart = false;
+      
+
             if (!this.options.joinedFirstServer && this.isMultiplayerServer()) {
                Component component = new TranslatableComponent("tutorial.socialInteractions.title");
                Component component1 = new TranslatableComponent("tutorial.socialInteractions.description", Tutorial.key("socialInteractions"));
