@@ -23,6 +23,9 @@ public class DeathScreen extends Screen {
    private final boolean hardcore;
    private Component deathScore;
    private String splash;
+   
+   private Component sufix;
+
    private final List<Button> exitButtons = Lists.newArrayList();
 
    public DeathScreen(@Nullable Component p_95911_, boolean p_95912_) {
@@ -55,6 +58,7 @@ public class DeathScreen extends Screen {
       }
 
       this.deathScore = (new TranslatableComponent("deathScreen.score")).append(": ").append((new TextComponent(Integer.toString(this.minecraft.player.getScore()))).withStyle(ChatFormatting.YELLOW));
+      this.sufix = new TranslatableComponent("blackburn.deathscreen.more");
    }
 
    public boolean shouldCloseOnEsc() {
@@ -85,11 +89,12 @@ public class DeathScreen extends Screen {
       // Added my Own overlay to the death sccreen
      DeathScreenOverlay overlay = new DeathScreenOverlay();
 
-      overlay.renderDeathScreen(p_95920_, this, title, font, causeOfDeath,this.splash,width, height, p_95921_, p_95922_);
+      overlay.renderDeathScreen(p_95920_, this, title, font, this.causeOfDeath,this.sufix,this.splash,width, height, p_95921_, p_95922_);
       
       if (causeOfDeath != null && p_95922_ > 85 && p_95922_ < 85 + 9) {
          Style style3 = this.getClickedComponentStyleAt(p_95921_);
          this.renderComponentHoverEffect(p_95920_, style3, p_95921_, p_95922_);
+         
       }
       super.render(p_95920_, p_95921_, p_95922_, p_95923_);
    }
