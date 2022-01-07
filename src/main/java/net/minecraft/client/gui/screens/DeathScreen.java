@@ -13,6 +13,8 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import space.nickyblackburn.screens.DeathScreenOverlay;
+import space.nickyblackburn.utils.Consts;
 
 @OnlyIn(Dist.CLIENT)
 public class DeathScreen extends Screen {
@@ -20,6 +22,7 @@ public class DeathScreen extends Screen {
    private final Component causeOfDeath;
    private final boolean hardcore;
    private Component deathScore;
+   private String splash;
    private final List<Button> exitButtons = Lists.newArrayList();
 
    public DeathScreen(@Nullable Component p_95911_, boolean p_95912_) {
@@ -29,6 +32,8 @@ public class DeathScreen extends Screen {
    }
 
    protected void init() {
+      this.splash = Consts.minecraft.getSplashManager().getSplash();
+
       this.delayTicker = 0;
       this.exitButtons.clear();
       this.exitButtons.add(this.addRenderableWidget(new Button(this.width / 2 - 100, this.height / 4 + 72, 200, 20, this.hardcore ? new TranslatableComponent("deathScreen.spectate") : new TranslatableComponent("deathScreen.respawn"), (p_95930_) -> {
@@ -75,27 +80,22 @@ public class DeathScreen extends Screen {
       this.minecraft.setScreen(new TitleScreen());
    }
 
+   
    public void render(PoseStack p_95920_, int p_95921_, int p_95922_, float p_95923_) {
-      this.fillGradient(p_95920_, 0, 0, this.width, this.height, 1615855616, -1602211792);
-      p_95920_.pushPose();
-      p_95920_.scale(2.0F, 2.0F, 2.0F);
-      drawCenteredString(p_95920_, this.font, this.title, this.width / 2 / 2, 30, 16777215);
-      p_95920_.popPose();
-      if (this.causeOfDeath != null) {
-         drawCenteredString(p_95920_, this.font, this.causeOfDeath, this.width / 2, 85, 16777215);
-      }
+      // Added my Own overlay to the death sccreen
+     DeathScreenOverlay overlay = new DeathScreenOverlay();
 
-      drawCenteredString(p_95920_, this.font, this.deathScore, this.width / 2, 100, 16777215);
-      if (this.causeOfDeath != null && p_95922_ > 85 && p_95922_ < 85 + 9) {
-         Style style = this.getClickedComponentStyleAt(p_95921_);
-         this.renderComponentHoverEffect(p_95920_, style, p_95921_, p_95922_);
+      overlay.renderDeathScreen(p_95920_, this, title, font, causeOfDeath,this.splash,width, height, p_95921_, p_95922_);
+      
+      if (causeOfDeath != null && p_95922_ > 85 && p_95922_ < 85 + 9) {
+         Style style3 = this.getClickedComponentStyleAt(p_95921_);
+         this.renderComponentHoverEffect(p_95920_, style3, p_95921_, p_95922_);
       }
-
       super.render(p_95920_, p_95921_, p_95922_, p_95923_);
    }
 
    @Nullable
-   private Style getClickedComponentStyleAt(int p_95918_) {
+   public Style getClickedComponentStyleAt(int p_95918_) {
       if (this.causeOfDeath == null) {
          return null;
       } else {

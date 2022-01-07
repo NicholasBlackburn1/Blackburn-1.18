@@ -24,8 +24,9 @@ public class ClientStartup {
      
         if(mine.level != null){
             if (!mine.pause && Consts.showStart) {
-
                 messages();
+
+                
             }
         }
     }
