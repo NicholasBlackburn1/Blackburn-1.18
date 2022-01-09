@@ -4,6 +4,15 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 
 public class SoundEvents {
+
+   // Blackburn sounds 
+   public static final SoundEvent BLACKBURN_INIT = register("blackburn.sound.test");
+
+
+
+
+
+
    public static final SoundEvent AMBIENT_CAVE = register("ambient.cave");
    public static final SoundEvent AMBIENT_BASALT_DELTAS_ADDITIONS = register("ambient.basalt_deltas.additions");
    public static final SoundEvent AMBIENT_BASALT_DELTAS_LOOP = register("ambient.basalt_deltas.loop");

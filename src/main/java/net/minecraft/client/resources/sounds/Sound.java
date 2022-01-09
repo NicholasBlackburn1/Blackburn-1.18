@@ -6,6 +6,7 @@ import net.minecraft.client.sounds.Weighted;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import space.nickyblackburn.utils.Consts;
 
 @OnlyIn(Dist.CLIENT)
 public class Sound implements Weighted<Sound> {
@@ -34,6 +35,7 @@ public class Sound implements Weighted<Sound> {
    }
 
    public ResourceLocation getPath() {
+      Consts.log("SOund path is "+ " "+this.location.getNamespace().toString()+"sounds/" + this.location.getPath() + ".ogg");
       return new ResourceLocation(this.location.getNamespace(), "sounds/" + this.location.getPath() + ".ogg");
    }
 

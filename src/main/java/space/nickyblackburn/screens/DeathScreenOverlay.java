@@ -5,8 +5,11 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import space.nickyblackburn.utils.Consts;
 
 public class DeathScreenOverlay {
@@ -21,7 +24,7 @@ public class DeathScreenOverlay {
         screen.drawCenteredString(p_95920_, font, title, width / 2 / 2, 30, 16777215);
   
         p_95920_.popPose();
-
+            
         if (causeOfDeath != null) {
             screen.drawCenteredString(p_95920_,font, sufix, width / 2, 85, 16777215);
             screen.drawCenteredString(p_95920_,font, causeOfDeath, width / 2, 100, 16777215);
@@ -31,4 +34,5 @@ public class DeathScreenOverlay {
         //screen.drawCenteredString(p_95920_, font,  "§e§b"+Splash, width / 2, 100, 16777215);
   
     }
-}
+    
+    }

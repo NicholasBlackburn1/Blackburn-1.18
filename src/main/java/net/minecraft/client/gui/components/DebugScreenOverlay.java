@@ -129,9 +129,7 @@ public class DebugScreenOverlay extends GuiComponent {
       List<String> list = this.getGameInformation();
       list.add("");
       boolean flag = this.minecraft.getSingleplayerServer() != null;
-      list.add("Debug: Pie [shift]: " + (this.minecraft.options.renderDebugCharts ? "visible" : "hidden") + (flag ? " FPS + TPS" : " FPS") + " [alt]: " + (this.minecraft.options.renderFpsChart ? "visible" : "hidden"));
-      list.add("For help: press F3 + Q");
-
+    
       for(int i = 0; i < list.size(); ++i) {
          String s = list.get(i);
          if (!Strings.isNullOrEmpty(s)) {
@@ -213,12 +211,10 @@ public class DebugScreenOverlay extends GuiComponent {
             list.add(s2);
          }
 
-         list.add(this.minecraft.level.dimension().location() + " FC: " + longset.size());
+        
          list.add("");
          list.add(String.format(Locale.ROOT, "XYZ: %.3f / %.5f / %.3f", this.minecraft.getCameraEntity().getX(), this.minecraft.getCameraEntity().getY(), this.minecraft.getCameraEntity().getZ()));
-         list.add(String.format("Block: %d %d %d", blockpos.getX(), blockpos.getY(), blockpos.getZ()));
-         list.add(String.format("Chunk: %d %d %d in %d %d %d", blockpos.getX() & 15, blockpos.getY() & 15, blockpos.getZ() & 15, SectionPos.blockToSectionCoord(blockpos.getX()), SectionPos.blockToSectionCoord(blockpos.getY()), SectionPos.blockToSectionCoord(blockpos.getZ())));
-         list.add(String.format(Locale.ROOT, "Facing: %s (%s) (%.1f / %.1f)", direction, s1, Mth.wrapDegrees(entity.getYRot()), Mth.wrapDegrees(entity.getXRot())));
+        
          LevelChunk levelchunk = this.getClientChunk();
          if (levelchunk.isEmpty()) {
             list.add("Waiting for chunk...");
@@ -226,7 +222,7 @@ public class DebugScreenOverlay extends GuiComponent {
             int i = this.minecraft.level.getChunkSource().getLightEngine().getRawBrightness(blockpos, 0);
             int j = this.minecraft.level.getBrightness(LightLayer.SKY, blockpos);
             int k = this.minecraft.level.getBrightness(LightLayer.BLOCK, blockpos);
-            list.add("Client Light: " + i + " (" + j + " sky, " + k + " block)");
+        
             LevelChunk levelchunk1 = this.getServerChunk();
             StringBuilder stringbuilder = new StringBuilder("CH");
 
@@ -236,7 +232,7 @@ public class DebugScreenOverlay extends GuiComponent {
                }
             }
 
-            list.add(stringbuilder.toString());
+       
             stringbuilder.setLength(0);
             stringbuilder.append("SH");
 
@@ -251,7 +247,6 @@ public class DebugScreenOverlay extends GuiComponent {
                }
             }
 
-            list.add(stringbuilder.toString());
             if (blockpos.getY() >= this.minecraft.level.getMinBuildHeight() && blockpos.getY() < this.minecraft.level.getMaxBuildHeight()) {
                list.add("Biome: " + this.minecraft.level.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY).getKey(this.minecraft.level.getBiome(blockpos)));
                long l = 0L;
@@ -262,7 +257,7 @@ public class DebugScreenOverlay extends GuiComponent {
                }
 
                DifficultyInstance difficultyinstance = new DifficultyInstance(level.getDifficulty(), level.getDayTime(), l, f2);
-               list.add(String.format(Locale.ROOT, "Local Difficulty: %.2f // %.2f (Day %d)", difficultyinstance.getEffectiveDifficulty(), difficultyinstance.getSpecialMultiplier(), this.minecraft.level.getDayTime() / 24000L));
+            
             }
          }
 
@@ -277,20 +272,18 @@ public class DebugScreenOverlay extends GuiComponent {
             if (naturalspawner$spawnstate != null) {
                Object2IntMap<MobCategory> object2intmap = naturalspawner$spawnstate.getMobCategoryCounts();
                int i1 = naturalspawner$spawnstate.getSpawnableChunkCount();
-               list.add("SC: " + i1 + ", " + (String)Stream.of(MobCategory.values()).map((p_94068_) -> {
-                  return Character.toUpperCase(p_94068_.getName().charAt(0)) + ": " + object2intmap.getInt(p_94068_);
-               }).collect(Collectors.joining(", ")));
+     
             } else {
-               list.add("SC: N/A");
+              
             }
          }
 
          PostChain postchain = this.minecraft.gameRenderer.currentEffect();
          if (postchain != null) {
-            list.add("Shader: " + postchain.getName());
+           
          }
-
-         list.add(this.minecraft.getSoundManager().getDebugString() + String.format(" (Mood %d%%)", Math.round(this.minecraft.player.getCurrentMood() * 100.0F)));
+         list.add("§cO§6w§eO §9D§be§5v §6M§ee§as§9s§ba§5e§cg§6e §9*§bn§5u§cz§6z§el§ae§9s §5u§cr §eB§au§9l§bg§5y§c*");
+        
          return list;
       }
    }
@@ -356,15 +349,13 @@ public class DebugScreenOverlay extends GuiComponent {
             BlockPos blockpos = ((BlockHitResult)this.block).getBlockPos();
             BlockState blockstate = this.minecraft.level.getBlockState(blockpos);
             list.add("");
-            list.add(ChatFormatting.UNDERLINE + "Targeted Block: " + blockpos.getX() + ", " + blockpos.getY() + ", " + blockpos.getZ());
-            list.add(String.valueOf((Object)Registry.BLOCK.getKey(blockstate.getBlock())));
-
+            
             for(Entry<Property<?>, Comparable<?>> entry : blockstate.getValues().entrySet()) {
-               list.add(this.getPropertyValueString(entry));
+              
             }
 
             for(ResourceLocation resourcelocation : this.minecraft.getConnection().getTags().getOrEmpty(Registry.BLOCK_REGISTRY).getMatchingTags(blockstate.getBlock())) {
-               list.add("#" + resourcelocation);
+              
             }
          }
 
@@ -372,23 +363,19 @@ public class DebugScreenOverlay extends GuiComponent {
             BlockPos blockpos1 = ((BlockHitResult)this.liquid).getBlockPos();
             FluidState fluidstate = this.minecraft.level.getFluidState(blockpos1);
             list.add("");
-            list.add(ChatFormatting.UNDERLINE + "Targeted Fluid: " + blockpos1.getX() + ", " + blockpos1.getY() + ", " + blockpos1.getZ());
-            list.add(String.valueOf((Object)Registry.FLUID.getKey(fluidstate.getType())));
-
+           
             for(Entry<Property<?>, Comparable<?>> entry1 : fluidstate.getValues().entrySet()) {
-               list.add(this.getPropertyValueString(entry1));
+            
             }
 
             for(ResourceLocation resourcelocation1 : this.minecraft.getConnection().getTags().getOrEmpty(Registry.FLUID_REGISTRY).getMatchingTags(fluidstate.getType())) {
-               list.add("#" + resourcelocation1);
+             
             }
          }
 
          Entity entity = this.minecraft.crosshairPickEntity;
          if (entity != null) {
-            list.add("");
-            list.add(ChatFormatting.UNDERLINE + "Targeted Entity");
-            list.add(String.valueOf((Object)Registry.ENTITY_TYPE.getKey(entity.getType())));
+        
          }
 
          return list;

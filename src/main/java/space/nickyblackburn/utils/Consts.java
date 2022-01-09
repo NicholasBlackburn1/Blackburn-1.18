@@ -45,15 +45,15 @@ public class Consts {
     public static float pVOffsetfull = 0;
 
     public static String RELEASE = "DEBUG";
-    public static String VERSION = "1.18.1-Blackburn";
+    public static String VERSION = "§c1§6.§e1§a8§9.§b1§5-§cB§6l§ea§ac§9k§bb§5u§cr§6n§r";
     public static String Date = null;
 
 
-    public static String ReleaseName = "Blackburn's";
+    public static String ReleaseName = "§cB§6l§ea§ac§9k§bb§5u§cr§6n§e'§as§r";
 
 
     // CopyRight Text
-    public static String copyright = "CopyRighted By Nicky Blackburn";
+    public static String copyright = "§cC§6o§ep§ay§9R§bi§5g§ch§6t§ee§ad §bB§5y §6N§ei§ac§9k§by §cB§6l§ea§ac§9k§bb§5u§cr§6n";
 
 
     public static boolean enablePosInfo = false;

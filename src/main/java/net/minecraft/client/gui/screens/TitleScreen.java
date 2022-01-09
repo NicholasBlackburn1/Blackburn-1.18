@@ -176,6 +176,7 @@ public class TitleScreen extends Screen {
       int i = 274;
       int j = this.width / 2 - 137;
       int k = 30;
+      
       RenderSystem.setShader(GameRenderer::getPositionTexShader);
       RenderSystem.setShaderTexture(0, PANORAMA_OVERLAY);
       RenderSystem.enableBlend();
