@@ -24,4 +24,15 @@ public class VersionCommand{
            return 1;
         }));
     }
+
+    public static String getName(){
+        return "blackburn.commands.version.pre";
+    }
+
+    public static String getDecs(){
+        return "blackburn.commands.version.desc";
+    }
 }
+
+
+

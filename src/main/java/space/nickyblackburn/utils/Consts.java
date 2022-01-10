@@ -12,6 +12,10 @@ public class Consts {
     
     public static List background = new ArrayList<Integer>();
     public static List keys = new ArrayList<Integer>();
+
+    public static List commands = new LinkedList<String>();
+    public static List commanddesc = new LinkedList<String>();
+
     public static Minecraft minecraft  = Minecraft.getInstance();
 
     
