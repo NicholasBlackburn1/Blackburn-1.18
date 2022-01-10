@@ -32,7 +32,7 @@ public class ServerResources implements AutoCloseable {
    private final ServerAdvancementManager advancements = new ServerAdvancementManager(this.predicateManager);
    private final ServerFunctionLibrary functionLibrary;
 
-   public ServerResources(RegistryAccess p_180002_, Commands.CommandSelection p_180003_, int p_180004_) {
+   public ServerResources(RegistryAccess p_180002_, Commands.CommandSelection p_180003_,BlackburnCommand.CommandSelection blackburn, int p_180004_) {
       this.tagManager = new TagManager(p_180002_);
       this.commands = new Commands(p_180003_);
       this.functionLibrary = new ServerFunctionLibrary(p_180004_, this.commands.getDispatcher());
@@ -43,7 +43,7 @@ public class ServerResources implements AutoCloseable {
       this.resources.registerReloadListener(this.itemModifierManager);
       this.resources.registerReloadListener(this.functionLibrary);
       this.resources.registerReloadListener(this.advancements);
-      this.commandsb = new BlackburnCommand(p_180003_);
+      this.commandsb = new BlackburnCommand(blackburn);
    }
 
    public ServerFunctionLibrary getFunctionLibrary() {
@@ -85,8 +85,8 @@ public class ServerResources implements AutoCloseable {
       return this.resources;
    }
 
-   public static CompletableFuture<ServerResources> loadResources(List<PackResources> p_180006_, RegistryAccess p_180007_, Commands.CommandSelection p_180008_, int p_180009_, Executor p_180010_, Executor p_180011_) {
-      ServerResources serverresources = new ServerResources(p_180007_, p_180008_, p_180009_);
+   public static CompletableFuture<ServerResources> loadResources(List<PackResources> p_180006_, RegistryAccess p_180007_, Commands.CommandSelection p_180008_, BlackburnCommand.CommandSelection blackburnSelection, int i, Executor p_180010_, Executor p_180011_) {
+      ServerResources serverresources = new ServerResources(p_180007_, p_180008_, blackburnSelection,0);
       CompletableFuture<Unit> completablefuture = serverresources.resources.reload(p_180010_, p_180011_, p_180006_, DATA_RELOAD_INITIAL_TASK);
       return completablefuture.whenComplete((p_136169_, p_136170_) -> {
          if (p_136170_ != null) {

@@ -103,6 +103,7 @@ import net.minecraft.server.commands.WorldBorderCommand;
 import net.minecraft.server.commands.data.DataCommands;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.profiling.jfr.JvmProfiler;
+import space.nickyblackburn.command.CommandRegister;
 import space.nickyblackburn.command.VersionCommand;
 
 import org.apache.logging.log4j.LogManager;
@@ -174,8 +175,10 @@ public class Commands {
       WeatherCommand.register(this.dispatcher);
       WorldBorderCommand.register(this.dispatcher);
 
-      // THis is where the commands start
-      VersionCommand.register(this.dispatcher);
+      // Registers commands for client
+      CommandRegister register = new CommandRegister();
+      register.registerCommands(dispatcher);
+
 
       if (JvmProfiler.INSTANCE.isAvailable()) {
          JfrCommand.register(this.dispatcher);
@@ -274,7 +277,7 @@ public class Commands {
       } finally {
          p_82118_.getServer().getProfiler().pop();
       }
-      
+
    }
 
    public void sendCommands(ServerPlayer p_82096_) {

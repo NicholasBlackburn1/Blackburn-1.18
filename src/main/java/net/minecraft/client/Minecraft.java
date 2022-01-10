@@ -249,6 +249,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import space.nickyblackburn.ClientStartup;
+import space.nickyblackburn.command.BlackburnCommand;
 import space.nickyblackburn.utils.Consts;
 
 import org.apache.commons.io.FileUtils;
@@ -2025,7 +2026,7 @@ public class Minecraft extends ReentrantBlockableEventLoop<Runnable> implements 
 
       try {
          DataPackConfig datapackconfig1 = MinecraftServer.configurePackRepository(packrepository, datapackconfig, p_91194_);
-         CompletableFuture<ServerResources> completablefuture = ServerResources.loadResources(packrepository.openAllSelected(), p_91191_, Commands.CommandSelection.INTEGRATED, 2, Util.backgroundExecutor(), this);
+         CompletableFuture<ServerResources> completablefuture = ServerResources.loadResources(packrepository.openAllSelected(), p_91191_, Commands.CommandSelection.INTEGRATED, BlackburnCommand.CommandSelection.INTEGRATED, 2, Util.backgroundExecutor(), this);
          this.managedBlock(completablefuture::isDone);
          ServerResources serverresources = completablefuture.get();
          WorldData worlddata = p_91193_.apply(p_91195_, p_91191_, serverresources.getResourceManager(), datapackconfig1);

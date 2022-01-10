@@ -46,6 +46,8 @@ import net.minecraft.server.packs.repository.ServerPacksSource;
 import net.minecraft.world.level.levelgen.WorldGenSettings;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import space.nickyblackburn.command.BlackburnCommand;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -132,7 +134,7 @@ public class WorldGenSettingsComponent implements Widget {
             ServerResources serverresources;
             try {
                MinecraftServer.configurePackRepository(packrepository, p_101430_.dataPacks, false);
-               CompletableFuture<ServerResources> completablefuture = ServerResources.loadResources(packrepository.openAllSelected(), registryaccess$registryholder, Commands.CommandSelection.INTEGRATED, 2, Util.backgroundExecutor(), p_101431_);
+               CompletableFuture<ServerResources> completablefuture = ServerResources.loadResources(packrepository.openAllSelected(), registryaccess$registryholder, Commands.CommandSelection.INTEGRATED, BlackburnCommand.CommandSelection.INTEGRATED, j, Util.backgroundExecutor(), p_101431_);
                p_101431_.managedBlock(completablefuture::isDone);
                serverresources = completablefuture.get();
             } catch (ExecutionException | InterruptedException interruptedexception) {

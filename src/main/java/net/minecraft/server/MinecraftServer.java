@@ -57,6 +57,7 @@ import net.minecraft.Util;
 import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.commands.Commands.CommandSelection;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;
@@ -1252,7 +1253,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
       CompletableFuture<Void> completablefuture = CompletableFuture.supplyAsync(() -> {
          return p_129862_.stream().map(this.packRepository::getPack).filter(Objects::nonNull).map(Pack::open).collect(ImmutableList.toImmutableList());
       }, this).thenCompose((p_199990_) -> {
-         return ServerResources.loadResources(p_199990_, this.registryHolder, this.isDedicatedServer() ? Commands.CommandSelection.DEDICATED : Commands.CommandSelection.INTEGRATED, this.getFunctionCompilationLevel(), this.executor, this);
+         return ServerResources.loadResources(p_199990_, this.registryHolder, this.isDedicatedServer() ? Commands.CommandSelection.DEDICATED : Commands.CommandSelection.INTEGRATED, BlackburnCommand.CommandSelection.DEDICATED, this.getFunctionCompilationLevel(), this.executor, this);
       }).thenAcceptAsync((p_199996_) -> {
          this.resources.close();
          this.resources = p_199996_;

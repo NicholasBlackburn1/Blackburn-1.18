@@ -53,6 +53,8 @@ import net.minecraft.world.level.storage.LevelResource;
 import net.minecraft.world.level.storage.LevelStorageSource;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import space.nickyblackburn.command.BlackburnCommand;
+
 import org.apache.commons.lang3.mutable.MutableObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -406,7 +408,7 @@ public class CreateWorldScreen extends Screen {
          this.minecraft.tell(() -> {
             this.minecraft.setScreen(new GenericDirtMessageScreen(new TranslatableComponent("dataPack.validation.working")));
          });
-         ServerResources.loadResources(p_100879_.openAllSelected(), this.worldGenSettingsComponent.registryHolder(), Commands.CommandSelection.INTEGRATED, 2, Util.backgroundExecutor(), this.minecraft).thenAcceptAsync((p_170154_) -> {
+         ServerResources.loadResources(p_100879_.openAllSelected(), this.worldGenSettingsComponent.registryHolder(), Commands.CommandSelection.INTEGRATED, BlackburnCommand.CommandSelection.INTEGRATED, 2, Util.backgroundExecutor(), this.minecraft).thenAcceptAsync((p_170154_) -> {
             this.dataPacks = datapackconfig;
             this.worldGenSettingsComponent.updateDataPacks(p_170154_);
             p_170154_.close();
