@@ -19,6 +19,7 @@ public class Consts {
 
 
     public static List blocklistseen = new LinkedList<Block>();
+    public static List blocklistseenpos = new LinkedList<double>();
 
     public static Minecraft minecraft  = Minecraft.getInstance();
 
