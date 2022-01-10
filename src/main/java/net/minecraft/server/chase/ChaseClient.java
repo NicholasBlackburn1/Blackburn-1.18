@@ -23,6 +23,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+import space.nickyblackburn.command.BlackburnCommand;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -163,6 +165,7 @@ public class ChaseClient {
    }
 
    private void executeCommand(String p_196002_) {
+      
       this.server.execute(() -> {
          List<ServerPlayer> list = this.server.getPlayerList().getPlayers();
          if (!list.isEmpty()) {
@@ -171,6 +174,9 @@ public class ChaseClient {
             CommandSourceStack commandsourcestack = new CommandSourceStack(serverplayer, Vec3.atLowerCornerOf(serverlevel.getSharedSpawnPos()), Vec2.ZERO, serverlevel, 4, "", TextComponent.EMPTY, this.server, serverplayer);
             Commands commands = this.server.getCommands();
             commands.performCommand(commandsourcestack, p_196002_);
+           
+            
+
          }
       });
    }
