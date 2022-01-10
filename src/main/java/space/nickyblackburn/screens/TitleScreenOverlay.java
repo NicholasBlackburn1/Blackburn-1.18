@@ -147,7 +147,8 @@ public class TitleScreenOverlay {
 
     // sets version info on main menu to blackburn + version name 
     public void setDrawVersionName(Minecraft minecraft,Screen screen, PoseStack pose,Font font, int height, int l ){
-
+      Consts.showStart= true;
+      
       String s = Consts.ReleaseName + SharedConstants.getCurrentVersion().getName();
       if (minecraft.isDemo()) {
          s = s + " Demo";
