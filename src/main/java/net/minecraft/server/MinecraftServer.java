@@ -154,6 +154,8 @@ import net.minecraft.world.level.storage.loot.LootTables;
 import net.minecraft.world.level.storage.loot.PredicateManager;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+import space.nickyblackburn.command.BlackburnCommand;
+
 import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -1332,6 +1334,10 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
 
    public Commands getCommands() {
       return this.resources.getCommands();
+   }
+
+   public BlackburnCommand getCommandsb() {
+      return this.resources.getCommandsb();
    }
 
    public CommandSourceStack createCommandSourceStack() {

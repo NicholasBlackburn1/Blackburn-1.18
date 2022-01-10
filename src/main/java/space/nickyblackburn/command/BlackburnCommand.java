@@ -130,12 +130,12 @@ public class BlackburnCommand {
     public static final int LEVEL_OWNERS = 4;
     private final CommandDispatcher<CommandSourceStack> dispatcher = new CommandDispatcher<>();
  
-    public BlackburnCommand(BlackburnCommand.CommandSelection p_82093_) {
+    public BlackburnCommand(CommandSelection all) {
         
         // Where i can register my commands 
         CommandRegister register = new CommandRegister();
 
-        register.registerCommands(p_82093_);
+        register.registerCommands(this.dispatcher);
  
        this.dispatcher.findAmbiguities((p_82108_, p_82109_, p_82110_, p_82111_) -> {
           Consts.log("Ambiguity between arguments {} and {} with inputs: {}"+this.dispatcher.getPath(p_82109_)+this.dispatcher.getPath(p_82110_)+p_82111_);
@@ -282,20 +282,6 @@ public class BlackburnCommand {
        }
     }
  
-    public static void validate() {
-       RootCommandNode<CommandSourceStack> rootcommandnode = (new BlackburnCommand(BlackburnCommand.CommandSelection.ALL)).getDispatcher().getRoot();
-       Set<ArgumentType<?>> set = ArgumentTypes.findUsedArgumentTypes(rootcommandnode);
-       Set<ArgumentType<?>> set1 = set.stream().filter((p_82140_) -> {
-          return !ArgumentTypes.isTypeRegistered(p_82140_);
-       }).collect(Collectors.toSet());
-       if (!set1.isEmpty()) {
-          Consts.log("Missing type registration for following arguments:\n {}"+ set1.stream().map((p_82100_) -> {
-             return "\t" + p_82100_;
-          }).collect(Collectors.joining(",\n")));
-          throw new IllegalStateException("Unregistered argument types");
-       }
-    }
- 
     public static enum CommandSelection {
        ALL(true, true),
        DEDICATED(false, true),
@@ -309,6 +295,20 @@ public class BlackburnCommand {
           this.includeDedicated = p_82152_;
        }
     }
+
+    public static void validate() {
+        RootCommandNode<CommandSourceStack> rootcommandnode = new BlackburnCommand(CommandSelection.ALL).getDispatcher().getRoot();
+        Set<ArgumentType<?>> set = ArgumentTypes.findUsedArgumentTypes(rootcommandnode);
+        Set<ArgumentType<?>> set1 = set.stream().filter((p_82140_) -> {
+           return !ArgumentTypes.isTypeRegistered(p_82140_);
+        }).collect(Collectors.toSet());
+        if (!set1.isEmpty()) {
+           Consts.log("Missing type registration for following arguments:\n {}"+ set1.stream().map((p_82100_) -> {
+              return "\t" + p_82100_;
+           }).collect(Collectors.joining(",\n")));
+           throw new IllegalStateException("Unregistered argument types");
+        }
+     }
  
     @FunctionalInterface
     public interface ParseFunction {

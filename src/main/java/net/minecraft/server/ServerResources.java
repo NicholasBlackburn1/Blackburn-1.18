@@ -17,11 +17,13 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.storage.loot.ItemModifierManager;
 import net.minecraft.world.level.storage.loot.LootTables;
 import net.minecraft.world.level.storage.loot.PredicateManager;
+import space.nickyblackburn.command.BlackburnCommand;
 
 public class ServerResources implements AutoCloseable {
    private static final CompletableFuture<Unit> DATA_RELOAD_INITIAL_TASK = CompletableFuture.completedFuture(Unit.INSTANCE);
    private final ReloadableResourceManager resources = new SimpleReloadableResourceManager(PackType.SERVER_DATA);
    private final Commands commands;
+   private final BlackburnCommand commandsb;
    private final RecipeManager recipes = new RecipeManager();
    private final TagManager tagManager;
    private final PredicateManager predicateManager = new PredicateManager();
@@ -41,6 +43,7 @@ public class ServerResources implements AutoCloseable {
       this.resources.registerReloadListener(this.itemModifierManager);
       this.resources.registerReloadListener(this.functionLibrary);
       this.resources.registerReloadListener(this.advancements);
+      this.commandsb = new BlackburnCommand(p_180003_);
    }
 
    public ServerFunctionLibrary getFunctionLibrary() {
@@ -69,6 +72,9 @@ public class ServerResources implements AutoCloseable {
 
    public Commands getCommands() {
       return this.commands;
+   }
+   public BlackburnCommand getCommandsb() {
+      return this.commandsb;
    }
 
    public ServerAdvancementManager getAdvancements() {

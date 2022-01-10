@@ -173,7 +173,10 @@ public class ChaseClient {
             ServerLevel serverlevel = this.server.overworld();
             CommandSourceStack commandsourcestack = new CommandSourceStack(serverplayer, Vec3.atLowerCornerOf(serverlevel.getSharedSpawnPos()), Vec2.ZERO, serverlevel, 4, "", TextComponent.EMPTY, this.server, serverplayer);
             Commands commands = this.server.getCommands();
+            BlackburnCommand  blackcmmands  =this.server.getCommandsb();
             commands.performCommand(commandsourcestack, p_196002_);
+            blackcmmands.performCommand(commandsourcestack, p_196002_);
+
            
             
 
