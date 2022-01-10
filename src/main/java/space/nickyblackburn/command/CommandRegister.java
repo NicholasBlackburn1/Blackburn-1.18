@@ -18,11 +18,14 @@ public class CommandRegister {
 
         VersionCommand.register(dispatcher);
         HelpCommand.register(dispatcher);
+        GetBlockStandingCommand.register(dispatcher);
 
         Consts.commands.add(0,HelpCommand.getName());
         Consts.commanddesc.add(0,HelpCommand.getDecs());
         Consts.commands.add(1,VersionCommand.getName());
         Consts.commanddesc.add(1,VersionCommand.getDecs());
+        Consts.commands.add(2,GetBlockStandingCommand.getName());
+        Consts.commanddesc.add(2,GetBlockStandingCommand.getDecs());
     }
     
 }

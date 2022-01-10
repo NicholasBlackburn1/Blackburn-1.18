@@ -19,10 +19,12 @@ public static void register(CommandDispatcher<CommandSourceStack> p_138786_) {
        p_138788_.getSource().sendSuccess(new TranslatableComponent("blackburn.commands.help"), true);
         
        // this should run and show me the  the commands in it 
-       for (int i = 0;  i < Consts.commands.size()-1; i++)
+       for (int i = 0;  i < Consts.commands.size()-2; i++)
        {   
+        
             Consts.log("data ib the commands list are "+Consts.commands.get(i).toString());
             p_138788_.getSource().sendSuccess(new TranslatableComponent(Consts.commands.get(i).toString()).append(new TranslatableComponent(Consts.commanddesc.get(i).toString())), true);
+        
 
        }    
       
