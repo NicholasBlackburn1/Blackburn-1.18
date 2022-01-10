@@ -20,7 +20,7 @@ public class CommandRegister {
         HelpCommand.register(dispatcher);
 
         Consts.commands.add(0,VersionCommand.getName());
-        Consts.commanddesc.add(0,VersionCommand.getName());
+        Consts.commanddesc.add(0,VersionCommand.getDecs());
     }
     
 }
