@@ -9,7 +9,7 @@ import net.minecraft.network.chat.TranslatableComponent;
 import space.nickyblackburn.utils.Consts;
 import space.nickyblackburn.xray.XrayRenderer;
 
-public class GetBlockStandingCommand {
+public class GetBlocksArroundMeCommand {
     
  
 
@@ -17,12 +17,14 @@ public class GetBlockStandingCommand {
      public static void register(CommandDispatcher<CommandSourceStack> p_138786_) {
         XrayRenderer xray = new XrayRenderer();
         
-        p_138786_.register(Commands.literal(".getblock").requires((p_138790_) -> {
+        p_138786_.register(Commands.literal(".getblockarroundme").requires((p_138790_) -> {
             Consts.log("OwO .blockpos command run");
            return p_138790_.hasPermission(1);
 
         }).executes((p_138788_) -> {
-           p_138788_.getSource().sendSuccess(new TranslatableComponent("blackburn.commands.getblock").append(xray.getBlockKey(Minecraft.getInstance(),Minecraft.getInstance().player)),true);
+            xray.getBlocks(Minecraft.getInstance(),Minecraft.getInstance().player);
+
+           p_138788_.getSource().sendSuccess(new TranslatableComponent("blackburn.commands.getblocks").append(" "+Consts.blocklistseen.size()),true);
             
            return 1;
         }));
@@ -30,11 +32,11 @@ public class GetBlockStandingCommand {
 
 
     public static String getName(){
-        return "blackburn.commands.getblock.pre";
+        return "blackburn.commands.getblocks.pre";
     }
 
     public static String getDecs(){
-        return "blackburn.commands.getblock.desc";
+        return "blackburn.commands.getblocks.desc";
     }
 
 

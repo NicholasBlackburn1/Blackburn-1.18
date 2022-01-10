@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.world.level.block.Block;
 
 public class Consts {
     
@@ -15,6 +16,9 @@ public class Consts {
 
     public static List commands = new LinkedList<String>();
     public static List commanddesc = new LinkedList<String>();
+
+
+    public static List blocklistseen = new LinkedList<Block>();
 
     public static Minecraft minecraft  = Minecraft.getInstance();
 

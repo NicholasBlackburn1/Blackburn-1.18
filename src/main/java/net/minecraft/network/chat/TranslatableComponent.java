@@ -35,7 +35,7 @@ public class TranslatableComponent extends BaseComponent implements ContextAware
       this.args = p_131308_;
    }
 
-   private void decompose() {
+   public void decompose() {
       Language language = Language.getInstance();
       if (language != this.decomposedWith) {
          this.decomposedWith = language;

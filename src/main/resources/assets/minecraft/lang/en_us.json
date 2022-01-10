@@ -5,16 +5,17 @@
   "blackburn.commands.version.pre":"§6/.version§r",
   "blackburn.commands.help.pre":"§6/.help§r",
   "blackburn.commands.getblock.pre":"§6/.getblock§r",
-
+  "blackburn.commands.getblocks.pre":"§6/.getblock§r",
 
   "blackburn.commands.version.desc":" §eshows u the Version of client§r",
   "blackburn.commands.help.desc":" §eLists all the commands and their Usages.§r",
   "blackburn.commands.getblock.desc":"§e gets the block under you ~ §r",
-
+  "blackburn.commands.getblocks.desc": "§e gets the blocks arround you ~ §r",
 
   "blackburn.commands.version":"Version is",
   "blackburn.commands.help":"§cC§6l§ei§ae§9n§bt §cH§6e§el§ap §bi§5t §6s§eh§ao§9w§bs §cu §et§ah§9e §5l§ci§6s§et §9o§bf §cc§6l§ei§ae§9n§bt §cc§6o§em§am§9a§bn§5d§cs",
-  
+  "blackburn.commands.getblock":"§aGot the Block under u the block is ",
+  "blackburn.commands.getblocks": "§aGot the Blocks arround u the ammout of blocks are ",
 
 
   "language.name": "English",
