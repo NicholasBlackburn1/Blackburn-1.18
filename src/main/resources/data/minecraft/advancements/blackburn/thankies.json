@@ -1,0 +1,39 @@
+{
+    "parent": "minecraft:blackburn/root",
+    "display": {
+      "icon": {
+        "item": "minecraft:shulker_shell"
+      },
+      "title": {
+        "translate": "advancements.blackburn.thankies"
+      },
+      "description": {
+        "translate": "advancements.blackburn.thankies.description"
+      },
+      "frame": "challenge",
+      "show_toast": true,
+      "announce_to_chat": true,
+      "hidden": false
+    },
+    "rewards": {
+      "experience": 500
+      
+    },
+    "criteria": {
+      "levitated": {
+        "trigger": "minecraft:levitation",
+        "conditions": {
+          "distance": {
+            "y": {
+              "min": 50.0
+            }
+          }
+        }
+      }
+    },
+    "requirements": [
+      [
+        "levitated"
+      ]
+    ]
+  }

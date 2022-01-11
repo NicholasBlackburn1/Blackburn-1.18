@@ -96,6 +96,7 @@ public class CriteriaTriggers {
    public static final DistanceTrigger FALL_FROM_HEIGHT = register(new DistanceTrigger(new ResourceLocation("fall_from_height")));
    public static final DistanceTrigger RIDE_ENTITY_IN_LAVA_TRIGGER = register(new DistanceTrigger(new ResourceLocation("ride_entity_in_lava")));
 
+
    private static <T extends CriterionTrigger<?>> T register(T p_10596_) {
       if (CRITERIA.containsKey(p_10596_.getId())) {
          throw new IllegalArgumentException("Duplicate criterion id " + p_10596_.getId());

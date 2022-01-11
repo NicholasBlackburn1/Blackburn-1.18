@@ -1,7 +1,7 @@
 {
     "display": {
       "icon": {
-        "item": "minecraft:fox"
+        "item": "minecraft:diamond"
       },
       "title": {
         "translate": "advancements.blackburn.root.title"
