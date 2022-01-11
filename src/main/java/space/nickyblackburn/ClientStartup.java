@@ -20,6 +20,7 @@ public class ClientStartup {
         
         Consts.minecraft.gui.getChat().addMessage(new TextComponent(I18n.get("blackburn.message.startup")));
         Consts.minecraft.gui.getChat().addMessage(new TextComponent(I18n.get("blackburn.message.cutie")));
+        Consts.minecraft.gui.getChat().addMessage(new TextComponent(I18n.get("")));
         Consts.minecraft.gui.getChat().addMessage(new TextComponent(I18n.get("blackburn.message.commands.pre")+ " §b"+ Consts.commands.size()+ " "+I18n.get("blackburn.message.commands.end")));
        
     }
