@@ -26,6 +26,9 @@
   "advancements.blackburn.thankies":"§cT§6h§ea§an§9k§bi§5e§cs §ef§ao§9r §5D§co§6w§en§al§9o§ba§5d§ci§6n§eg§a~",
   "advancements.blackburn.thankies.description":"OwO whos a good Furry~",
 
+  "blackburn.message.commands.pre":"there are",
+  "blackburn.message.commands.end": "§rCommands loaded!",
+
 
   "language.name": "English",
   "language.region": "United States",

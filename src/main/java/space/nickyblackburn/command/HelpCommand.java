@@ -16,18 +16,17 @@ public class HelpCommand {
     
 // This is where the command gets registered to run
 public static void register(CommandDispatcher<CommandSourceStack> p_138786_) {
-    Player player2 = Minecraft.getInstance().player;
-    ServerPlayer serverplayer = (ServerPlayer)player2;
-
+    
         
     p_138786_.register(BlackburnCommand.literal(".help").requires((p_138790_) -> {
         Consts.log("OwO .help command run");
        return p_138790_.hasPermission(1);
 
     }).executes((p_138788_) -> {
+        
        p_138788_.getSource().sendSuccess(new TranslatableComponent("blackburn.commands.help"), true);
         
-       CriteriaTriggers.TEST.trigger(serverplayer);
+     
        Consts.log("should run Advacemen");
        // this should run and show me the  the commands in it 
        for (int i = 0;  i < Consts.commands.size()-2; i++)
