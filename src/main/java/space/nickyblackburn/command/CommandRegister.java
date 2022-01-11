@@ -20,6 +20,7 @@ public class CommandRegister {
         HelpCommand.register(dispatcher);
         GetBlockStandingCommand.register(dispatcher);
         GetBlocksArroundMeCommand.register(dispatcher);
+    
 
         Consts.commands.add(0,HelpCommand.getName());
         Consts.commanddesc.add(0,HelpCommand.getDecs());
@@ -29,6 +30,7 @@ public class CommandRegister {
         Consts.commanddesc.add(2,GetBlockStandingCommand.getDecs());
         Consts.commands.add(3,GetBlocksArroundMeCommand.getName());
         Consts.commanddesc.add(3,GetBlocksArroundMeCommand.getDecs());
+        
     }
     
 }

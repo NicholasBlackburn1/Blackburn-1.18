@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DoubleBlockCombiner.NeighborCombineResult.Double;
 
 public class Consts {
     
@@ -19,7 +20,7 @@ public class Consts {
 
 
     public static List blocklistseen = new LinkedList<Block>();
-    public static List blocklistseenpos = new LinkedList<double>();
+    public static List blocklistseenpos = new LinkedList<Double>();
 
     public static Minecraft minecraft  = Minecraft.getInstance();
 
