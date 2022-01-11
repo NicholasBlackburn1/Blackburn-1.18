@@ -45,9 +45,13 @@ import net.minecraft.advancements.critereon.UsedEnderEyeTrigger;
 import net.minecraft.advancements.critereon.UsedTotemTrigger;
 import net.minecraft.advancements.critereon.UsingItemTrigger;
 import net.minecraft.resources.ResourceLocation;
+import space.nickyblackburn.advancements.TriggerCode;
 
 public class CriteriaTriggers {
    private static final Map<ResourceLocation, CriterionTrigger<?>> CRITERIA = Maps.newHashMap();
+
+   public static final TriggerCode TEST = register(new TriggerCode());
+
    public static final ImpossibleTrigger IMPOSSIBLE = register(new ImpossibleTrigger());
    public static final KilledTrigger PLAYER_KILLED_ENTITY = register(new KilledTrigger(new ResourceLocation("player_killed_entity")));
    public static final KilledTrigger ENTITY_KILLED_PLAYER = register(new KilledTrigger(new ResourceLocation("entity_killed_player")));

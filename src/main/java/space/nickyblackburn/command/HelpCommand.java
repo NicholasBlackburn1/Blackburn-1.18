@@ -2,14 +2,23 @@ package space.nickyblackburn.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 
+import net.minecraft.advancements.CriteriaTriggers;
+
+import net.minecraft.client.Minecraft;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import space.nickyblackburn.utils.Consts;
 
 public class HelpCommand {
+
     
 // This is where the command gets registered to run
 public static void register(CommandDispatcher<CommandSourceStack> p_138786_) {
+    Player player2 = Minecraft.getInstance().player;
+    ServerPlayer serverplayer = (ServerPlayer)player2;
+
         
     p_138786_.register(BlackburnCommand.literal(".help").requires((p_138790_) -> {
         Consts.log("OwO .help command run");
@@ -18,16 +27,23 @@ public static void register(CommandDispatcher<CommandSourceStack> p_138786_) {
     }).executes((p_138788_) -> {
        p_138788_.getSource().sendSuccess(new TranslatableComponent("blackburn.commands.help"), true);
         
+       CriteriaTriggers.TEST.trigger(serverplayer);
+       Consts.log("should run Advacemen");
        // this should run and show me the  the commands in it 
        for (int i = 0;  i < Consts.commands.size()-2; i++)
        {   
         
             Consts.log("data ib the commands list are "+Consts.commands.get(i).toString());
-            p_138788_.getSource().sendSuccess(new TranslatableComponent(Consts.commands.get(i).toString()).append(new TranslatableComponent(Consts.commanddesc.get(i).toString())), true);
-        
 
-       }    
-      
+         
+            
+
+            p_138788_.getSource().sendSuccess(new TranslatableComponent(Consts.commands.get(i).toString()).append(new TranslatableComponent(Consts.commanddesc.get(i).toString())), true);
+         
+
+       }   
+
+    
       
        return 1;
     }));

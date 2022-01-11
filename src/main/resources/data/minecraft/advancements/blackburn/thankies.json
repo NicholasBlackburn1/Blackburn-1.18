@@ -20,20 +20,8 @@
       
     },
     "criteria": {
-      "levitated": {
-        "trigger": "minecraft:levitation",
-        "conditions": {
-          "distance": {
-            "y": {
-              "min": 50.0
-            }
-          }
-        }
+      "blackburn":{
+          "trigger":"blackburn"
       }
-    },
-    "requirements": [
-      [
-        "levitated"
-      ]
-    ]
+      }
   }
