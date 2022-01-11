@@ -5,7 +5,7 @@
   "blackburn.commands.version.pre":"§6/.version§r",
   "blackburn.commands.help.pre":"§6/.help§r",
   "blackburn.commands.getblock.pre":"§6/.getblock§r",
-  "blackburn.commands.getblocks.pre":"§6/.getblock§r",
+  "blackburn.commands.getblocks.pre":"§6/.getblockarroundme§r",
   "blackburn.commands.getscreen.pre":"§6/.getscreen§r",
 
   "blackburn.commands.version.desc":" §eshows u the Version of client§r",
