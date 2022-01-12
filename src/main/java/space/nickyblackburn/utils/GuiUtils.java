@@ -250,4 +250,15 @@ public class GuiUtils {
    Consts.error("Couldn't read strings from {}"+"/assets/blackburn/backgrounds.json" +" "+ioexception.toString());
 }
  }
+
+// Allows me to make commands work only on the client
+ public void allowOneSidedMessages(String s, Screen screen, Minecraft mc){
+   if(s.startsWith(".")){
+
+      mc.gui.getChat().addRecentChat(s);
+   }else{
+      screen.sendMessage(s);
+
+   }
+ }
 }

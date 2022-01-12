@@ -14,9 +14,13 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import space.nickyblackburn.utils.GuiUtils;
 
 @OnlyIn(Dist.CLIENT)
 public class ChatScreen extends Screen {
+
+   private GuiUtils guiUtils = new GuiUtils();
+
    public static final int MOUSE_SCROLL_SPEED = 7;
    private static final Component USAGE_TEXT = new TranslatableComponent("chat_screen.usage");
    private String historyBuffer = "";
@@ -96,8 +100,11 @@ public class ChatScreen extends Screen {
          }
       } else {
          String s = this.input.getValue().trim();
+
          if (!s.isEmpty()) {
-            this.sendMessage(s);
+            // allows me to make my cliet only see the custom commands and allow the usr to send txt messages
+            guiUtils.allowOneSidedMessages(s, this, this.minecraft);
+        
          }
 
          this.minecraft.setScreen((Screen)null);
