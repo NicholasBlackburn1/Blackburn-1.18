@@ -68,6 +68,7 @@ public class Consts {
 
     public static boolean enablePosInfo = false;
     public static boolean enableLightInfo = false;
+    public static boolean speed = false;
 
 
     public boolean getEnablePos(){
