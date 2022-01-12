@@ -175,10 +175,7 @@ public class Commands {
       WeatherCommand.register(this.dispatcher);
       WorldBorderCommand.register(this.dispatcher);
 
-      // Registers commands for client
-      CommandRegister register = new CommandRegister();
-      register.registerCommands(dispatcher);
-
+    
 
       if (JvmProfiler.INSTANCE.isAvailable()) {
          JfrCommand.register(this.dispatcher);

@@ -4,56 +4,60 @@ import com.mojang.brigadier.CommandDispatcher;
 
 import net.minecraft.advancements.CriteriaTriggers;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import space.nickyblackburn.utils.Consts;
 
-public class HelpCommand {
+public class HelpCommand implements ICommandRegister{
 
-    
-// This is where the command gets registered to run
-public static void register(CommandDispatcher<CommandSourceStack> p_138786_) {
-    
-        
-    p_138786_.register(BlackburnCommand.literal(".help").requires((p_138790_) -> {
-        Consts.log("OwO .help command run");
-       return p_138790_.hasPermission(1);
+ 
+    @Override
+    public void register(List<String> command,Minecraft mc) {
+        TextComponent startup ;
+        TextComponent commands;
+                
+            if(!command.isEmpty()){
 
-    }).executes((p_138788_) -> {
-        
-       p_138788_.getSource().sendSuccess(new TranslatableComponent("blackburn.commands.help"), true);
-        
-     
-       Consts.log("should run Advacemen");
-       // this should run and show me the  the commands in it 
-       for (int i = 0;  i < Consts.commands.size()-2; i++)
-       {   
-        
-            Consts.log("data ib the commands list are "+Consts.commands.get(i).toString());
+                if (command.contains(".help")){
 
-         
-            
+                    startup = new TextComponent(I18n.get("blackburn.commands.help"));
+                        startup.setStyle(Style.EMPTY);
+                        mc.gui.getChat().addMessage(startup);
 
-            p_138788_.getSource().sendSuccess(new TranslatableComponent(Consts.commands.get(i).toString()).append(new TranslatableComponent(Consts.commanddesc.get(i).toString())), true);
-         
-
-       }   
-
-    
-      
-       return 1;
-    }));
-}
-public static String getName(){
-    return "blackburn.commands.help.pre";
-}
-
-public static String getDecs(){
-    return "blackburn.commands.help.desc";
-}
+                    for (int i = 0;  i < Consts.commands.size(); i++)
+                    {   
+                        
+                            Consts.log("data ib the commands list are "+Consts.commands.get(i).toString());
+                    
+                            mc.gui.getChat().addMessage(new TextComponent(Consts.commands.get(i).toString()).append(" "+new TextComponent(Consts.commanddesc.get(i).toString())));
+                            
+                            
+                    }   
+                    command.clear();
+               
 
 
+            }}
+        }
+
+    @Override
+    public String getName() {
+        // TODO Auto-generated method stub
+        return "blackburn.commands.help.pre";
+    }
+
+    @Override
+    public String getDesc() {
+        // TODO Auto-generated method stub
+        return "blackburn.commands.help.desc";
+    }
 }

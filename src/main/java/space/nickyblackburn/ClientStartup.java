@@ -10,6 +10,7 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import space.nickyblackburn.command.CommandRegister;
 import space.nickyblackburn.utils.Consts;
 
 public class ClientStartup {
@@ -28,12 +29,20 @@ public class ClientStartup {
 
      //allows me to send start up messages
     public void sendStartupMessages(Minecraft mine){
-     
+        
+        CommandRegister register = new CommandRegister();
+
         if(mine.level != null){
             if (!mine.pause && Consts.showStart) {
+                register.addToCommandDescList();
+                register.addToCommandList();
                 messages();
+                
 
                 
+            }
+            if (!mine.pause){
+                register.registerCommands(mine);
             }
         }
     }

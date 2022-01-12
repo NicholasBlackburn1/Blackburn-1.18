@@ -4,32 +4,52 @@ import com.mojang.brigadier.CommandDispatcher;
 
 import org.jetbrains.annotations.ApiStatus.OverrideOnly;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import space.nickyblackburn.utils.Consts;
+import java.util.List;
 
-public class VersionCommand{
 
+public class VersionCommand implements ICommandRegister{
+
+    @Override
     // This is where the command gets registered to run
-    public static void register(CommandDispatcher<CommandSourceStack> p_138786_) {
+    public void register(List<String> command,Minecraft mc) {
         
-        p_138786_.register(Commands.literal(".version").requires((p_138790_) -> {
-            Consts.log("OwO .Version command run");
-           return p_138790_.hasPermission(1);
+        TextComponent startup ;
+        TextComponent commands;
+        
+        if(!command.isEmpty()){
 
-        }).executes((p_138788_) -> {
-           p_138788_.getSource().sendSuccess(new TranslatableComponent("blackburn.commands.version").append(" "+Consts.VERSION), true);
-          
-           return 1;
-        }));
+            if (command.contains(".version")){
+
+                    startup = new TextComponent(I18n.get("blackburn.command.version.pre"));
+                    startup.setStyle(Style.EMPTY);
+                    mc.gui.getChat().addMessage(startup);
+                
+                    mc.gui.getChat().addMessage(new TextComponent("blackburn.commands.version").append(" "+Consts.VERSION));
+
+                    command.clear();
+                
+        
+            }   
+
+
+        }
     }
+          
 
-    public static String getName(){
+    @Override
+    public String getName(){
         return "blackburn.commands.version.pre";
     }
-
-    public static String getDecs(){
+    @Override
+    public  String getDesc(){
         return "blackburn.commands.version.desc";
     }
 }

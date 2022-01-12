@@ -5,32 +5,41 @@ package space.nickyblackburn.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import space.nickyblackburn.command.BlackburnCommand.CommandSelection;
 import space.nickyblackburn.utils.Consts;
+import java.util.List;
 
 public class CommandRegister {
     
+    HelpCommand help = new HelpCommand();
+    VersionCommand version = new VersionCommand();
 
-    public void registerCommands(CommandDispatcher<CommandSourceStack> dispatcher){
+    public void registerCommands(Minecraft mc){
 
 
-        VersionCommand.register(dispatcher);
-        HelpCommand.register(dispatcher);
-        GetBlockStandingCommand.register(dispatcher);
-        GetBlocksArroundMeCommand.register(dispatcher);
-    
+        List<String> command = mc.gui.getChat().getRecentChat();
 
-        Consts.commands.add(0,HelpCommand.getName());
-        Consts.commanddesc.add(0,HelpCommand.getDecs());
-        Consts.commands.add(1,VersionCommand.getName());
-        Consts.commanddesc.add(1,VersionCommand.getDecs());
-        Consts.commands.add(2,GetBlockStandingCommand.getName());
-        Consts.commanddesc.add(2,GetBlockStandingCommand.getDecs());
-        Consts.commands.add(3,GetBlocksArroundMeCommand.getName());
-        Consts.commanddesc.add(3,GetBlocksArroundMeCommand.getDecs());
+        help.register(command, mc);
+        version.register(command, mc);
+
         
     }
+
+    public void addToCommandList(){
+        Consts.commands.add(0,help.getName());
+        Consts.commands.add(1,version.getName());
+        
+    }
+
+
+    public void addToCommandDescList(){
+        Consts.commanddesc.add(0,help.getDesc());
+        Consts.commanddesc.add(1,version.getDesc());
+        
+    }
+
     
 }

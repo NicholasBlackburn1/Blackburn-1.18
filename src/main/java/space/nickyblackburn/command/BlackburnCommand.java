@@ -133,10 +133,7 @@ public class BlackburnCommand {
     public BlackburnCommand(CommandSelection all) {
         
         // Where i can register my commands 
-        CommandRegister register = new CommandRegister();
 
-        register.registerCommands(this.dispatcher);
- 
        this.dispatcher.findAmbiguities((p_82108_, p_82109_, p_82110_, p_82111_) -> {
           Consts.log("Ambiguity between arguments {} and {} with inputs: {}"+this.dispatcher.getPath(p_82109_)+this.dispatcher.getPath(p_82110_)+p_82111_);
        });
