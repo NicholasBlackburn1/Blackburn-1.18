@@ -28,11 +28,9 @@ public class VersionCommand implements ICommandRegister{
 
             if (command.contains(".version")){
 
-                    startup = new TextComponent(I18n.get("blackburn.command.version.pre"));
-                    startup.setStyle(Style.EMPTY);
-                    mc.gui.getChat().addMessage(startup);
+                   
                 
-                    mc.gui.getChat().addMessage(new TextComponent("blackburn.commands.version").append(" "+Consts.VERSION));
+                    mc.gui.getChat().addMessage(new TextComponent(I18n.get("blackburn.commands.version")).append(" "+Consts.VERSION));
 
                     command.clear();
                 

@@ -62,6 +62,7 @@ public class ChatComponent extends GuiComponent {
             int l = 0;
 
             for(int i1 = 0; i1 + this.chatScrollbarPos < this.trimmedMessages.size() && i1 < i; ++i1) {
+               
                GuiMessage<FormattedCharSequence> guimessage = this.trimmedMessages.get(i1 + this.chatScrollbarPos);
                if (guimessage != null) {
                   int j1 = p_93782_ - guimessage.getAddedTime();
@@ -147,7 +148,7 @@ public class ChatComponent extends GuiComponent {
 
    private void addMessage(Component p_93788_, int p_93789_) {
       this.addMessage(p_93788_, p_93789_, this.minecraft.gui.getGuiTicks(), false);
-      LOGGER.info("[CHAT] {}", (Object)p_93788_.getString().replaceAll("\r", "\\\\r").replaceAll("\n", "\\\\n"));
+      LOGGER.info("[local Chat] {}", (Object)p_93788_.getString().replaceAll("\r", "\\\\r").replaceAll("\n", "\\\\n"));
    }
 
    private void addMessage(Component p_93791_, int p_93792_, int p_93793_, boolean p_93794_) {
