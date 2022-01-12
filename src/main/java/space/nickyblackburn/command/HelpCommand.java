@@ -38,7 +38,7 @@ public class HelpCommand implements ICommandRegister{
                         
                             Consts.log("data ib the commands list are "+Consts.commands.get(i).toString());
                     
-                            mc.gui.getChat().addMessage(new TextComponent(Consts.commands.get(i).toString()).append(" "+new TextComponent(Consts.commanddesc.get(i).toString())));
+                            mc.gui.getChat().addMessage(new TextComponent(I18n.get(Consts.commands.get(i).toString())+" "+I18n.get(Consts.commanddesc.get(i).toString())));
                             
                             
                     }   
