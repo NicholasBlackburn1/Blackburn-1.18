@@ -6,7 +6,7 @@
   "blackburn.command.enabled": "§a is Enabled!",
   "blackburn.command.disabled": "§4 is Disabled!",
 
-  "blackburn.command.crit.useage":"§5 to use command please do .speed enable / disable",
+  "blackburn.command.crit.useage":"§5 to use command please do <.command> enable / disable",
 
   "blackburn.commands.version.pre":"§6.version§r",
   "blackburn.commands.help.pre":"§6.help§r",
