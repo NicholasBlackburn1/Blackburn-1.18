@@ -51,12 +51,14 @@ public class PlayerCrit{
                 if(mc.mouseHandler.isLeftPressed()){
                     
                     
-                    if(mc.crosshairPickEntity == null || mc.crosshairPickEntity.getType() == null){
+                    if(mc.crosshairPickEntity !=null || mc.crosshairPickEntity.getType() != null){
+                                                 
                         doCritical(mc);
 
+                        mc.gui.getChat().addMessage(new TextComponent("Critcal..."));
+
                         }
-                                                
-                        doCritical(mc);
+                      
                     }
                 }
                 catch(Exception e){
