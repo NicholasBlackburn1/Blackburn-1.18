@@ -1449,7 +1449,7 @@ public class Minecraft extends ReentrantBlockableEventLoop<Runnable> implements 
       }
    }
 
-   private void startAttack() {
+   public void startAttack() {
       if (this.missTime <= 0) {
          if (this.hitResult == null) {
             LOGGER.error("Null returned as 'hitResult', this shouldn't happen!");

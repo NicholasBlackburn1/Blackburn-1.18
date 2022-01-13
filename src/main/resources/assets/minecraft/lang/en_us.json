@@ -6,10 +6,11 @@
   "blackburn.command.enabled": "§a is Enabled!",
   "blackburn.command.disabled": "§4 is Disabled!",
 
-  "blackburn.command.speed.useage":"§5 to use command please do .speed enable / disable",
+  "blackburn.command.crit.useage":"§5 to use command please do .speed enable / disable",
 
   "blackburn.commands.version.pre":"§6.version§r",
   "blackburn.commands.help.pre":"§6.help§r",
+  "blackburn.commands.crit.pre":"§6.crit§r",
 
   "blackburn.commands.getblock.pre":"§6.getblock§r",
   "blackburn.commands.getblocks.pre":"§6.getblockarroundme§r",
@@ -20,6 +21,7 @@
   "blackburn.commands.getblock.desc":"§e gets the block under you ~ §r",
   "blackburn.commands.getblocks.desc": "§e gets the blocks arround you ~ §r",
   "blackburn.commands.getscreen.desc": "§e gets the current screen §r ",
+  "blackburn.commands.crit.desc": "§e should allow you to crit all the time §r ",
 
   "blackburn.commands.version":"Version is",
   "blackburn.commands.help":"§cC§6l§ei§ae§9n§bt §cH§6e§el§ap §bi§5t §6s§eh§ao§9w§bs §cu §et§ah§9e §5l§ci§6s§et §9o§bf §cc§6l§ei§ae§9n§bt §cc§6o§em§am§9a§bn§5d§cs",

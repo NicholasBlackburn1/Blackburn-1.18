@@ -16,7 +16,7 @@ public class CommandRegister {
     
     HelpCommand help = new HelpCommand();
     VersionCommand version = new VersionCommand();
-    PlayerSpeedCommand speed = new PlayerSpeedCommand();
+    PlayerCritCommand crit = new PlayerCritCommand();
 
 
     public void registerCommands(Minecraft mc){
@@ -26,7 +26,7 @@ public class CommandRegister {
 
         help.register(command, mc);
         version.register(command, mc);
-        speed.register(command, mc);
+        crit.register(command, mc);
 
         
     }
@@ -34,7 +34,7 @@ public class CommandRegister {
     public void addToCommandList(){
         Consts.commands.add(0,help.getName());
         Consts.commands.add(1,version.getName());
-        Consts.commands.add(2,speed.getName());
+        Consts.commands.add(2,crit.getName());
         
     }
 
@@ -42,7 +42,7 @@ public class CommandRegister {
     public void addToCommandDescList(){
         Consts.commanddesc.add(0,help.getDesc());
         Consts.commanddesc.add(1,version.getDesc());
-        Consts.commanddesc.add(2,speed.getDesc());
+        Consts.commanddesc.add(2,crit.getDesc());
         
     }
 

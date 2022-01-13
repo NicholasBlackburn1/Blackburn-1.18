@@ -6,23 +6,24 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextComponent;
-import space.nickyblackburn.features.PlayerSpeed;
+import space.nickyblackburn.features.PlayerCrit;
+;
 import space.nickyblackburn.utils.Consts;
 
-public class PlayerSpeedCommand implements ICommandRegister{
+public class PlayerCritCommand implements ICommandRegister{
 
 
-    PlayerSpeed speed = new PlayerSpeed();
+    PlayerCrit crit = new PlayerCrit();
 
     @Override
     public void register(List<String> command, Minecraft mc) {
         if(!command.isEmpty()){
 
-            if (command.contains(".speed")){
+            if (command.contains(".crit")){
                 
                 command.clear();
               
-                TextComponent lightlevelenable = new TextComponent(" §5"+I18n.get("blackburn.command.speed.useage"));
+                TextComponent lightlevelenable = new TextComponent(" §5"+I18n.get("blackburn.command.crit.useage"));
                 mc.gui.getChat().addMessage(lightlevelenable);
             
                 
@@ -32,12 +33,12 @@ public class PlayerSpeedCommand implements ICommandRegister{
                 
             }
 
-            if (command.contains(".speed enable")){
+            if (command.contains(".crit enable")){
                 command.clear();
               
-                speed.setPlayerSpeed(Minecraft.getInstance().player,true);
+                crit.enableCrit(mc, Minecraft.getInstance().player, true);
                 
-                TextComponent lightlevelenable = new TextComponent("Speed"+" "+I18n.get("blackburn.command.enabled"));
+                TextComponent lightlevelenable = new TextComponent("crit"+" "+I18n.get("blackburn.command.enabled"));
                 mc.gui.getChat().addMessage(lightlevelenable);
             
                 
@@ -47,13 +48,13 @@ public class PlayerSpeedCommand implements ICommandRegister{
                 
             }
 
-            if (command.contains(".speed disable")){
+            if (command.contains(".crit disable")){
                 command.clear();
             
                 
-                speed.setPlayerSpeed(Minecraft.getInstance().player,false);
-                
-                TextComponent lightlevelenable = new TextComponent("Speed"+" "+I18n.get("blackburn.command.disabled"));
+                crit.enableCrit(mc, Minecraft.getInstance().player, false);
+
+                TextComponent lightlevelenable = new TextComponent("crit"+" "+I18n.get("blackburn.command.disabled"));
                 mc.gui.getChat().addMessage(lightlevelenable);
             
                 
@@ -73,13 +74,13 @@ public class PlayerSpeedCommand implements ICommandRegister{
     @Override
     public String getName() {
         // TODO Auto-generated method stub
-        return "blackburn.command.speed.pre";
+        return "blackburn.commands.crit.pre";
     }
 
     @Override
     public String getDesc() {
         // TODO Auto-generated method stub
-        return "blackburn.command.speed.desc";
+        return "blackburn.commands.crit.desc";
     }
     
 }
