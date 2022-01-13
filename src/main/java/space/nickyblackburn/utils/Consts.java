@@ -30,6 +30,7 @@ public class Consts {
     
     public static boolean devMode = false;
     public static boolean showStart = true;
+    public static boolean crit = false;
 
     private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();
    

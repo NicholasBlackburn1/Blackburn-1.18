@@ -35,8 +35,9 @@ public class PlayerCritCommand implements ICommandRegister{
 
             if (command.contains(".crit enable")){
                 command.clear();
+                Consts.crit = true;
+
               
-                crit.enableCrit(mc, Minecraft.getInstance().player, true);
                 
                 TextComponent lightlevelenable = new TextComponent("crit"+" "+I18n.get("blackburn.command.enabled"));
                 mc.gui.getChat().addMessage(lightlevelenable);
@@ -52,7 +53,7 @@ public class PlayerCritCommand implements ICommandRegister{
                 command.clear();
             
                 
-                crit.enableCrit(mc, Minecraft.getInstance().player, false);
+               Consts.crit = false;
 
                 TextComponent lightlevelenable = new TextComponent("crit"+" "+I18n.get("blackburn.command.disabled"));
                 mc.gui.getChat().addMessage(lightlevelenable);

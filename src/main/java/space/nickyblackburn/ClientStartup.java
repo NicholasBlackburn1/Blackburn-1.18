@@ -25,7 +25,6 @@ public class ClientStartup {
 
     }
 
-
      //allows me to send start up messages
     public void sendStartupMessages(Minecraft mine){
         
@@ -42,6 +41,7 @@ public class ClientStartup {
             }
             if (!mine.pause){
                 register.registerCommands(mine);
+                register.hacks(mine);
             }
         }
     }

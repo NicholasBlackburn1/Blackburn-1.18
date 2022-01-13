@@ -9,6 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import space.nickyblackburn.command.BlackburnCommand.CommandSelection;
+import space.nickyblackburn.features.PlayerCrit;
 import space.nickyblackburn.utils.Consts;
 import java.util.List;
 
@@ -28,7 +29,16 @@ public class CommandRegister {
         version.register(command, mc);
         crit.register(command, mc);
 
+
+
+
         
+    }
+
+    public void hacks(Minecraft mc ){
+        PlayerCrit crit = new PlayerCrit();
+        crit.enableCrit(mc, Minecraft.getInstance().player,Consts.crit);
+                
     }
 
     public void addToCommandList(){
