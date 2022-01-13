@@ -7,7 +7,7 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextComponent;
 import space.nickyblackburn.features.PlayerCrit;
-;
+
 import space.nickyblackburn.utils.Consts;
 
 public class PlayerCritCommand implements ICommandRegister{

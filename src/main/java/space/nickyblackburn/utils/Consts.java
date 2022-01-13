@@ -9,12 +9,11 @@ import org.apache.logging.log4j.LogManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoubleBlockCombiner.NeighborCombineResult.Double;
-import space.nickyblackburn.clickgui.ClickGui;
 
 public class Consts {
 
     public static Minecraft MC = Minecraft.getInstance();
-    public static ClickGui clickGui = new ClickGui(null);
+    
 
     public static List background = new ArrayList<Integer>();
     public static List keys = new ArrayList<Integer>();

@@ -2682,6 +2682,7 @@ public abstract class Entity implements Nameable, EntityAccess, CommandSource {
    public Entity getVehicle() {
       return this.vehicle;
    }
+   
 
    public PushReaction getPistonPushReaction() {
       return PushReaction.NORMAL;
