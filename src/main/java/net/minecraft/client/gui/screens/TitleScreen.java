@@ -65,7 +65,7 @@ public class TitleScreen extends Screen
     private String splash;
     private Button resetDemoButton;
     private static final ResourceLocation MINECRAFT_LOGO = new ResourceLocation("textures/gui/title/minecraft.png");
-    private static final ResourceLocation MINECRAFT_EDITION = new ResourceLocation("blackburn/logo/edition.png");
+    private static final ResourceLocation MINECRAFT_EDITION = new ResourceLocation("blackburn/logo/uwuedition.png");
     private Screen realmsNotificationsScreen;
     private int copyrightWidth;
     private int copyrightX;
