@@ -279,11 +279,11 @@ public class DebugScreenOverlay extends GuiComponent
             if (s2 != null && s2.startsWith("P: "))
             {
                 s2 = s2 + s;
-                list.set(l1, s2);
+             
 
                 if (s1 != null)
                 {
-                    list.add(l1 + 1, s1);
+                   
                 }
 
                 break;
@@ -377,8 +377,7 @@ public class DebugScreenOverlay extends GuiComponent
                 int i = this.minecraft.level.getChunkSource().getLightEngine().getRawBrightness(blockpos, 0);
                 int j = this.minecraft.level.getBrightness(LightLayer.SKY, blockpos);
                 int k = this.minecraft.level.getBrightness(LightLayer.BLOCK, blockpos);
-                list.add("Client Light: " + i + " (" + j + " sky, " + k + " block)");
-                LevelChunk levelchunk1 = this.getServerChunk();
+               
                 StringBuilder stringbuilder = new StringBuilder("CH");
 
                 for (Heightmap.Types heightmap$types : Heightmap.Types.values())
@@ -389,24 +388,14 @@ public class DebugScreenOverlay extends GuiComponent
                     }
                 }
 
-                list.add(stringbuilder.toString());
-                stringbuilder.setLength(0);
-                stringbuilder.append("SH");
+            
 
                 for (Heightmap.Types heightmap$types1 : Heightmap.Types.values())
                 {
                     if (heightmap$types1.keepAfterWorldgen())
                     {
-                        stringbuilder.append(" ").append(HEIGHTMAP_NAMES.get(heightmap$types1)).append(": ");
-
-                        if (levelchunk1 != null)
-                        {
-                            stringbuilder.append(levelchunk1.getHeight(heightmap$types1, blockpos.getX(), blockpos.getZ()));
-                        }
-                        else
-                        {
-                            stringbuilder.append("??");
-                        }
+                        
+                       
                     }
                 }
 
@@ -418,11 +407,7 @@ public class DebugScreenOverlay extends GuiComponent
                     long l = 0L;
                     float f2 = 0.0F;
 
-                    if (levelchunk1 != null)
-                    {
-                        f2 = level.getMoonBrightness();
-                        l = levelchunk1.getInhabitedTime();
-                    }
+                
 
                     DifficultyInstance difficultyinstance = new DifficultyInstance(level.getDifficulty(), level.getDayTime(), l, f2);
                     
@@ -440,29 +425,12 @@ public class DebugScreenOverlay extends GuiComponent
                 biomesource.addMultinoiseDebugInfo(list, blockpos, climate$sampler);
                 NaturalSpawner.SpawnState naturalspawner$spawnstate = serverchunkcache.getLastSpawnState();
 
-                if (naturalspawner$spawnstate != null)
-                {
-                    Object2IntMap<MobCategory> object2intmap = naturalspawner$spawnstate.getMobCategoryCounts();
-                    int i1 = naturalspawner$spawnstate.getSpawnableChunkCount();
-                    list.add("SC: " + i1 + ", " + (String)Stream.of(MobCategory.values()).map((p_94066_1_) ->
-                    {
-                        return Character.toUpperCase(p_94066_1_.getName().charAt(0)) + ": " + object2intmap.getInt(p_94066_1_);
-                    }).collect(Collectors.joining(", ")));
-                }
-                else
-                {
-                    list.add("SC: N/A");
-                }
+               
             }
 
             PostChain postchain = this.minecraft.gameRenderer.currentEffect();
 
-            if (postchain != null)
-            {
-                list.add("Shader: " + postchain.getName());
-            }
-
-            list.add(this.minecraft.getSoundManager().getDebugString() + String.format(" (Mood %d%%)", Math.round(this.minecraft.player.getCurrentMood() * 100.0F)));
+           
             return list;
         }
     }
@@ -538,9 +506,7 @@ public class DebugScreenOverlay extends GuiComponent
         long j1 = NativeMemory.getBufferMaximum();
         long k1 = NativeMemory.getImageAllocated();
         String s = "Native: " + bytesToMegabytes(i1) + "/" + bytesToMegabytes(j1) + "+" + bytesToMegabytes(k1) + "MB";
-        list.add(3, s);
-        list.set(4, "Allocation: " + MemoryMonitor.getAllocationRateAvgMb() + "MB/s");
-
+     
         if (Reflector.BrandingControl_getBrandings.exists())
         {
             list.add("");
@@ -564,13 +530,11 @@ public class DebugScreenOverlay extends GuiComponent
             {
                 BlockPos blockpos = ((BlockHitResult)this.block).getBlockPos();
                 BlockState blockstate = this.minecraft.level.getBlockState(blockpos);
-                list.add("");
-                list.add(ChatFormatting.UNDERLINE + "Targeted Block: " + blockpos.getX() + ", " + blockpos.getY() + ", " + blockpos.getZ());
-                list.add(String.valueOf((Object)Registry.BLOCK.getKey(blockstate.getBlock())));
+               
 
                 for (Entry < Property<?>, Comparable<? >> entry : blockstate.getValues().entrySet())
                 {
-                    list.add(this.getPropertyValueString(entry));
+                    
                 }
 
                 Collection<ResourceLocation> collection1;
@@ -594,13 +558,11 @@ public class DebugScreenOverlay extends GuiComponent
             {
                 BlockPos blockpos1 = ((BlockHitResult)this.liquid).getBlockPos();
                 FluidState fluidstate = this.minecraft.level.getFluidState(blockpos1);
-                list.add("");
-                list.add(ChatFormatting.UNDERLINE + "Targeted Fluid: " + blockpos1.getX() + ", " + blockpos1.getY() + ", " + blockpos1.getZ());
-                list.add(String.valueOf((Object)Registry.FLUID.getKey(fluidstate.getType())));
+               
 
                 for (Entry < Property<?>, Comparable<? >> entry1 : fluidstate.getValues().entrySet())
                 {
-                    list.add(this.getPropertyValueString(entry1));
+                  
                 }
 
                 Collection<ResourceLocation> collection2;
