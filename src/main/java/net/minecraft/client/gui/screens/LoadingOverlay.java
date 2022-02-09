@@ -28,11 +28,11 @@ import net.optifine.render.GlBlendState;
 import net.optifine.shaders.config.ShaderPackParser;
 import net.optifine.util.PropertiesOrdered;
 import space.nickyblackburn.screens.LoadingOverlayImage;
-
+import space.nickyblackburn.utils.Consts;
 public class LoadingOverlay extends Overlay
 {
-    static final ResourceLocation MOJANG_STUDIOS_LOGO_LOCATION = new ResourceLocation("textures/gui/title/mojangstudios.png");
-    private static final int LOGO_BACKGROUND_COLOR = FastColor.ARGB32.color(255, 239, 50, 61);
+    static ResourceLocation MOJANG_STUDIOS_LOGO_LOCATION = new ResourceLocation("textures/gui/title/mojangstudios.png");
+    private static final int LOGO_BACKGROUND_COLOR = FastColor.ARGB32.color(255, 0, 0, 0);
     private static final int LOGO_BACKGROUND_COLOR_DARK = FastColor.ARGB32.color(255, 0, 0, 0);
     private static final IntSupplier BRAND_BACKGROUND = () ->
     {
@@ -70,11 +70,11 @@ public class LoadingOverlay extends Overlay
 
     public static void registerTextures(Minecraft pMc)
     {
-        LoadingOverlayImage image = new LoadingOverlayImage();
-        // ALLOWS ME TO Swich the loading image based on day
-
+        LoadingOverlayImage image  = new LoadingOverlayImage();
+        
         MOJANG_STUDIOS_LOGO_LOCATION = new ResourceLocation(image.setLoadingImage());
         pMc.getTextureManager().register(MOJANG_STUDIOS_LOGO_LOCATION, new LoadingOverlay.LogoTexture());
+        
     }
 
     private static int replaceAlpha(int p_169325_, int p_169326_)
@@ -83,7 +83,10 @@ public class LoadingOverlay extends Overlay
     }
 
     public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick)
-    {
+    {  
+        // inports the loadding overlay 
+        LoadingOverlayImage overlay =  new LoadingOverlayImage();
+ 
         int i = this.minecraft.getWindow().getGuiScaledWidth();
         int j = this.minecraft.getWindow().getGuiScaledHeight();
         long k = Util.getMillis();
@@ -144,30 +147,22 @@ public class LoadingOverlay extends Overlay
         RenderSystem.blendFunc(770, 1);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, f2);
-        boolean flag = true;
-
-        if (this.blendState != null)
-        {
-            this.blendState.apply();
-
-            if (!this.blendState.isEnabled() && this.fadeOut)
-            {
-                flag = false;
-            }
-        }
-
-        if (flag)
-        {
-            blit(pPoseStack, j2 - j1, k2 - i1, j1, (int)d1, -0.0625F, 0.0F, 120, 60, 120, 120);
-            blit(pPoseStack, j2, k2 - i1, j1, (int)d1, 0.0625F, 60.0F, 120, 60, 120, 120);
-        }
-
+    
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableBlend();
+
         int k1 = (int)((double)this.minecraft.getWindow().getGuiScaledHeight() * 0.8325D);
         float f6 = this.reload.getActualProgress();
         this.currentProgress = Mth.clamp(this.currentProgress * 0.95F + f6 * 0.050000012F, 0.0F, 1.0F);
-        Reflector.ClientModLoader_renderProgressText.call();
+       
+        f2 = 1.0F;
+
+        // added loading overlay image
+  
+        overlay.setCustomLogoPosNonFull(this, pPoseStack, Consts.px, Consts.py, Consts.pUOffset, Consts.pVOffset, Consts.pWidth, Consts.pHight, Consts.pTextureWidth, Consts.pTextureHeight,i,i/ 2 - 137);
+          
+  
+  
 
         if (f < 1.0F)
         {
