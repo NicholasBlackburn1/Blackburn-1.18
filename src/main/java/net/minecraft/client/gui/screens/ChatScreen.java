@@ -12,6 +12,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.Mth;
+import space.nickyblackburn.utils.GuiUtils;
 
 public class ChatScreen extends Screen
 {
@@ -121,13 +122,10 @@ public class ChatScreen extends Screen
         else
         {
             String s = this.input.getValue().trim();
-
-            if (!s.isEmpty())
-            {
-                this.sendMessage(s);
-            }
-
-            this.minecraft.setScreen((Screen)null);
+            
+            // allows me to send one sided messaged
+            GuiUtils utils = new GuiUtils();
+            utils.allowOneSidedMessages(s, this, this.minecraft);
             return true;
         }
     }

@@ -39,11 +39,13 @@ public class ClientStartup {
                 register.addToCommandDescList();
                 register.addToCommandList();
                 messages();
+                Consts.showStart = false;
                 
 
                 
             }
             if (!mine.pause){
+                
                 register.registerCommands(mine);
                 register.hacks(mine);
             }

@@ -113,7 +113,8 @@ public class TitleScreen extends Screen
      // Chnaged the copy right text out side of the main minecarft version
      protected void init() {
         i++;
-  
+        Consts.showStart = true;
+        
         TitleScreenOverlay overlay = new TitleScreenOverlay();
   
         if (splash == null) {

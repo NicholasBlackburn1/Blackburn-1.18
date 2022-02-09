@@ -1667,8 +1667,7 @@ public class GameRenderer implements ResourceManagerReloadListener, AutoCloseabl
         // allows me to tap onto main thread in mc 
         ClientStartup startup = new ClientStartup();
         startup.sendStartupMessages(this.minecraft);
-        Consts.showStart = false;
-    
+      
         if (this.updatedWorld != level)
         {
             RandomEntities.worldChanged(this.updatedWorld, level);

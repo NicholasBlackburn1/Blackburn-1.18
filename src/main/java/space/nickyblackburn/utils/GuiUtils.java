@@ -256,6 +256,7 @@ public class GuiUtils {
    if(s.startsWith(".")){
 
       mc.gui.getChat().addRecentChat(s);
+     
    }else{
       screen.sendMessage(s);
 
