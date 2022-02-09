@@ -38,6 +38,7 @@ import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.PostChain;
 import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.server.IntegratedServer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -155,9 +156,10 @@ public class DebugScreenOverlay extends GuiComponent
         {
             list = this.getGameInformation();
             list.add("");
+            list.add("§cH§6e§eh§ae§9, §5u §6t§eh§ao§9u§bg§5h§ct §et§ah§9i§bs §cm§6e§en§au §bw§5a§cs §eu§as§9e§bf§5u§cl§6l§e~ §9N§bo§5, §6B§ee§ac§9a§bu§5s§ce §ea §9F§bo§5x§cy §eg§ai§9r§bl §cm§6a§ed§ae §bi§5t§c~");
+            
             boolean flag = this.minecraft.getSingleplayerServer() != null;
-            list.add("Debug: Pie [shift]: " + (this.minecraft.options.renderDebugCharts ? "visible" : "hidden") + (flag ? " FPS + TPS" : " FPS") + " [alt]: " + (this.minecraft.options.renderFpsChart ? "visible" : "hidden"));
-            list.add("For help: press F3 + Q");
+          
             this.debugInfoLeft = list;
             this.updateInfoLeftTimeMs = System.currentTimeMillis() + 100L;
         }
@@ -236,31 +238,6 @@ public class DebugScreenOverlay extends GuiComponent
             if (l >= 0)
             {
                 stringbuffer.replace(0, l + 4, Config.getFpsString());
-            }
-
-            if (Config.isSmoothFps())
-            {
-                stringbuffer.append(" sf");
-            }
-
-            if (Config.isFastRender())
-            {
-                stringbuffer.append(" fr");
-            }
-
-            if (Config.isAnisotropicFiltering())
-            {
-                stringbuffer.append(" af");
-            }
-
-            if (Config.isAntialiasing())
-            {
-                stringbuffer.append(" aa");
-            }
-
-            if (Config.isRenderRegions())
-            {
-                stringbuffer.append(" rr");
             }
 
             if (Config.isShaders())
@@ -388,9 +365,7 @@ public class DebugScreenOverlay extends GuiComponent
             list.add(this.minecraft.level.dimension().location() + " FC: " + longset.size());
             list.add("");
             list.add(String.format(Locale.ROOT, "XYZ: %.3f / %.5f / %.3f", this.minecraft.getCameraEntity().getX(), this.minecraft.getCameraEntity().getY(), this.minecraft.getCameraEntity().getZ()));
-            list.add(String.format("Block: %d %d %d", blockpos.getX(), blockpos.getY(), blockpos.getZ()));
-            list.add(String.format("Chunk: %d %d %d in %d %d %d", blockpos.getX() & 15, blockpos.getY() & 15, blockpos.getZ() & 15, SectionPos.blockToSectionCoord(blockpos.getX()), SectionPos.blockToSectionCoord(blockpos.getY()), SectionPos.blockToSectionCoord(blockpos.getZ())));
-            list.add(String.format(Locale.ROOT, "Facing: %s (%s) (%.1f / %.1f)", direction, s1, Mth.wrapDegrees(entity.getYRot()), Mth.wrapDegrees(entity.getXRot())));
+          
             LevelChunk levelchunk = this.getClientChunk();
 
             if (levelchunk.isEmpty())
@@ -450,7 +425,7 @@ public class DebugScreenOverlay extends GuiComponent
                     }
 
                     DifficultyInstance difficultyinstance = new DifficultyInstance(level.getDifficulty(), level.getDayTime(), l, f2);
-                    list.add(String.format(Locale.ROOT, "Local Difficulty: %.2f // %.2f (Day %d)", difficultyinstance.getEffectiveDifficulty(), difficultyinstance.getSpecialMultiplier(), this.minecraft.level.getDayTime() / 24000L));
+                    
                 }
             }
 
@@ -641,7 +616,7 @@ public class DebugScreenOverlay extends GuiComponent
 
                 for (ResourceLocation resourcelocation1 : collection2)
                 {
-                    list.add("#" + resourcelocation1);
+                    
                 }
             }
 
@@ -649,16 +624,14 @@ public class DebugScreenOverlay extends GuiComponent
 
             if (entity != null)
             {
-                list.add("");
-                list.add(ChatFormatting.UNDERLINE + "Targeted Entity");
-                list.add(String.valueOf((Object)Registry.ENTITY_TYPE.getKey(entity.getType())));
+               
 
                 if (Reflector.ForgeEntityType_getTags.exists())
                 {
                     Collection<ResourceLocation> collection = (Collection)Reflector.call(entity.getType(), Reflector.ForgeEntityType_getTags);
                     collection.forEach((t) ->
                     {
-                        list.add("#" + t);
+                       
                     });
                 }
             }
