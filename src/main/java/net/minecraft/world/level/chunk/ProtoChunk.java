@@ -36,278 +36,355 @@ import net.minecraft.world.ticks.LevelChunkTicks;
 import net.minecraft.world.ticks.ProtoChunkTicks;
 import net.minecraft.world.ticks.TickContainerAccess;
 
-public class ProtoChunk extends ChunkAccess {
-   @Nullable
-   private volatile LevelLightEngine lightEngine;
-   private volatile ChunkStatus status = ChunkStatus.EMPTY;
-   private final List<CompoundTag> entities = Lists.newArrayList();
-   private final List<BlockPos> lights = Lists.newArrayList();
-   private final Map<GenerationStep.Carving, CarvingMask> carvingMasks = new Object2ObjectArrayMap<>();
-   @Nullable
-   private BelowZeroRetrogen belowZeroRetrogen;
-   private final ProtoChunkTicks<Block> blockTicks;
-   private final ProtoChunkTicks<Fluid> fluidTicks;
+public class ProtoChunk extends ChunkAccess
+{
+    @Nullable
+    private volatile LevelLightEngine lightEngine;
+    private volatile ChunkStatus status = ChunkStatus.EMPTY;
+    private final List<CompoundTag> entities = Lists.newArrayList();
+    private final List<BlockPos> lights = Lists.newArrayList();
+    private final Map<GenerationStep.Carving, CarvingMask> carvingMasks = new Object2ObjectArrayMap<>();
+    @Nullable
+    private BelowZeroRetrogen belowZeroRetrogen;
+    private final ProtoChunkTicks<Block> blockTicks;
+    private final ProtoChunkTicks<Fluid> fluidTicks;
 
-   public ProtoChunk(ChunkPos p_188167_, UpgradeData p_188168_, LevelHeightAccessor p_188169_, Registry<Biome> p_188170_, @Nullable BlendingData p_188171_) {
-      this(p_188167_, p_188168_, (LevelChunkSection[])null, new ProtoChunkTicks<>(), new ProtoChunkTicks<>(), p_188169_, p_188170_, p_188171_);
-   }
+    public ProtoChunk(ChunkPos p_188167_, UpgradeData p_188168_, LevelHeightAccessor p_188169_, Registry<Biome> p_188170_, @Nullable BlendingData p_188171_)
+    {
+        this(p_188167_, p_188168_, (LevelChunkSection[])null, new ProtoChunkTicks<>(), new ProtoChunkTicks<>(), p_188169_, p_188170_, p_188171_);
+    }
 
-   public ProtoChunk(ChunkPos p_188173_, UpgradeData p_188174_, @Nullable LevelChunkSection[] p_188175_, ProtoChunkTicks<Block> p_188176_, ProtoChunkTicks<Fluid> p_188177_, LevelHeightAccessor p_188178_, Registry<Biome> p_188179_, @Nullable BlendingData p_188180_) {
-      super(p_188173_, p_188174_, p_188178_, p_188179_, 0L, p_188175_, p_188180_);
-      this.blockTicks = p_188176_;
-      this.fluidTicks = p_188177_;
-   }
+    public ProtoChunk(ChunkPos p_188173_, UpgradeData p_188174_, @Nullable LevelChunkSection[] p_188175_, ProtoChunkTicks<Block> p_188176_, ProtoChunkTicks<Fluid> p_188177_, LevelHeightAccessor p_188178_, Registry<Biome> p_188179_, @Nullable BlendingData p_188180_)
+    {
+        super(p_188173_, p_188174_, p_188178_, p_188179_, 0L, p_188175_, p_188180_);
+        this.blockTicks = p_188176_;
+        this.fluidTicks = p_188177_;
+    }
 
-   public TickContainerAccess<Block> getBlockTicks() {
-      return this.blockTicks;
-   }
+    public TickContainerAccess<Block> getBlockTicks()
+    {
+        return this.blockTicks;
+    }
 
-   public TickContainerAccess<Fluid> getFluidTicks() {
-      return this.fluidTicks;
-   }
+    public TickContainerAccess<Fluid> getFluidTicks()
+    {
+        return this.fluidTicks;
+    }
 
-   public ChunkAccess.TicksToSave getTicksForSerialization() {
-      return new ChunkAccess.TicksToSave(this.blockTicks, this.fluidTicks);
-   }
+    public ChunkAccess.TicksToSave getTicksForSerialization()
+    {
+        return new ChunkAccess.TicksToSave(this.blockTicks, this.fluidTicks);
+    }
 
-   public BlockState getBlockState(BlockPos p_63264_) {
-      int i = p_63264_.getY();
-      if (this.isOutsideBuildHeight(i)) {
-         return Blocks.VOID_AIR.defaultBlockState();
-      } else {
-         LevelChunkSection levelchunksection = this.getSection(this.getSectionIndex(i));
-         return levelchunksection.hasOnlyAir() ? Blocks.AIR.defaultBlockState() : levelchunksection.getBlockState(p_63264_.getX() & 15, i & 15, p_63264_.getZ() & 15);
-      }
-   }
+    public BlockState getBlockState(BlockPos pPos)
+    {
+        int i = pPos.getY();
 
-   public FluidState getFluidState(BlockPos p_63239_) {
-      int i = p_63239_.getY();
-      if (this.isOutsideBuildHeight(i)) {
-         return Fluids.EMPTY.defaultFluidState();
-      } else {
-         LevelChunkSection levelchunksection = this.getSection(this.getSectionIndex(i));
-         return levelchunksection.hasOnlyAir() ? Fluids.EMPTY.defaultFluidState() : levelchunksection.getFluidState(p_63239_.getX() & 15, i & 15, p_63239_.getZ() & 15);
-      }
-   }
+        if (this.isOutsideBuildHeight(i))
+        {
+            return Blocks.VOID_AIR.defaultBlockState();
+        }
+        else
+        {
+            LevelChunkSection levelchunksection = this.getSection(this.getSectionIndex(i));
+            return levelchunksection.hasOnlyAir() ? Blocks.AIR.defaultBlockState() : levelchunksection.getBlockState(pPos.getX() & 15, i & 15, pPos.getZ() & 15);
+        }
+    }
 
-   public Stream<BlockPos> getLights() {
-      return this.lights.stream();
-   }
+    public FluidState getFluidState(BlockPos pPos)
+    {
+        int i = pPos.getY();
 
-   public ShortList[] getPackedLights() {
-      ShortList[] ashortlist = new ShortList[this.getSectionsCount()];
+        if (this.isOutsideBuildHeight(i))
+        {
+            return Fluids.EMPTY.defaultFluidState();
+        }
+        else
+        {
+            LevelChunkSection levelchunksection = this.getSection(this.getSectionIndex(i));
+            return levelchunksection.hasOnlyAir() ? Fluids.EMPTY.defaultFluidState() : levelchunksection.getFluidState(pPos.getX() & 15, i & 15, pPos.getZ() & 15);
+        }
+    }
 
-      for(BlockPos blockpos : this.lights) {
-         ChunkAccess.getOrCreateOffsetList(ashortlist, this.getSectionIndex(blockpos.getY())).add(packOffsetCoordinates(blockpos));
-      }
+    public Stream<BlockPos> getLights()
+    {
+        return this.lights.stream();
+    }
 
-      return ashortlist;
-   }
+    public ShortList[] getPackedLights()
+    {
+        ShortList[] ashortlist = new ShortList[this.getSectionsCount()];
 
-   public void addLight(short p_63245_, int p_63246_) {
-      this.addLight(unpackOffsetCoordinates(p_63245_, this.getSectionYFromSectionIndex(p_63246_), this.chunkPos));
-   }
+        for (BlockPos blockpos : this.lights)
+        {
+            ChunkAccess.a(ashortlist, this.getSectionIndex(blockpos.getY())).add(packOffsetCoordinates(blockpos));
+        }
 
-   public void addLight(BlockPos p_63278_) {
-      this.lights.add(p_63278_.immutable());
-   }
+        return ashortlist;
+    }
 
-   @Nullable
-   public BlockState setBlockState(BlockPos p_63217_, BlockState p_63218_, boolean p_63219_) {
-      int i = p_63217_.getX();
-      int j = p_63217_.getY();
-      int k = p_63217_.getZ();
-      if (j >= this.getMinBuildHeight() && j < this.getMaxBuildHeight()) {
-         int l = this.getSectionIndex(j);
-         if (this.sections[l].hasOnlyAir() && p_63218_.is(Blocks.AIR)) {
-            return p_63218_;
-         } else {
-            if (p_63218_.getLightEmission() > 0) {
-               this.lights.add(new BlockPos((i & 15) + this.getPos().getMinBlockX(), j, (k & 15) + this.getPos().getMinBlockZ()));
+    public void addLight(short pPackedPosition, int pLightValue)
+    {
+        this.addLight(unpackOffsetCoordinates(pPackedPosition, this.getSectionYFromSectionIndex(pLightValue), this.chunkPos));
+    }
+
+    public void addLight(BlockPos pLightPos)
+    {
+        this.lights.add(pLightPos.immutable());
+    }
+
+    @Nullable
+    public BlockState setBlockState(BlockPos pPos, BlockState pState, boolean pIsMoving)
+    {
+        int i = pPos.getX();
+        int j = pPos.getY();
+        int k = pPos.getZ();
+
+        if (j >= this.getMinBuildHeight() && j < this.getMaxBuildHeight())
+        {
+            int l = this.getSectionIndex(j);
+
+            if (this.sections[l].hasOnlyAir() && pState.is(Blocks.AIR))
+            {
+                return pState;
             }
+            else
+            {
+                if (pState.getLightEmission() > 0)
+                {
+                    this.lights.add(new BlockPos((i & 15) + this.getPos().getMinBlockX(), j, (k & 15) + this.getPos().getMinBlockZ()));
+                }
 
-            LevelChunkSection levelchunksection = this.getSection(l);
-            BlockState blockstate = levelchunksection.setBlockState(i & 15, j & 15, k & 15, p_63218_);
-            if (this.status.isOrAfter(ChunkStatus.FEATURES) && p_63218_ != blockstate && (p_63218_.getLightBlock(this, p_63217_) != blockstate.getLightBlock(this, p_63217_) || p_63218_.getLightEmission() != blockstate.getLightEmission() || p_63218_.useShapeForLightOcclusion() || blockstate.useShapeForLightOcclusion())) {
-               this.lightEngine.checkBlock(p_63217_);
+                LevelChunkSection levelchunksection = this.getSection(l);
+                BlockState blockstate = levelchunksection.setBlockState(i & 15, j & 15, k & 15, pState);
+
+                if (this.status.isOrAfter(ChunkStatus.FEATURES) && pState != blockstate && (pState.getLightBlock(this, pPos) != blockstate.getLightBlock(this, pPos) || pState.getLightEmission() != blockstate.getLightEmission() || pState.useShapeForLightOcclusion() || blockstate.useShapeForLightOcclusion()))
+                {
+                    this.lightEngine.checkBlock(pPos);
+                }
+
+                EnumSet<Heightmap.Types> enumset = this.getStatus().heightmapsAfter();
+                EnumSet<Heightmap.Types> enumset1 = null;
+
+                for (Heightmap.Types heightmap$types : enumset)
+                {
+                    Heightmap heightmap = this.heightmaps.get(heightmap$types);
+
+                    if (heightmap == null)
+                    {
+                        if (enumset1 == null)
+                        {
+                            enumset1 = EnumSet.noneOf(Heightmap.Types.class);
+                        }
+
+                        enumset1.add(heightmap$types);
+                    }
+                }
+
+                if (enumset1 != null)
+                {
+                    Heightmap.primeHeightmaps(this, enumset1);
+                }
+
+                for (Heightmap.Types heightmap$types1 : enumset)
+                {
+                    this.heightmaps.get(heightmap$types1).update(i & 15, j, k & 15, pState);
+                }
+
+                return blockstate;
             }
+        }
+        else
+        {
+            return Blocks.VOID_AIR.defaultBlockState();
+        }
+    }
 
-            EnumSet<Heightmap.Types> enumset = this.getStatus().heightmapsAfter();
-            EnumSet<Heightmap.Types> enumset1 = null;
+    public void setBlockEntity(BlockEntity pBlockEntity)
+    {
+        this.blockEntities.put(pBlockEntity.getBlockPos(), pBlockEntity);
+    }
 
-            for(Heightmap.Types heightmap$types : enumset) {
-               Heightmap heightmap = this.heightmaps.get(heightmap$types);
-               if (heightmap == null) {
-                  if (enumset1 == null) {
-                     enumset1 = EnumSet.noneOf(Heightmap.Types.class);
-                  }
+    @Nullable
+    public BlockEntity getBlockEntity(BlockPos pPos)
+    {
+        return this.blockEntities.get(pPos);
+    }
 
-                  enumset1.add(heightmap$types);
-               }
+    public Map<BlockPos, BlockEntity> getBlockEntities()
+    {
+        return this.blockEntities;
+    }
+
+    public void addEntity(CompoundTag pTag)
+    {
+        this.entities.add(pTag);
+    }
+
+    public void addEntity(Entity pTag)
+    {
+        if (!pTag.isPassenger())
+        {
+            CompoundTag compoundtag = new CompoundTag();
+            pTag.save(compoundtag);
+            this.addEntity(compoundtag);
+        }
+    }
+
+    public void setStartForFeature(StructureFeature<?> pStructure, StructureStart<?> pStart)
+    {
+        BelowZeroRetrogen belowzeroretrogen = this.getBelowZeroRetrogen();
+
+        if (belowzeroretrogen != null && pStart.isValid())
+        {
+            BoundingBox boundingbox = pStart.getBoundingBox();
+            LevelHeightAccessor levelheightaccessor = this.getHeightAccessorForGeneration();
+
+            if (boundingbox.minY() < levelheightaccessor.getMinBuildHeight() || boundingbox.maxY() >= levelheightaccessor.getMaxBuildHeight())
+            {
+                return;
             }
+        }
 
-            if (enumset1 != null) {
-               Heightmap.primeHeightmaps(this, enumset1);
-            }
+        super.setStartForFeature(pStructure, pStart);
+    }
 
-            for(Heightmap.Types heightmap$types1 : enumset) {
-               this.heightmaps.get(heightmap$types1).update(i & 15, j, k & 15, p_63218_);
-            }
+    public List<CompoundTag> getEntities()
+    {
+        return this.entities;
+    }
 
-            return blockstate;
-         }
-      } else {
-         return Blocks.VOID_AIR.defaultBlockState();
-      }
-   }
+    public ChunkStatus getStatus()
+    {
+        return this.status;
+    }
 
-   public void setBlockEntity(BlockEntity p_156488_) {
-      this.blockEntities.put(p_156488_.getBlockPos(), p_156488_);
-   }
+    public void setStatus(ChunkStatus pStatus)
+    {
+        this.status = pStatus;
 
-   @Nullable
-   public BlockEntity getBlockEntity(BlockPos p_63257_) {
-      return this.blockEntities.get(p_63257_);
-   }
+        if (this.belowZeroRetrogen != null && pStatus.isOrAfter(this.belowZeroRetrogen.targetStatus()))
+        {
+            this.setBelowZeroRetrogen((BelowZeroRetrogen)null);
+        }
 
-   public Map<BlockPos, BlockEntity> getBlockEntities() {
-      return this.blockEntities;
-   }
+        this.setUnsaved(true);
+    }
 
-   public void addEntity(CompoundTag p_63243_) {
-      this.entities.add(p_63243_);
-   }
+    public Biome getNoiseBiome(int pX, int pY, int pZ)
+    {
+        if (!this.getStatus().isOrAfter(ChunkStatus.BIOMES) && (this.belowZeroRetrogen == null || !this.belowZeroRetrogen.targetStatus().isOrAfter(ChunkStatus.BIOMES)))
+        {
+            throw new IllegalStateException("Asking for biomes before we have biomes");
+        }
+        else
+        {
+            return super.getNoiseBiome(pX, pY, pZ);
+        }
+    }
 
-   public void addEntity(Entity p_63183_) {
-      if (!p_63183_.isPassenger()) {
-         CompoundTag compoundtag = new CompoundTag();
-         p_63183_.save(compoundtag);
-         this.addEntity(compoundtag);
-      }
-   }
+    public static short packOffsetCoordinates(BlockPos pPos)
+    {
+        int i = pPos.getX();
+        int j = pPos.getY();
+        int k = pPos.getZ();
+        int l = i & 15;
+        int i1 = j & 15;
+        int j1 = k & 15;
+        return (short)(l | i1 << 4 | j1 << 8);
+    }
 
-   public void setStartForFeature(StructureFeature<?> p_63207_, StructureStart<?> p_63208_) {
-      BelowZeroRetrogen belowzeroretrogen = this.getBelowZeroRetrogen();
-      if (belowzeroretrogen != null && p_63208_.isValid()) {
-         BoundingBox boundingbox = p_63208_.getBoundingBox();
-         LevelHeightAccessor levelheightaccessor = this.getHeightAccessorForGeneration();
-         if (boundingbox.minY() < levelheightaccessor.getMinBuildHeight() || boundingbox.maxY() >= levelheightaccessor.getMaxBuildHeight()) {
-            return;
-         }
-      }
+    public static BlockPos unpackOffsetCoordinates(short pPackedPos, int pYOffset, ChunkPos pChunkPos)
+    {
+        int i = SectionPos.sectionToBlockCoord(pChunkPos.x, pPackedPos & 15);
+        int j = SectionPos.sectionToBlockCoord(pYOffset, pPackedPos >>> 4 & 15);
+        int k = SectionPos.sectionToBlockCoord(pChunkPos.z, pPackedPos >>> 8 & 15);
+        return new BlockPos(i, j, k);
+    }
 
-      super.setStartForFeature(p_63207_, p_63208_);
-   }
+    public void markPosForPostprocessing(BlockPos pPos)
+    {
+        if (!this.isOutsideBuildHeight(pPos))
+        {
+            ChunkAccess.a(this.postProcessing, this.getSectionIndex(pPos.getY())).add(packOffsetCoordinates(pPos));
+        }
+    }
 
-   public List<CompoundTag> getEntities() {
-      return this.entities;
-   }
+    public void addPackedPostProcess(short pPackedPosition, int pIndex)
+    {
+        ChunkAccess.a(this.postProcessing, pIndex).add(pPackedPosition);
+    }
 
-   public ChunkStatus getStatus() {
-      return this.status;
-   }
+    public Map<BlockPos, CompoundTag> getBlockEntityNbts()
+    {
+        return Collections.unmodifiableMap(this.pendingBlockEntities);
+    }
 
-   public void setStatus(ChunkStatus p_63187_) {
-      this.status = p_63187_;
-      if (this.belowZeroRetrogen != null && p_63187_.isOrAfter(this.belowZeroRetrogen.targetStatus())) {
-         this.setBelowZeroRetrogen((BelowZeroRetrogen)null);
-      }
+    @Nullable
+    public CompoundTag getBlockEntityNbtForSaving(BlockPos pPos)
+    {
+        BlockEntity blockentity = this.getBlockEntity(pPos);
+        return blockentity != null ? blockentity.saveWithFullMetadata() : this.pendingBlockEntities.get(pPos);
+    }
 
-      this.setUnsaved(true);
-   }
+    public void removeBlockEntity(BlockPos pPos)
+    {
+        this.blockEntities.remove(pPos);
+        this.pendingBlockEntities.remove(pPos);
+    }
 
-   public Biome getNoiseBiome(int p_188195_, int p_188196_, int p_188197_) {
-      if (!this.getStatus().isOrAfter(ChunkStatus.BIOMES) && (this.belowZeroRetrogen == null || !this.belowZeroRetrogen.targetStatus().isOrAfter(ChunkStatus.BIOMES))) {
-         throw new IllegalStateException("Asking for biomes before we have biomes");
-      } else {
-         return super.getNoiseBiome(p_188195_, p_188196_, p_188197_);
-      }
-   }
+    @Nullable
+    public CarvingMask getCarvingMask(GenerationStep.Carving p_188185_)
+    {
+        return this.carvingMasks.get(p_188185_);
+    }
 
-   public static short packOffsetCoordinates(BlockPos p_63281_) {
-      int i = p_63281_.getX();
-      int j = p_63281_.getY();
-      int k = p_63281_.getZ();
-      int l = i & 15;
-      int i1 = j & 15;
-      int j1 = k & 15;
-      return (short)(l | i1 << 4 | j1 << 8);
-   }
+    public CarvingMask getOrCreateCarvingMask(GenerationStep.Carving p_188191_)
+    {
+        return this.carvingMasks.computeIfAbsent(p_188191_, (p_188193_) ->
+        {
+            return new CarvingMask(this.getHeight(), this.getMinBuildHeight());
+        });
+    }
 
-   public static BlockPos unpackOffsetCoordinates(short p_63228_, int p_63229_, ChunkPos p_63230_) {
-      int i = SectionPos.sectionToBlockCoord(p_63230_.x, p_63228_ & 15);
-      int j = SectionPos.sectionToBlockCoord(p_63229_, p_63228_ >>> 4 & 15);
-      int k = SectionPos.sectionToBlockCoord(p_63230_.z, p_63228_ >>> 8 & 15);
-      return new BlockPos(i, j, k);
-   }
+    public void setCarvingMask(GenerationStep.Carving p_188187_, CarvingMask p_188188_)
+    {
+        this.carvingMasks.put(p_188187_, p_188188_);
+    }
 
-   public void markPosForPostprocessing(BlockPos p_63266_) {
-      if (!this.isOutsideBuildHeight(p_63266_)) {
-         ChunkAccess.getOrCreateOffsetList(this.postProcessing, this.getSectionIndex(p_63266_.getY())).add(packOffsetCoordinates(p_63266_));
-      }
+    public void setLightEngine(LevelLightEngine pLightEngine)
+    {
+        this.lightEngine = pLightEngine;
+    }
 
-   }
+    public void setBelowZeroRetrogen(@Nullable BelowZeroRetrogen p_188184_)
+    {
+        this.belowZeroRetrogen = p_188184_;
+    }
 
-   public void addPackedPostProcess(short p_63225_, int p_63226_) {
-      ChunkAccess.getOrCreateOffsetList(this.postProcessing, p_63226_).add(p_63225_);
-   }
+    @Nullable
+    public BelowZeroRetrogen getBelowZeroRetrogen()
+    {
+        return this.belowZeroRetrogen;
+    }
 
-   public Map<BlockPos, CompoundTag> getBlockEntityNbts() {
-      return Collections.unmodifiableMap(this.pendingBlockEntities);
-   }
+    private static <T> LevelChunkTicks<T> unpackTicks(ProtoChunkTicks<T> p_188190_)
+    {
+        return new LevelChunkTicks<>(p_188190_.scheduledTicks());
+    }
 
-   @Nullable
-   public CompoundTag getBlockEntityNbtForSaving(BlockPos p_63275_) {
-      BlockEntity blockentity = this.getBlockEntity(p_63275_);
-      return blockentity != null ? blockentity.saveWithFullMetadata() : this.pendingBlockEntities.get(p_63275_);
-   }
+    public LevelChunkTicks<Block> unpackBlockTicks()
+    {
+        return unpackTicks(this.blockTicks);
+    }
 
-   public void removeBlockEntity(BlockPos p_63262_) {
-      this.blockEntities.remove(p_63262_);
-      this.pendingBlockEntities.remove(p_63262_);
-   }
+    public LevelChunkTicks<Fluid> unpackFluidTicks()
+    {
+        return unpackTicks(this.fluidTicks);
+    }
 
-   @Nullable
-   public CarvingMask getCarvingMask(GenerationStep.Carving p_188185_) {
-      return this.carvingMasks.get(p_188185_);
-   }
-
-   public CarvingMask getOrCreateCarvingMask(GenerationStep.Carving p_188191_) {
-      return this.carvingMasks.computeIfAbsent(p_188191_, (p_188193_) -> {
-         return new CarvingMask(this.getHeight(), this.getMinBuildHeight());
-      });
-   }
-
-   public void setCarvingMask(GenerationStep.Carving p_188187_, CarvingMask p_188188_) {
-      this.carvingMasks.put(p_188187_, p_188188_);
-   }
-
-   public void setLightEngine(LevelLightEngine p_63210_) {
-      this.lightEngine = p_63210_;
-   }
-
-   public void setBelowZeroRetrogen(@Nullable BelowZeroRetrogen p_188184_) {
-      this.belowZeroRetrogen = p_188184_;
-   }
-
-   @Nullable
-   public BelowZeroRetrogen getBelowZeroRetrogen() {
-      return this.belowZeroRetrogen;
-   }
-
-   private static <T> LevelChunkTicks<T> unpackTicks(ProtoChunkTicks<T> p_188190_) {
-      return new LevelChunkTicks<>(p_188190_.scheduledTicks());
-   }
-
-   public LevelChunkTicks<Block> unpackBlockTicks() {
-      return unpackTicks(this.blockTicks);
-   }
-
-   public LevelChunkTicks<Fluid> unpackFluidTicks() {
-      return unpackTicks(this.fluidTicks);
-   }
-
-   public LevelHeightAccessor getHeightAccessorForGeneration() {
-      return (LevelHeightAccessor)(this.isUpgrading() ? BelowZeroRetrogen.UPGRADE_HEIGHT_ACCESSOR : this);
-   }
+    public LevelHeightAccessor getHeightAccessorForGeneration()
+    {
+        return (LevelHeightAccessor)(this.isUpgrading() ? BelowZeroRetrogen.UPGRADE_HEIGHT_ACCESSOR : this);
+    }
 }

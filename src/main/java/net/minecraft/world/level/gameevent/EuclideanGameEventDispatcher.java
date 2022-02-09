@@ -9,50 +9,63 @@ import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 
-public class EuclideanGameEventDispatcher implements GameEventDispatcher {
-   private final List<GameEventListener> listeners = Lists.newArrayList();
-   private final Level level;
+public class EuclideanGameEventDispatcher implements GameEventDispatcher
+{
+    private final List<GameEventListener> listeners = Lists.newArrayList();
+    private final Level level;
 
-   public EuclideanGameEventDispatcher(Level p_157753_) {
-      this.level = p_157753_;
-   }
+    public EuclideanGameEventDispatcher(Level pLevel)
+    {
+        this.level = pLevel;
+    }
 
-   public boolean isEmpty() {
-      return this.listeners.isEmpty();
-   }
+    public boolean isEmpty()
+    {
+        return this.listeners.isEmpty();
+    }
 
-   public void register(GameEventListener p_157766_) {
-      this.listeners.add(p_157766_);
-      DebugPackets.sendGameEventListenerInfo(this.level, p_157766_);
-   }
+    public void register(GameEventListener pListener)
+    {
+        this.listeners.add(pListener);
+        DebugPackets.sendGameEventListenerInfo(this.level, pListener);
+    }
 
-   public void unregister(GameEventListener p_157768_) {
-      this.listeners.remove(p_157768_);
-   }
+    public void unregister(GameEventListener pListener)
+    {
+        this.listeners.remove(pListener);
+    }
 
-   public void post(GameEvent p_157762_, @Nullable Entity p_157763_, BlockPos p_157764_) {
-      boolean flag = false;
+    public void post(GameEvent pEvent, @Nullable Entity pEntity, BlockPos pPos)
+    {
+        boolean flag = false;
 
-      for(GameEventListener gameeventlistener : this.listeners) {
-         if (this.postToListener(this.level, p_157762_, p_157763_, p_157764_, gameeventlistener)) {
-            flag = true;
-         }
-      }
+        for (GameEventListener gameeventlistener : this.listeners)
+        {
+            if (this.postToListener(this.level, pEvent, pEntity, pPos, gameeventlistener))
+            {
+                flag = true;
+            }
+        }
 
-      if (flag) {
-         DebugPackets.sendGameEventInfo(this.level, p_157762_, p_157764_);
-      }
+        if (flag)
+        {
+            DebugPackets.sendGameEventInfo(this.level, pEvent, pPos);
+        }
+    }
 
-   }
+    private boolean postToListener(Level pLevel, GameEvent pEvent, @Nullable Entity pEntity, BlockPos pPos, GameEventListener pListener)
+    {
+        Optional<BlockPos> optional = pListener.getListenerSource().getPosition(pLevel);
 
-   private boolean postToListener(Level p_157756_, GameEvent p_157757_, @Nullable Entity p_157758_, BlockPos p_157759_, GameEventListener p_157760_) {
-      Optional<BlockPos> optional = p_157760_.getListenerSource().getPosition(p_157756_);
-      if (!optional.isPresent()) {
-         return false;
-      } else {
-         double d0 = optional.get().distSqr(p_157759_, false);
-         int i = p_157760_.getListenerRadius() * p_157760_.getListenerRadius();
-         return d0 <= (double)i && p_157760_.handleGameEvent(p_157756_, p_157757_, p_157758_, p_157759_);
-      }
-   }
+        if (!optional.isPresent())
+        {
+            return false;
+        }
+        else
+        {
+            double d0 = optional.get().distSqr(pPos, false);
+            int i = pListener.getListenerRadius() * pListener.getListenerRadius();
+            return d0 <= (double)i && pListener.handleGameEvent(pLevel, pEvent, pEntity, pPos);
+        }
+    }
 }

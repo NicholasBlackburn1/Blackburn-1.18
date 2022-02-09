@@ -8,168 +8,206 @@ import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.lang3.ArrayUtils;
 
-public class LongArrayTag extends CollectionTag<LongTag> {
-   private static final int SELF_SIZE_IN_BITS = 192;
-   public static final TagType<LongArrayTag> TYPE = new TagType.VariableSize<LongArrayTag>() {
-      public LongArrayTag load(DataInput p_128865_, int p_128866_, NbtAccounter p_128867_) throws IOException {
-         p_128867_.accountBits(192L);
-         int i = p_128865_.readInt();
-         p_128867_.accountBits(64L * (long)i);
-         long[] along = new long[i];
+public class LongArrayTag extends CollectionTag<LongTag>
+{
+    private static final int SELF_SIZE_IN_BITS = 192;
+    public static final TagType<LongArrayTag> TYPE = new TagType.VariableSize<LongArrayTag>()
+    {
+        public LongArrayTag load(DataInput p_128865_, int p_128866_, NbtAccounter p_128867_) throws IOException
+        {
+            p_128867_.accountBits(192L);
+            int i = p_128865_.readInt();
+            p_128867_.accountBits(64L * (long)i);
+            long[] along = new long[i];
 
-         for(int j = 0; j < i; ++j) {
-            along[j] = p_128865_.readLong();
-         }
+            for (int j = 0; j < i; ++j)
+            {
+                along[j] = p_128865_.readLong();
+            }
 
-         return new LongArrayTag(along);
-      }
+            return new LongArrayTag(along);
+        }
+        public StreamTagVisitor.ValueResult parse(DataInput p_197501_, StreamTagVisitor p_197502_) throws IOException
+        {
+            int i = p_197501_.readInt();
+            long[] along = new long[i];
 
-      public StreamTagVisitor.ValueResult parse(DataInput p_197501_, StreamTagVisitor p_197502_) throws IOException {
-         int i = p_197501_.readInt();
-         long[] along = new long[i];
+            for (int j = 0; j < i; ++j)
+            {
+                along[j] = p_197501_.readLong();
+            }
 
-         for(int j = 0; j < i; ++j) {
-            along[j] = p_197501_.readLong();
-         }
+            return p_197502_.a(along);
+        }
+        public void skip(DataInput p_197499_) throws IOException
+        {
+            p_197499_.skipBytes(p_197499_.readInt() * 8);
+        }
+        public String getName()
+        {
+            return "LONG[]";
+        }
+        public String getPrettyName()
+        {
+            return "TAG_Long_Array";
+        }
+    };
+    private long[] data;
 
-         return p_197502_.visit(along);
-      }
+    public LongArrayTag(long[] pDataSet)
+    {
+        this.data = pDataSet;
+    }
 
-      public void skip(DataInput p_197499_) throws IOException {
-         p_197499_.skipBytes(p_197499_.readInt() * 8);
-      }
+    public LongArrayTag(LongSet pDataSet)
+    {
+        this.data = pDataSet.toLongArray();
+    }
 
-      public String getName() {
-         return "LONG[]";
-      }
+    public LongArrayTag(List<Long> pDataSet)
+    {
+        this(toArray(pDataSet));
+    }
 
-      public String getPrettyName() {
-         return "TAG_Long_Array";
-      }
-   };
-   private long[] data;
+    private static long[] toArray(List<Long> pDataList)
+    {
+        long[] along = new long[pDataList.size()];
 
-   public LongArrayTag(long[] p_128808_) {
-      this.data = p_128808_;
-   }
+        for (int i = 0; i < pDataList.size(); ++i)
+        {
+            Long olong = pDataList.get(i);
+            along[i] = olong == null ? 0L : olong;
+        }
 
-   public LongArrayTag(LongSet p_128804_) {
-      this.data = p_128804_.toLongArray();
-   }
+        return along;
+    }
 
-   public LongArrayTag(List<Long> p_128806_) {
-      this(toArray(p_128806_));
-   }
+    public void write(DataOutput pOutput) throws IOException
+    {
+        pOutput.writeInt(this.data.length);
 
-   private static long[] toArray(List<Long> p_128824_) {
-      long[] along = new long[p_128824_.size()];
+        for (long i : this.data)
+        {
+            pOutput.writeLong(i);
+        }
+    }
 
-      for(int i = 0; i < p_128824_.size(); ++i) {
-         Long olong = p_128824_.get(i);
-         along[i] = olong == null ? 0L : olong;
-      }
+    public byte getId()
+    {
+        return 12;
+    }
 
-      return along;
-   }
+    public TagType<LongArrayTag> getType()
+    {
+        return TYPE;
+    }
 
-   public void write(DataOutput p_128819_) throws IOException {
-      p_128819_.writeInt(this.data.length);
+    public String toString()
+    {
+        return this.getAsString();
+    }
 
-      for(long i : this.data) {
-         p_128819_.writeLong(i);
-      }
+    public LongArrayTag copy()
+    {
+        long[] along = new long[this.data.length];
+        System.arraycopy(this.data, 0, along, 0, this.data.length);
+        return new LongArrayTag(along);
+    }
 
-   }
+    public boolean equals(Object pOther)
+    {
+        if (this == pOther)
+        {
+            return true;
+        }
+        else
+        {
+            return pOther instanceof LongArrayTag && Arrays.equals(this.data, ((LongArrayTag)pOther).data);
+        }
+    }
 
-   public byte getId() {
-      return 12;
-   }
+    public int hashCode()
+    {
+        return Arrays.hashCode(this.data);
+    }
 
-   public TagType<LongArrayTag> getType() {
-      return TYPE;
-   }
+    public void accept(TagVisitor pVisitor)
+    {
+        pVisitor.visitLongArray(this);
+    }
 
-   public String toString() {
-      return this.getAsString();
-   }
+    public long[] getAsLongArray()
+    {
+        return this.data;
+    }
 
-   public LongArrayTag copy() {
-      long[] along = new long[this.data.length];
-      System.arraycopy(this.data, 0, along, 0, this.data.length);
-      return new LongArrayTag(along);
-   }
+    public int size()
+    {
+        return this.data.length;
+    }
 
-   public boolean equals(Object p_128850_) {
-      if (this == p_128850_) {
-         return true;
-      } else {
-         return p_128850_ instanceof LongArrayTag && Arrays.equals(this.data, ((LongArrayTag)p_128850_).data);
-      }
-   }
+    public LongTag get(int p_128811_)
+    {
+        return LongTag.valueOf(this.data[p_128811_]);
+    }
 
-   public int hashCode() {
-      return Arrays.hashCode(this.data);
-   }
+    public LongTag set(int p_128813_, LongTag p_128814_)
+    {
+        long i = this.data[p_128813_];
+        this.data[p_128813_] = p_128814_.getAsLong();
+        return LongTag.valueOf(i);
+    }
 
-   public void accept(TagVisitor p_177995_) {
-      p_177995_.visitLongArray(this);
-   }
+    public void add(int p_128832_, LongTag p_128833_)
+    {
+        this.data = ArrayUtils.add(this.data, p_128832_, p_128833_.getAsLong());
+    }
 
-   public long[] getAsLongArray() {
-      return this.data;
-   }
+    public boolean setTag(int pIndex, Tag pNbt)
+    {
+        if (pNbt instanceof NumericTag)
+        {
+            this.data[pIndex] = ((NumericTag)pNbt).getAsLong();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
-   public int size() {
-      return this.data.length;
-   }
+    public boolean addTag(int pIndex, Tag pNbt)
+    {
+        if (pNbt instanceof NumericTag)
+        {
+            this.data = ArrayUtils.add(this.data, pIndex, ((NumericTag)pNbt).getAsLong());
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
-   public LongTag get(int p_128811_) {
-      return LongTag.valueOf(this.data[p_128811_]);
-   }
+    public LongTag remove(int p_128830_)
+    {
+        long i = this.data[p_128830_];
+        this.data = ArrayUtils.remove(this.data, p_128830_);
+        return LongTag.valueOf(i);
+    }
 
-   public LongTag set(int p_128813_, LongTag p_128814_) {
-      long i = this.data[p_128813_];
-      this.data[p_128813_] = p_128814_.getAsLong();
-      return LongTag.valueOf(i);
-   }
+    public byte getElementType()
+    {
+        return 4;
+    }
 
-   public void add(int p_128832_, LongTag p_128833_) {
-      this.data = ArrayUtils.add(this.data, p_128832_, p_128833_.getAsLong());
-   }
+    public void clear()
+    {
+        this.data = new long[0];
+    }
 
-   public boolean setTag(int p_128816_, Tag p_128817_) {
-      if (p_128817_ instanceof NumericTag) {
-         this.data[p_128816_] = ((NumericTag)p_128817_).getAsLong();
-         return true;
-      } else {
-         return false;
-      }
-   }
-
-   public boolean addTag(int p_128835_, Tag p_128836_) {
-      if (p_128836_ instanceof NumericTag) {
-         this.data = ArrayUtils.add(this.data, p_128835_, ((NumericTag)p_128836_).getAsLong());
-         return true;
-      } else {
-         return false;
-      }
-   }
-
-   public LongTag remove(int p_128830_) {
-      long i = this.data[p_128830_];
-      this.data = ArrayUtils.remove(this.data, p_128830_);
-      return LongTag.valueOf(i);
-   }
-
-   public byte getElementType() {
-      return 4;
-   }
-
-   public void clear() {
-      this.data = new long[0];
-   }
-
-   public StreamTagVisitor.ValueResult accept(StreamTagVisitor p_197497_) {
-      return p_197497_.visit(this.data);
-   }
+    public StreamTagVisitor.ValueResult accept(StreamTagVisitor pVisitor)
+    {
+        return pVisitor.a(this.data);
+    }
 }

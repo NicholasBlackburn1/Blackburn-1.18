@@ -14,78 +14,96 @@ import net.minecraft.world.inventory.DispenserMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class DispenserBlockEntity extends RandomizableContainerBlockEntity {
-   private static final Random RANDOM = new Random();
-   public static final int CONTAINER_SIZE = 9;
-   private NonNullList<ItemStack> items = NonNullList.withSize(9, ItemStack.EMPTY);
+public class DispenserBlockEntity extends RandomizableContainerBlockEntity
+{
+    private static final Random RANDOM = new Random();
+    public static final int CONTAINER_SIZE = 9;
+    private NonNullList<ItemStack> items = NonNullList.withSize(9, ItemStack.EMPTY);
 
-   protected DispenserBlockEntity(BlockEntityType<?> p_155489_, BlockPos p_155490_, BlockState p_155491_) {
-      super(p_155489_, p_155490_, p_155491_);
-   }
+    protected DispenserBlockEntity(BlockEntityType<?> p_155489_, BlockPos p_155490_, BlockState p_155491_)
+    {
+        super(p_155489_, p_155490_, p_155491_);
+    }
 
-   public DispenserBlockEntity(BlockPos p_155493_, BlockState p_155494_) {
-      this(BlockEntityType.DISPENSER, p_155493_, p_155494_);
-   }
+    public DispenserBlockEntity(BlockPos pWorldPosition, BlockState pBlockState)
+    {
+        this(BlockEntityType.DISPENSER, pWorldPosition, pBlockState);
+    }
 
-   public int getContainerSize() {
-      return 9;
-   }
+    public int getContainerSize()
+    {
+        return 9;
+    }
 
-   public int getRandomSlot() {
-      this.unpackLootTable((Player)null);
-      int i = -1;
-      int j = 1;
+    public int getRandomSlot()
+    {
+        this.unpackLootTable((Player)null);
+        int i = -1;
+        int j = 1;
 
-      for(int k = 0; k < this.items.size(); ++k) {
-         if (!this.items.get(k).isEmpty() && RANDOM.nextInt(j++) == 0) {
-            i = k;
-         }
-      }
+        for (int k = 0; k < this.items.size(); ++k)
+        {
+            if (!this.items.get(k).isEmpty() && RANDOM.nextInt(j++) == 0)
+            {
+                i = k;
+            }
+        }
 
-      return i;
-   }
+        return i;
+    }
 
-   public int addItem(ItemStack p_59238_) {
-      for(int i = 0; i < this.items.size(); ++i) {
-         if (this.items.get(i).isEmpty()) {
-            this.setItem(i, p_59238_);
-            return i;
-         }
-      }
+    public int addItem(ItemStack pStack)
+    {
+        for (int i = 0; i < this.items.size(); ++i)
+        {
+            if (this.items.get(i).isEmpty())
+            {
+                this.setItem(i, pStack);
+                return i;
+            }
+        }
 
-      return -1;
-   }
+        return -1;
+    }
 
-   protected Component getDefaultName() {
-      return new TranslatableComponent("container.dispenser");
-   }
+    protected Component getDefaultName()
+    {
+        return new TranslatableComponent("container.dispenser");
+    }
 
-   public void load(CompoundTag p_155496_) {
-      super.load(p_155496_);
-      this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
-      if (!this.tryLoadLootTable(p_155496_)) {
-         ContainerHelper.loadAllItems(p_155496_, this.items);
-      }
+    public void load(CompoundTag pTag)
+    {
+        super.load(pTag);
+        this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
 
-   }
+        if (!this.tryLoadLootTable(pTag))
+        {
+            ContainerHelper.loadAllItems(pTag, this.items);
+        }
+    }
 
-   protected void saveAdditional(CompoundTag p_187498_) {
-      super.saveAdditional(p_187498_);
-      if (!this.trySaveLootTable(p_187498_)) {
-         ContainerHelper.saveAllItems(p_187498_, this.items);
-      }
+    protected void saveAdditional(CompoundTag p_187498_)
+    {
+        super.saveAdditional(p_187498_);
 
-   }
+        if (!this.trySaveLootTable(p_187498_))
+        {
+            ContainerHelper.saveAllItems(p_187498_, this.items);
+        }
+    }
 
-   protected NonNullList<ItemStack> getItems() {
-      return this.items;
-   }
+    protected NonNullList<ItemStack> getItems()
+    {
+        return this.items;
+    }
 
-   protected void setItems(NonNullList<ItemStack> p_59243_) {
-      this.items = p_59243_;
-   }
+    protected void setItems(NonNullList<ItemStack> pItems)
+    {
+        this.items = pItems;
+    }
 
-   protected AbstractContainerMenu createMenu(int p_59235_, Inventory p_59236_) {
-      return new DispenserMenu(p_59235_, p_59236_, this);
-   }
+    protected AbstractContainerMenu createMenu(int pId, Inventory pPlayer)
+    {
+        return new DispenserMenu(pId, pPlayer, this);
+    }
 }

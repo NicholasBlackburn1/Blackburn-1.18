@@ -21,7 +21,7 @@ public class NoFallCommand implements ICommandRegister{
                 
                 command.clear();
               
-                TextComponent lightlevelenable = new TextComponent(" §5"+I18n.get("blackburn.command.useage"));
+                TextComponent lightlevelenable = new TextComponent(" §5"+I18n.a("blackburn.command.useage"));
                 mc.gui.getChat().addMessage(lightlevelenable);
             
                 
@@ -37,7 +37,7 @@ public class NoFallCommand implements ICommandRegister{
 
               
                 
-                TextComponent lightlevelenable = new TextComponent("nofall"+I18n.get("blackburn.command.enabled"));
+                TextComponent lightlevelenable = new TextComponent("nofall"+I18n.a("blackburn.command.enabled"));
                 mc.gui.getChat().addMessage(lightlevelenable);
             
                 
@@ -53,7 +53,7 @@ public class NoFallCommand implements ICommandRegister{
                 
                Consts.nofall = false;
 
-                TextComponent lightlevelenable = new TextComponent("nofall"+I18n.get("blackburn.command.disabled"));
+                TextComponent lightlevelenable = new TextComponent("nofall"+I18n.a("blackburn.command.disabled"));
                 mc.gui.getChat().addMessage(lightlevelenable);
             
                 

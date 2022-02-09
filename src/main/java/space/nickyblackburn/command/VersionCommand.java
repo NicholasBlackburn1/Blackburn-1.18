@@ -30,7 +30,7 @@ public class VersionCommand implements ICommandRegister{
 
                    
                 
-                    mc.gui.getChat().addMessage(new TextComponent(I18n.get("blackburn.commands.version")).append(" "+Consts.VERSION));
+                    mc.gui.getChat().addMessage(new TextComponent(I18n.a("blackburn.commands.version")).append(" "+Consts.VERSION));
 
                     command.clear();
                 

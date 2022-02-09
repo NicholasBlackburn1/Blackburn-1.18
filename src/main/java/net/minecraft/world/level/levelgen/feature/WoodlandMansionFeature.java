@@ -22,69 +22,93 @@ import net.minecraft.world.level.levelgen.structure.pieces.PieceGenerator;
 import net.minecraft.world.level.levelgen.structure.pieces.PieceGeneratorSupplier;
 import net.minecraft.world.level.levelgen.structure.pieces.PiecesContainer;
 
-public class WoodlandMansionFeature extends StructureFeature<NoneFeatureConfiguration> {
-   public WoodlandMansionFeature(Codec<NoneFeatureConfiguration> p_67427_) {
-      super(p_67427_, WoodlandMansionFeature::pieceGeneratorSupplier, WoodlandMansionFeature::afterPlace);
-   }
+public class WoodlandMansionFeature extends StructureFeature<NoneFeatureConfiguration>
+{
+    public WoodlandMansionFeature(Codec<NoneFeatureConfiguration> p_67427_)
+    {
+        super(p_67427_, WoodlandMansionFeature::pieceGeneratorSupplier, WoodlandMansionFeature::afterPlace);
+    }
 
-   protected boolean linearSeparation() {
-      return false;
-   }
+    protected boolean linearSeparation()
+    {
+        return false;
+    }
 
-   private static Optional<PieceGenerator<NoneFeatureConfiguration>> pieceGeneratorSupplier(PieceGeneratorSupplier.Context<NoneFeatureConfiguration> p_197187_) {
-      WorldgenRandom worldgenrandom = new WorldgenRandom(new LegacyRandomSource(0L));
-      worldgenrandom.setLargeFeatureSeed(p_197187_.seed(), p_197187_.chunkPos().x, p_197187_.chunkPos().z);
-      Rotation rotation = Rotation.getRandom(worldgenrandom);
-      int i = 5;
-      int j = 5;
-      if (rotation == Rotation.CLOCKWISE_90) {
-         i = -5;
-      } else if (rotation == Rotation.CLOCKWISE_180) {
-         i = -5;
-         j = -5;
-      } else if (rotation == Rotation.COUNTERCLOCKWISE_90) {
-         j = -5;
-      }
+    private static Optional<PieceGenerator<NoneFeatureConfiguration>> pieceGeneratorSupplier(PieceGeneratorSupplier.Context<NoneFeatureConfiguration> p_197187_)
+    {
+        WorldgenRandom worldgenrandom = new WorldgenRandom(new LegacyRandomSource(0L));
+        worldgenrandom.setLargeFeatureSeed(p_197187_.seed(), p_197187_.chunkPos().x, p_197187_.chunkPos().z);
+        Rotation rotation = Rotation.getRandom(worldgenrandom);
+        int i = 5;
+        int j = 5;
 
-      int k = p_197187_.chunkPos().getBlockX(7);
-      int l = p_197187_.chunkPos().getBlockZ(7);
-      int[] aint = p_197187_.getCornerHeights(k, i, l, j);
-      int i1 = Math.min(Math.min(aint[0], aint[1]), Math.min(aint[2], aint[3]));
-      if (i1 < 60) {
-         return Optional.empty();
-      } else if (!p_197187_.validBiome().test(p_197187_.chunkGenerator().getNoiseBiome(QuartPos.fromBlock(k), QuartPos.fromBlock(aint[0]), QuartPos.fromBlock(l)))) {
-         return Optional.empty();
-      } else {
-         BlockPos blockpos = new BlockPos(p_197187_.chunkPos().getMiddleBlockX(), i1 + 1, p_197187_.chunkPos().getMiddleBlockZ());
-         return Optional.of((p_197192_, p_197193_) -> {
-            List<WoodlandMansionPieces.WoodlandMansionPiece> list = Lists.newLinkedList();
-            WoodlandMansionPieces.generateMansion(p_197193_.structureManager(), blockpos, rotation, list, worldgenrandom);
-            list.forEach(p_197192_::addPiece);
-         });
-      }
-   }
+        if (rotation == Rotation.CLOCKWISE_90)
+        {
+            i = -5;
+        }
+        else if (rotation == Rotation.CLOCKWISE_180)
+        {
+            i = -5;
+            j = -5;
+        }
+        else if (rotation == Rotation.COUNTERCLOCKWISE_90)
+        {
+            j = -5;
+        }
 
-   private static void afterPlace(WorldGenLevel p_191195_, StructureFeatureManager p_191196_, ChunkGenerator p_191197_, Random p_191198_, BoundingBox p_191199_, ChunkPos p_191200_, PiecesContainer p_191201_) {
-      BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
-      int i = p_191195_.getMinBuildHeight();
-      BoundingBox boundingbox = p_191201_.calculateBoundingBox();
-      int j = boundingbox.minY();
+        int k = p_197187_.chunkPos().getBlockX(7);
+        int l = p_197187_.chunkPos().getBlockZ(7);
+        int[] aint = p_197187_.getCornerHeights(k, i, l, j);
+        int i1 = Math.min(Math.min(aint[0], aint[1]), Math.min(aint[2], aint[3]));
 
-      for(int k = p_191199_.minX(); k <= p_191199_.maxX(); ++k) {
-         for(int l = p_191199_.minZ(); l <= p_191199_.maxZ(); ++l) {
-            blockpos$mutableblockpos.set(k, j, l);
-            if (!p_191195_.isEmptyBlock(blockpos$mutableblockpos) && boundingbox.isInside(blockpos$mutableblockpos) && p_191201_.isInsidePiece(blockpos$mutableblockpos)) {
-               for(int i1 = j - 1; i1 > i; --i1) {
-                  blockpos$mutableblockpos.setY(i1);
-                  if (!p_191195_.isEmptyBlock(blockpos$mutableblockpos) && !p_191195_.getBlockState(blockpos$mutableblockpos).getMaterial().isLiquid()) {
-                     break;
-                  }
+        if (i1 < 60)
+        {
+            return Optional.empty();
+        }
+        else if (!p_197187_.validBiome().test(p_197187_.chunkGenerator().getNoiseBiome(QuartPos.fromBlock(k), QuartPos.fromBlock(aint[0]), QuartPos.fromBlock(l))))
+        {
+            return Optional.empty();
+        }
+        else
+        {
+            BlockPos blockpos = new BlockPos(p_197187_.chunkPos().getMiddleBlockX(), i1 + 1, p_197187_.chunkPos().getMiddleBlockZ());
+            return Optional.of((p_197192_, p_197193_) ->
+            {
+                List<WoodlandMansionPieces.WoodlandMansionPiece> list = Lists.newLinkedList();
+                WoodlandMansionPieces.generateMansion(p_197193_.structureManager(), blockpos, rotation, list, worldgenrandom);
+                list.forEach(p_197192_::addPiece);
+            });
+        }
+    }
 
-                  p_191195_.setBlock(blockpos$mutableblockpos, Blocks.COBBLESTONE.defaultBlockState(), 2);
-               }
+    private static void afterPlace(WorldGenLevel p_191195_, StructureFeatureManager p_191196_, ChunkGenerator p_191197_, Random p_191198_, BoundingBox p_191199_, ChunkPos p_191200_, PiecesContainer p_191201_)
+    {
+        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+        int i = p_191195_.getMinBuildHeight();
+        BoundingBox boundingbox = p_191201_.calculateBoundingBox();
+        int j = boundingbox.minY();
+
+        for (int k = p_191199_.minX(); k <= p_191199_.maxX(); ++k)
+        {
+            for (int l = p_191199_.minZ(); l <= p_191199_.maxZ(); ++l)
+            {
+                blockpos$mutableblockpos.set(k, j, l);
+
+                if (!p_191195_.isEmptyBlock(blockpos$mutableblockpos) && boundingbox.isInside(blockpos$mutableblockpos) && p_191201_.isInsidePiece(blockpos$mutableblockpos))
+                {
+                    for (int i1 = j - 1; i1 > i; --i1)
+                    {
+                        blockpos$mutableblockpos.setY(i1);
+
+                        if (!p_191195_.isEmptyBlock(blockpos$mutableblockpos) && !p_191195_.getBlockState(blockpos$mutableblockpos).getMaterial().isLiquid())
+                        {
+                            break;
+                        }
+
+                        p_191195_.setBlock(blockpos$mutableblockpos, Blocks.COBBLESTONE.defaultBlockState(), 2);
+                    }
+                }
             }
-         }
-      }
-
-   }
+        }
+    }
 }

@@ -70,918 +70,1218 @@ import net.minecraft.world.level.block.state.pattern.BlockInWorld;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public final class ItemStack {
-   public static final Codec<ItemStack> CODEC = RecordCodecBuilder.create((p_41697_) -> {
-      return p_41697_.group(Registry.ITEM.byNameCodec().fieldOf("id").forGetter((p_150946_) -> {
-         return p_150946_.item;
-      }), Codec.INT.fieldOf("Count").forGetter((p_150941_) -> {
-         return p_150941_.count;
-      }), CompoundTag.CODEC.optionalFieldOf("tag").forGetter((p_150939_) -> {
-         return Optional.ofNullable(p_150939_.tag);
-      })).apply(p_41697_, ItemStack::new);
-   });
-   private static final Logger LOGGER = LogManager.getLogger();
-   public static final ItemStack EMPTY = new ItemStack((Item)null);
-   public static final DecimalFormat ATTRIBUTE_MODIFIER_FORMAT = Util.make(new DecimalFormat("#.##"), (p_41704_) -> {
-      p_41704_.setDecimalFormatSymbols(DecimalFormatSymbols.getInstance(Locale.ROOT));
-   });
-   public static final String TAG_ENCH = "Enchantments";
-   public static final String TAG_DISPLAY = "display";
-   public static final String TAG_DISPLAY_NAME = "Name";
-   public static final String TAG_LORE = "Lore";
-   public static final String TAG_DAMAGE = "Damage";
-   public static final String TAG_COLOR = "color";
-   private static final String TAG_UNBREAKABLE = "Unbreakable";
-   private static final String TAG_REPAIR_COST = "RepairCost";
-   private static final String TAG_CAN_DESTROY_BLOCK_LIST = "CanDestroy";
-   private static final String TAG_CAN_PLACE_ON_BLOCK_LIST = "CanPlaceOn";
-   private static final String TAG_HIDE_FLAGS = "HideFlags";
-   private static final int DONT_HIDE_TOOLTIP = 0;
-   private static final Style LORE_STYLE = Style.EMPTY.withColor(ChatFormatting.DARK_PURPLE).withItalic(true);
-   private int count;
-   private int popTime;
-   /** @deprecated */
-   @Deprecated
-   private final Item item;
-   @Nullable
-   private CompoundTag tag;
-   private boolean emptyCacheFlag;
-   @Nullable
-   private Entity entityRepresentation;
-   @Nullable
-   private AdventureModeCheck adventureBreakCheck;
-   @Nullable
-   private AdventureModeCheck adventurePlaceCheck;
+public final class ItemStack
+{
+    public static final Codec<ItemStack> CODEC = RecordCodecBuilder.create((p_41697_) ->
+    {
+        return p_41697_.group(Registry.ITEM.byNameCodec().fieldOf("id").forGetter((p_150946_) -> {
+            return p_150946_.item;
+        }), Codec.INT.fieldOf("Count").forGetter((p_150941_) -> {
+            return p_150941_.count;
+        }), CompoundTag.CODEC.optionalFieldOf("tag").forGetter((p_150939_) -> {
+            return Optional.ofNullable(p_150939_.tag);
+        })).apply(p_41697_, ItemStack::new);
+    });
+    private static final Logger LOGGER = LogManager.getLogger();
+    public static final ItemStack EMPTY = new ItemStack((Item)null);
+    public static final DecimalFormat ATTRIBUTE_MODIFIER_FORMAT = Util.make(new DecimalFormat("#.##"), (p_41704_) ->
+    {
+        p_41704_.setDecimalFormatSymbols(DecimalFormatSymbols.getInstance(Locale.ROOT));
+    });
+    public static final String TAG_ENCH = "Enchantments";
+    public static final String TAG_DISPLAY = "display";
+    public static final String TAG_DISPLAY_NAME = "Name";
+    public static final String TAG_LORE = "Lore";
+    public static final String TAG_DAMAGE = "Damage";
+    public static final String TAG_COLOR = "color";
+    private static final String TAG_UNBREAKABLE = "Unbreakable";
+    private static final String TAG_REPAIR_COST = "RepairCost";
+    private static final String TAG_CAN_DESTROY_BLOCK_LIST = "CanDestroy";
+    private static final String TAG_CAN_PLACE_ON_BLOCK_LIST = "CanPlaceOn";
+    private static final String TAG_HIDE_FLAGS = "HideFlags";
+    private static final int DONT_HIDE_TOOLTIP = 0;
+    private static final Style LORE_STYLE = Style.EMPTY.withColor(ChatFormatting.DARK_PURPLE).withItalic(true);
+    private int count;
+    private int popTime;
 
-   public Optional<TooltipComponent> getTooltipImage() {
-      return this.getItem().getTooltipImage(this);
-   }
+    @Deprecated
+    private final Item item;
+    @Nullable
+    private CompoundTag tag;
+    private boolean emptyCacheFlag;
+    @Nullable
+    private Entity entityRepresentation;
+    @Nullable
+    private AdventureModeCheck adventureBreakCheck;
+    @Nullable
+    private AdventureModeCheck adventurePlaceCheck;
 
-   public ItemStack(ItemLike p_41599_) {
-      this(p_41599_, 1);
-   }
+    public Optional<TooltipComponent> getTooltipImage()
+    {
+        return this.getItem().getTooltipImage(this);
+    }
 
-   private ItemStack(ItemLike p_41604_, int p_41605_, Optional<CompoundTag> p_41606_) {
-      this(p_41604_, p_41605_);
-      p_41606_.ifPresent(this::setTag);
-   }
+    public ItemStack(ItemLike pCompoundTag)
+    {
+        this(pCompoundTag, 1);
+    }
 
-   public ItemStack(ItemLike p_41601_, int p_41602_) {
-      this.item = p_41601_ == null ? null : p_41601_.asItem();
-      this.count = p_41602_;
-      if (this.item != null && this.item.canBeDepleted()) {
-         this.setDamageValue(this.getDamageValue());
-      }
+    private ItemStack(ItemLike p_41604_, int p_41605_, Optional<CompoundTag> p_41606_)
+    {
+        this(p_41604_, p_41605_);
+        p_41606_.ifPresent(this::setTag);
+    }
 
-      this.updateEmptyCacheFlag();
-   }
+    public ItemStack(ItemLike pItem, int pCount)
+    {
+        this.item = pItem == null ? null : pItem.asItem();
+        this.count = pCount;
 
-   private void updateEmptyCacheFlag() {
-      this.emptyCacheFlag = false;
-      this.emptyCacheFlag = this.isEmpty();
-   }
+        if (this.item != null && this.item.canBeDepleted())
+        {
+            this.setDamageValue(this.getDamageValue());
+        }
 
-   private ItemStack(CompoundTag p_41608_) {
-      this.item = Registry.ITEM.get(new ResourceLocation(p_41608_.getString("id")));
-      this.count = p_41608_.getByte("Count");
-      if (p_41608_.contains("tag", 10)) {
-         this.tag = p_41608_.getCompound("tag");
-         this.getItem().verifyTagAfterLoad(this.tag);
-      }
+        this.updateEmptyCacheFlag();
+    }
 
-      if (this.getItem().canBeDepleted()) {
-         this.setDamageValue(this.getDamageValue());
-      }
+    private void updateEmptyCacheFlag()
+    {
+        this.emptyCacheFlag = false;
+        this.emptyCacheFlag = this.isEmpty();
+    }
 
-      this.updateEmptyCacheFlag();
-   }
+    private ItemStack(CompoundTag pCompoundTag)
+    {
+        this.item = Registry.ITEM.get(new ResourceLocation(pCompoundTag.getString("id")));
+        this.count = pCompoundTag.getByte("Count");
 
-   public static ItemStack of(CompoundTag p_41713_) {
-      try {
-         return new ItemStack(p_41713_);
-      } catch (RuntimeException runtimeexception) {
-         LOGGER.debug("Tried to load invalid item: {}", p_41713_, runtimeexception);
-         return EMPTY;
-      }
-   }
+        if (pCompoundTag.contains("tag", 10))
+        {
+            this.tag = pCompoundTag.getCompound("tag");
+            this.getItem().verifyTagAfterLoad(this.tag);
+        }
 
-   public boolean isEmpty() {
-      if (this == EMPTY) {
-         return true;
-      } else if (this.getItem() != null && !this.is(Items.AIR)) {
-         return this.count <= 0;
-      } else {
-         return true;
-      }
-   }
+        if (this.getItem().canBeDepleted())
+        {
+            this.setDamageValue(this.getDamageValue());
+        }
 
-   public ItemStack split(int p_41621_) {
-      int i = Math.min(p_41621_, this.count);
-      ItemStack itemstack = this.copy();
-      itemstack.setCount(i);
-      this.shrink(i);
-      return itemstack;
-   }
+        this.updateEmptyCacheFlag();
+    }
 
-   public Item getItem() {
-      return this.emptyCacheFlag ? Items.AIR : this.item;
-   }
+    public static ItemStack of(CompoundTag pCompoundTag)
+    {
+        try
+        {
+            return new ItemStack(pCompoundTag);
+        }
+        catch (RuntimeException runtimeexception)
+        {
+            LOGGER.debug("Tried to load invalid item: {}", pCompoundTag, runtimeexception);
+            return EMPTY;
+        }
+    }
 
-   public boolean is(Tag<Item> p_150923_) {
-      return p_150923_.contains(this.getItem());
-   }
+    public boolean isEmpty()
+    {
+        if (this == EMPTY)
+        {
+            return true;
+        }
+        else if (this.getItem() != null && !this.is(Items.AIR))
+        {
+            return this.count <= 0;
+        }
+        else
+        {
+            return true;
+        }
+    }
 
-   public boolean is(Item p_150931_) {
-      return this.getItem() == p_150931_;
-   }
+    public ItemStack split(int pAmount)
+    {
+        int i = Math.min(pAmount, this.count);
+        ItemStack itemstack = this.copy();
+        itemstack.setCount(i);
+        this.shrink(i);
+        return itemstack;
+    }
 
-   public InteractionResult useOn(UseOnContext p_41662_) {
-      Player player = p_41662_.getPlayer();
-      BlockPos blockpos = p_41662_.getClickedPos();
-      BlockInWorld blockinworld = new BlockInWorld(p_41662_.getLevel(), blockpos, false);
-      if (player != null && !player.getAbilities().mayBuild && !this.hasAdventureModePlaceTagForBlock(p_41662_.getLevel().getTagManager(), blockinworld)) {
-         return InteractionResult.PASS;
-      } else {
-         Item item = this.getItem();
-         InteractionResult interactionresult = item.useOn(p_41662_);
-         if (player != null && interactionresult.shouldAwardStats()) {
-            player.awardStat(Stats.ITEM_USED.get(item));
-         }
+    public Item getItem()
+    {
+        return this.emptyCacheFlag ? Items.AIR : this.item;
+    }
 
-         return interactionresult;
-      }
-   }
+    public boolean is(Tag<Item> pTag)
+    {
+        return pTag.contains(this.getItem());
+    }
 
-   public float getDestroySpeed(BlockState p_41692_) {
-      return this.getItem().getDestroySpeed(this, p_41692_);
-   }
+    public boolean is(Item pTag)
+    {
+        return this.getItem() == pTag;
+    }
 
-   public InteractionResultHolder<ItemStack> use(Level p_41683_, Player p_41684_, InteractionHand p_41685_) {
-      return this.getItem().use(p_41683_, p_41684_, p_41685_);
-   }
+    public InteractionResult useOn(UseOnContext pContext)
+    {
+        Player player = pContext.getPlayer();
+        BlockPos blockpos = pContext.getClickedPos();
+        BlockInWorld blockinworld = new BlockInWorld(pContext.getLevel(), blockpos, false);
 
-   public ItemStack finishUsingItem(Level p_41672_, LivingEntity p_41673_) {
-      return this.getItem().finishUsingItem(this, p_41672_, p_41673_);
-   }
+        if (player != null && !player.getAbilities().mayBuild && !this.hasAdventureModePlaceTagForBlock(pContext.getLevel().getTagManager(), blockinworld))
+        {
+            return InteractionResult.PASS;
+        }
+        else
+        {
+            Item item = this.getItem();
+            InteractionResult interactionresult = item.useOn(pContext);
 
-   public CompoundTag save(CompoundTag p_41740_) {
-      ResourceLocation resourcelocation = Registry.ITEM.getKey(this.getItem());
-      p_41740_.putString("id", resourcelocation == null ? "minecraft:air" : resourcelocation.toString());
-      p_41740_.putByte("Count", (byte)this.count);
-      if (this.tag != null) {
-         p_41740_.put("tag", this.tag.copy());
-      }
-
-      return p_41740_;
-   }
-
-   public int getMaxStackSize() {
-      return this.getItem().getMaxStackSize();
-   }
-
-   public boolean isStackable() {
-      return this.getMaxStackSize() > 1 && (!this.isDamageableItem() || !this.isDamaged());
-   }
-
-   public boolean isDamageableItem() {
-      if (!this.emptyCacheFlag && this.getItem().getMaxDamage() > 0) {
-         CompoundTag compoundtag = this.getTag();
-         return compoundtag == null || !compoundtag.getBoolean("Unbreakable");
-      } else {
-         return false;
-      }
-   }
-
-   public boolean isDamaged() {
-      return this.isDamageableItem() && this.getDamageValue() > 0;
-   }
-
-   public int getDamageValue() {
-      return this.tag == null ? 0 : this.tag.getInt("Damage");
-   }
-
-   public void setDamageValue(int p_41722_) {
-      this.getOrCreateTag().putInt("Damage", Math.max(0, p_41722_));
-   }
-
-   public int getMaxDamage() {
-      return this.getItem().getMaxDamage();
-   }
-
-   public boolean hurt(int p_41630_, Random p_41631_, @Nullable ServerPlayer p_41632_) {
-      if (!this.isDamageableItem()) {
-         return false;
-      } else {
-         if (p_41630_ > 0) {
-            int i = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.UNBREAKING, this);
-            int j = 0;
-
-            for(int k = 0; i > 0 && k < p_41630_; ++k) {
-               if (DigDurabilityEnchantment.shouldIgnoreDurabilityDrop(this, i, p_41631_)) {
-                  ++j;
-               }
+            if (player != null && interactionresult.shouldAwardStats())
+            {
+                player.awardStat(Stats.ITEM_USED.get(item));
             }
 
-            p_41630_ -= j;
-            if (p_41630_ <= 0) {
-               return false;
-            }
-         }
+            return interactionresult;
+        }
+    }
 
-         if (p_41632_ != null && p_41630_ != 0) {
-            CriteriaTriggers.ITEM_DURABILITY_CHANGED.trigger(p_41632_, this, this.getDamageValue() + p_41630_);
-         }
+    public float getDestroySpeed(BlockState pState)
+    {
+        return this.getItem().getDestroySpeed(this, pState);
+    }
 
-         int l = this.getDamageValue() + p_41630_;
-         this.setDamageValue(l);
-         return l >= this.getMaxDamage();
-      }
-   }
+    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand)
+    {
+        return this.getItem().use(pLevel, pPlayer, pUsedHand);
+    }
 
-   public <T extends LivingEntity> void hurtAndBreak(int p_41623_, T p_41624_, Consumer<T> p_41625_) {
-      if (!p_41624_.level.isClientSide && (!(p_41624_ instanceof Player) || !((Player)p_41624_).getAbilities().instabuild)) {
-         if (this.isDamageableItem()) {
-            if (this.hurt(p_41623_, p_41624_.getRandom(), p_41624_ instanceof ServerPlayer ? (ServerPlayer)p_41624_ : null)) {
-               p_41625_.accept(p_41624_);
-               Item item = this.getItem();
-               this.shrink(1);
-               if (p_41624_ instanceof Player) {
-                  ((Player)p_41624_).awardStat(Stats.ITEM_BROKEN.get(item));
-               }
+    public ItemStack finishUsingItem(Level pLevel, LivingEntity pLivingEntity)
+    {
+        return this.getItem().finishUsingItem(this, pLevel, pLivingEntity);
+    }
 
-               this.setDamageValue(0);
-            }
+    public CompoundTag save(CompoundTag pCompoundTag)
+    {
+        ResourceLocation resourcelocation = Registry.ITEM.getKey(this.getItem());
+        pCompoundTag.putString("id", resourcelocation == null ? "minecraft:air" : resourcelocation.toString());
+        pCompoundTag.putByte("Count", (byte)this.count);
 
-         }
-      }
-   }
+        if (this.tag != null)
+        {
+            pCompoundTag.put("tag", this.tag.copy());
+        }
 
-   public boolean isBarVisible() {
-      return this.item.isBarVisible(this);
-   }
+        return pCompoundTag;
+    }
 
-   public int getBarWidth() {
-      return this.item.getBarWidth(this);
-   }
+    public int getMaxStackSize()
+    {
+        return this.getItem().getMaxStackSize();
+    }
 
-   public int getBarColor() {
-      return this.item.getBarColor(this);
-   }
+    public boolean isStackable()
+    {
+        return this.getMaxStackSize() > 1 && (!this.isDamageableItem() || !this.isDamaged());
+    }
 
-   public boolean overrideStackedOnOther(Slot p_150927_, ClickAction p_150928_, Player p_150929_) {
-      return this.getItem().overrideStackedOnOther(this, p_150927_, p_150928_, p_150929_);
-   }
-
-   public boolean overrideOtherStackedOnMe(ItemStack p_150933_, Slot p_150934_, ClickAction p_150935_, Player p_150936_, SlotAccess p_150937_) {
-      return this.getItem().overrideOtherStackedOnMe(this, p_150933_, p_150934_, p_150935_, p_150936_, p_150937_);
-   }
-
-   public void hurtEnemy(LivingEntity p_41641_, Player p_41642_) {
-      Item item = this.getItem();
-      if (item.hurtEnemy(this, p_41641_, p_41642_)) {
-         p_41642_.awardStat(Stats.ITEM_USED.get(item));
-      }
-
-   }
-
-   public void mineBlock(Level p_41687_, BlockState p_41688_, BlockPos p_41689_, Player p_41690_) {
-      Item item = this.getItem();
-      if (item.mineBlock(this, p_41687_, p_41688_, p_41689_, p_41690_)) {
-         p_41690_.awardStat(Stats.ITEM_USED.get(item));
-      }
-
-   }
-
-   public boolean isCorrectToolForDrops(BlockState p_41736_) {
-      return this.getItem().isCorrectToolForDrops(p_41736_);
-   }
-
-   public InteractionResult interactLivingEntity(Player p_41648_, LivingEntity p_41649_, InteractionHand p_41650_) {
-      return this.getItem().interactLivingEntity(this, p_41648_, p_41649_, p_41650_);
-   }
-
-   public ItemStack copy() {
-      if (this.isEmpty()) {
-         return EMPTY;
-      } else {
-         ItemStack itemstack = new ItemStack(this.getItem(), this.count);
-         itemstack.setPopTime(this.getPopTime());
-         if (this.tag != null) {
-            itemstack.tag = this.tag.copy();
-         }
-
-         return itemstack;
-      }
-   }
-
-   public static boolean tagMatches(ItemStack p_41659_, ItemStack p_41660_) {
-      if (p_41659_.isEmpty() && p_41660_.isEmpty()) {
-         return true;
-      } else if (!p_41659_.isEmpty() && !p_41660_.isEmpty()) {
-         if (p_41659_.tag == null && p_41660_.tag != null) {
+    public boolean isDamageableItem()
+    {
+        if (!this.emptyCacheFlag && this.getItem().getMaxDamage() > 0)
+        {
+            CompoundTag compoundtag = this.getTag();
+            return compoundtag == null || !compoundtag.getBoolean("Unbreakable");
+        }
+        else
+        {
             return false;
-         } else {
-            return p_41659_.tag == null || p_41659_.tag.equals(p_41660_.tag);
-         }
-      } else {
-         return false;
-      }
-   }
+        }
+    }
 
-   public static boolean matches(ItemStack p_41729_, ItemStack p_41730_) {
-      if (p_41729_.isEmpty() && p_41730_.isEmpty()) {
-         return true;
-      } else {
-         return !p_41729_.isEmpty() && !p_41730_.isEmpty() ? p_41729_.matches(p_41730_) : false;
-      }
-   }
+    public boolean isDamaged()
+    {
+        return this.isDamageableItem() && this.getDamageValue() > 0;
+    }
 
-   private boolean matches(ItemStack p_41745_) {
-      if (this.count != p_41745_.count) {
-         return false;
-      } else if (!this.is(p_41745_.getItem())) {
-         return false;
-      } else if (this.tag == null && p_41745_.tag != null) {
-         return false;
-      } else {
-         return this.tag == null || this.tag.equals(p_41745_.tag);
-      }
-   }
+    public int getDamageValue()
+    {
+        return this.tag == null ? 0 : this.tag.getInt("Damage");
+    }
 
-   public static boolean isSame(ItemStack p_41747_, ItemStack p_41748_) {
-      if (p_41747_ == p_41748_) {
-         return true;
-      } else {
-         return !p_41747_.isEmpty() && !p_41748_.isEmpty() ? p_41747_.sameItem(p_41748_) : false;
-      }
-   }
+    public void setDamageValue(int pDamage)
+    {
+        this.getOrCreateTag().putInt("Damage", Math.max(0, pDamage));
+    }
 
-   public static boolean isSameIgnoreDurability(ItemStack p_41759_, ItemStack p_41760_) {
-      if (p_41759_ == p_41760_) {
-         return true;
-      } else {
-         return !p_41759_.isEmpty() && !p_41760_.isEmpty() ? p_41759_.sameItemStackIgnoreDurability(p_41760_) : false;
-      }
-   }
+    public int getMaxDamage()
+    {
+        return this.getItem().getMaxDamage();
+    }
 
-   public boolean sameItem(ItemStack p_41657_) {
-      return !p_41657_.isEmpty() && this.is(p_41657_.getItem());
-   }
+    public boolean hurt(int pAmount, Random pRandom, @Nullable ServerPlayer pUser)
+    {
+        if (!this.isDamageableItem())
+        {
+            return false;
+        }
+        else
+        {
+            if (pAmount > 0)
+            {
+                int i = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.UNBREAKING, this);
+                int j = 0;
 
-   public boolean sameItemStackIgnoreDurability(ItemStack p_41727_) {
-      if (!this.isDamageableItem()) {
-         return this.sameItem(p_41727_);
-      } else {
-         return !p_41727_.isEmpty() && this.is(p_41727_.getItem());
-      }
-   }
+                for (int k = 0; i > 0 && k < pAmount; ++k)
+                {
+                    if (DigDurabilityEnchantment.shouldIgnoreDurabilityDrop(this, i, pRandom))
+                    {
+                        ++j;
+                    }
+                }
 
-   public static boolean isSameItemSameTags(ItemStack p_150943_, ItemStack p_150944_) {
-      return p_150943_.is(p_150944_.getItem()) && tagMatches(p_150943_, p_150944_);
-   }
+                pAmount -= j;
 
-   public String getDescriptionId() {
-      return this.getItem().getDescriptionId(this);
-   }
+                if (pAmount <= 0)
+                {
+                    return false;
+                }
+            }
 
-   public String toString() {
-      return this.count + " " + this.getItem();
-   }
+            if (pUser != null && pAmount != 0)
+            {
+                CriteriaTriggers.ITEM_DURABILITY_CHANGED.trigger(pUser, this, this.getDamageValue() + pAmount);
+            }
 
-   public void inventoryTick(Level p_41667_, Entity p_41668_, int p_41669_, boolean p_41670_) {
-      if (this.popTime > 0) {
-         --this.popTime;
-      }
+            int l = this.getDamageValue() + pAmount;
+            this.setDamageValue(l);
+            return l >= this.getMaxDamage();
+        }
+    }
 
-      if (this.getItem() != null) {
-         this.getItem().inventoryTick(this, p_41667_, p_41668_, p_41669_, p_41670_);
-      }
+    public <T extends LivingEntity> void hurtAndBreak(int pAmount, T pEntity, Consumer<T> pOnBroken)
+    {
+        if (!pEntity.level.isClientSide && (!(pEntity instanceof Player) || !((Player)pEntity).getAbilities().instabuild))
+        {
+            if (this.isDamageableItem())
+            {
+                if (this.hurt(pAmount, pEntity.getRandom(), pEntity instanceof ServerPlayer ? (ServerPlayer)pEntity : null))
+                {
+                    pOnBroken.accept(pEntity);
+                    Item item = this.getItem();
+                    this.shrink(1);
 
-   }
+                    if (pEntity instanceof Player)
+                    {
+                        ((Player)pEntity).awardStat(Stats.ITEM_BROKEN.get(item));
+                    }
 
-   public void onCraftedBy(Level p_41679_, Player p_41680_, int p_41681_) {
-      p_41680_.awardStat(Stats.ITEM_CRAFTED.get(this.getItem()), p_41681_);
-      this.getItem().onCraftedBy(this, p_41679_, p_41680_);
-   }
+                    this.setDamageValue(0);
+                }
+            }
+        }
+    }
 
-   public int getUseDuration() {
-      return this.getItem().getUseDuration(this);
-   }
+    public boolean isBarVisible()
+    {
+        return this.item.isBarVisible(this);
+    }
 
-   public UseAnim getUseAnimation() {
-      return this.getItem().getUseAnimation(this);
-   }
+    public int getBarWidth()
+    {
+        return this.item.getBarWidth(this);
+    }
 
-   public void releaseUsing(Level p_41675_, LivingEntity p_41676_, int p_41677_) {
-      this.getItem().releaseUsing(this, p_41675_, p_41676_, p_41677_);
-   }
+    public int getBarColor()
+    {
+        return this.item.getBarColor(this);
+    }
 
-   public boolean useOnRelease() {
-      return this.getItem().useOnRelease(this);
-   }
+    public boolean overrideStackedOnOther(Slot pSlot, ClickAction pAction, Player pPlayer)
+    {
+        return this.getItem().overrideStackedOnOther(this, pSlot, pAction, pPlayer);
+    }
 
-   public boolean hasTag() {
-      return !this.emptyCacheFlag && this.tag != null && !this.tag.isEmpty();
-   }
+    public boolean overrideOtherStackedOnMe(ItemStack pStack, Slot pSlot, ClickAction pAction, Player pPlayer, SlotAccess pAccess)
+    {
+        return this.getItem().overrideOtherStackedOnMe(this, pStack, pSlot, pAction, pPlayer, pAccess);
+    }
 
-   @Nullable
-   public CompoundTag getTag() {
-      return this.tag;
-   }
+    public void hurtEnemy(LivingEntity pEntity, Player pPlayer)
+    {
+        Item item = this.getItem();
 
-   public CompoundTag getOrCreateTag() {
-      if (this.tag == null) {
-         this.setTag(new CompoundTag());
-      }
+        if (item.hurtEnemy(this, pEntity, pPlayer))
+        {
+            pPlayer.awardStat(Stats.ITEM_USED.get(item));
+        }
+    }
 
-      return this.tag;
-   }
+    public void mineBlock(Level pLevel, BlockState pState, BlockPos pPos, Player pPlayer)
+    {
+        Item item = this.getItem();
 
-   public CompoundTag getOrCreateTagElement(String p_41699_) {
-      if (this.tag != null && this.tag.contains(p_41699_, 10)) {
-         return this.tag.getCompound(p_41699_);
-      } else {
-         CompoundTag compoundtag = new CompoundTag();
-         this.addTagElement(p_41699_, compoundtag);
-         return compoundtag;
-      }
-   }
+        if (item.mineBlock(this, pLevel, pState, pPos, pPlayer))
+        {
+            pPlayer.awardStat(Stats.ITEM_USED.get(item));
+        }
+    }
 
-   @Nullable
-   public CompoundTag getTagElement(String p_41738_) {
-      return this.tag != null && this.tag.contains(p_41738_, 10) ? this.tag.getCompound(p_41738_) : null;
-   }
+    public boolean isCorrectToolForDrops(BlockState pState)
+    {
+        return this.getItem().isCorrectToolForDrops(pState);
+    }
 
-   public void removeTagKey(String p_41750_) {
-      if (this.tag != null && this.tag.contains(p_41750_)) {
-         this.tag.remove(p_41750_);
-         if (this.tag.isEmpty()) {
+    public InteractionResult interactLivingEntity(Player pPlayer, LivingEntity pEntity, InteractionHand pUsedHand)
+    {
+        return this.getItem().interactLivingEntity(this, pPlayer, pEntity, pUsedHand);
+    }
+
+    public ItemStack copy()
+    {
+        if (this.isEmpty())
+        {
+            return EMPTY;
+        }
+        else
+        {
+            ItemStack itemstack = new ItemStack(this.getItem(), this.count);
+            itemstack.setPopTime(this.getPopTime());
+
+            if (this.tag != null)
+            {
+                itemstack.tag = this.tag.copy();
+            }
+
+            return itemstack;
+        }
+    }
+
+    public static boolean tagMatches(ItemStack pStack, ItemStack pOther)
+    {
+        if (pStack.isEmpty() && pOther.isEmpty())
+        {
+            return true;
+        }
+        else if (!pStack.isEmpty() && !pOther.isEmpty())
+        {
+            if (pStack.tag == null && pOther.tag != null)
+            {
+                return false;
+            }
+            else
+            {
+                return pStack.tag == null || pStack.tag.equals(pOther.tag);
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public static boolean matches(ItemStack pStack, ItemStack pOther)
+    {
+        if (pStack.isEmpty() && pOther.isEmpty())
+        {
+            return true;
+        }
+        else
+        {
+            return !pStack.isEmpty() && !pOther.isEmpty() ? pStack.matches(pOther) : false;
+        }
+    }
+
+    private boolean matches(ItemStack pOther)
+    {
+        if (this.count != pOther.count)
+        {
+            return false;
+        }
+        else if (!this.is(pOther.getItem()))
+        {
+            return false;
+        }
+        else if (this.tag == null && pOther.tag != null)
+        {
+            return false;
+        }
+        else
+        {
+            return this.tag == null || this.tag.equals(pOther.tag);
+        }
+    }
+
+    public static boolean isSame(ItemStack pStack, ItemStack pOther)
+    {
+        if (pStack == pOther)
+        {
+            return true;
+        }
+        else
+        {
+            return !pStack.isEmpty() && !pOther.isEmpty() ? pStack.sameItem(pOther) : false;
+        }
+    }
+
+    public static boolean isSameIgnoreDurability(ItemStack pStack, ItemStack pOther)
+    {
+        if (pStack == pOther)
+        {
+            return true;
+        }
+        else
+        {
+            return !pStack.isEmpty() && !pOther.isEmpty() ? pStack.sameItemStackIgnoreDurability(pOther) : false;
+        }
+    }
+
+    public boolean sameItem(ItemStack pOther)
+    {
+        return !pOther.isEmpty() && this.is(pOther.getItem());
+    }
+
+    public boolean sameItemStackIgnoreDurability(ItemStack pStack)
+    {
+        if (!this.isDamageableItem())
+        {
+            return this.sameItem(pStack);
+        }
+        else
+        {
+            return !pStack.isEmpty() && this.is(pStack.getItem());
+        }
+    }
+
+    public static boolean isSameItemSameTags(ItemStack pStack, ItemStack pOther)
+    {
+        return pStack.is(pOther.getItem()) && tagMatches(pStack, pOther);
+    }
+
+    public String getDescriptionId()
+    {
+        return this.getItem().getDescriptionId(this);
+    }
+
+    public String toString()
+    {
+        return this.count + " " + this.getItem();
+    }
+
+    public void inventoryTick(Level pLevel, Entity pEntity, int pInventorySlot, boolean pIsCurrentItem)
+    {
+        if (this.popTime > 0)
+        {
+            --this.popTime;
+        }
+
+        if (this.getItem() != null)
+        {
+            this.getItem().inventoryTick(this, pLevel, pEntity, pInventorySlot, pIsCurrentItem);
+        }
+    }
+
+    public void onCraftedBy(Level pLevel, Player pPlayer, int pAmount)
+    {
+        pPlayer.awardStat(Stats.ITEM_CRAFTED.get(this.getItem()), pAmount);
+        this.getItem().onCraftedBy(this, pLevel, pPlayer);
+    }
+
+    public int getUseDuration()
+    {
+        return this.getItem().getUseDuration(this);
+    }
+
+    public UseAnim getUseAnimation()
+    {
+        return this.getItem().getUseAnimation(this);
+    }
+
+    public void releaseUsing(Level pLevel, LivingEntity pLivingEntity, int pTimeLeft)
+    {
+        this.getItem().releaseUsing(this, pLevel, pLivingEntity, pTimeLeft);
+    }
+
+    public boolean useOnRelease()
+    {
+        return this.getItem().useOnRelease(this);
+    }
+
+    public boolean hasTag()
+    {
+        return !this.emptyCacheFlag && this.tag != null && !this.tag.isEmpty();
+    }
+
+    @Nullable
+    public CompoundTag getTag()
+    {
+        return this.tag;
+    }
+
+    public CompoundTag getOrCreateTag()
+    {
+        if (this.tag == null)
+        {
+            this.setTag(new CompoundTag());
+        }
+
+        return this.tag;
+    }
+
+    public CompoundTag getOrCreateTagElement(String pKey)
+    {
+        if (this.tag != null && this.tag.contains(pKey, 10))
+        {
+            return this.tag.getCompound(pKey);
+        }
+        else
+        {
+            CompoundTag compoundtag = new CompoundTag();
+            this.addTagElement(pKey, compoundtag);
+            return compoundtag;
+        }
+    }
+
+    @Nullable
+    public CompoundTag getTagElement(String pKey)
+    {
+        return this.tag != null && this.tag.contains(pKey, 10) ? this.tag.getCompound(pKey) : null;
+    }
+
+    public void removeTagKey(String pKey)
+    {
+        if (this.tag != null && this.tag.contains(pKey))
+        {
+            this.tag.remove(pKey);
+
+            if (this.tag.isEmpty())
+            {
+                this.tag = null;
+            }
+        }
+    }
+
+    public ListTag getEnchantmentTags()
+    {
+        return this.tag != null ? this.tag.getList("Enchantments", 10) : new ListTag();
+    }
+
+    public void setTag(@Nullable CompoundTag p_41752_)
+    {
+        this.tag = p_41752_;
+
+        if (this.getItem().canBeDepleted())
+        {
+            this.setDamageValue(this.getDamageValue());
+        }
+
+        if (p_41752_ != null)
+        {
+            this.getItem().verifyTagAfterLoad(p_41752_);
+        }
+    }
+
+    public Component getHoverName()
+    {
+        CompoundTag compoundtag = this.getTagElement("display");
+
+        if (compoundtag != null && compoundtag.contains("Name", 8))
+        {
+            try
+            {
+                Component component = Component.Serializer.fromJson(compoundtag.getString("Name"));
+
+                if (component != null)
+                {
+                    return component;
+                }
+
+                compoundtag.remove("Name");
+            }
+            catch (Exception exception)
+            {
+                compoundtag.remove("Name");
+            }
+        }
+
+        return this.getItem().getName(this);
+    }
+
+    public ItemStack setHoverName(@Nullable Component pNameComponent)
+    {
+        CompoundTag compoundtag = this.getOrCreateTagElement("display");
+
+        if (pNameComponent != null)
+        {
+            compoundtag.putString("Name", Component.Serializer.toJson(pNameComponent));
+        }
+        else
+        {
+            compoundtag.remove("Name");
+        }
+
+        return this;
+    }
+
+    public void resetHoverName()
+    {
+        CompoundTag compoundtag = this.getTagElement("display");
+
+        if (compoundtag != null)
+        {
+            compoundtag.remove("Name");
+
+            if (compoundtag.isEmpty())
+            {
+                this.removeTagKey("display");
+            }
+        }
+
+        if (this.tag != null && this.tag.isEmpty())
+        {
             this.tag = null;
-         }
-      }
+        }
+    }
 
-   }
+    public boolean hasCustomHoverName()
+    {
+        CompoundTag compoundtag = this.getTagElement("display");
+        return compoundtag != null && compoundtag.contains("Name", 8);
+    }
 
-   public ListTag getEnchantmentTags() {
-      return this.tag != null ? this.tag.getList("Enchantments", 10) : new ListTag();
-   }
+    public List<Component> getTooltipLines(@Nullable Player pPlayer, TooltipFlag pIsAdvanced)
+    {
+        List<Component> list = Lists.newArrayList();
+        MutableComponent mutablecomponent = (new TextComponent("")).append(this.getHoverName()).withStyle(this.getRarity().color);
 
-   public void setTag(@Nullable CompoundTag p_41752_) {
-      this.tag = p_41752_;
-      if (this.getItem().canBeDepleted()) {
-         this.setDamageValue(this.getDamageValue());
-      }
+        if (this.hasCustomHoverName())
+        {
+            mutablecomponent.withStyle(ChatFormatting.ITALIC);
+        }
 
-      if (p_41752_ != null) {
-         this.getItem().verifyTagAfterLoad(p_41752_);
-      }
+        list.add(mutablecomponent);
 
-   }
+        if (!pIsAdvanced.isAdvanced() && !this.hasCustomHoverName() && this.is(Items.FILLED_MAP))
+        {
+            Integer integer = MapItem.getMapId(this);
 
-   public Component getHoverName() {
-      CompoundTag compoundtag = this.getTagElement("display");
-      if (compoundtag != null && compoundtag.contains("Name", 8)) {
-         try {
-            Component component = Component.Serializer.fromJson(compoundtag.getString("Name"));
-            if (component != null) {
-               return component;
+            if (integer != null)
+            {
+                list.add((new TextComponent("#" + integer)).withStyle(ChatFormatting.GRAY));
+            }
+        }
+
+        int j = this.getHideFlags();
+
+        if (shouldShowInTooltip(j, ItemStack.TooltipPart.ADDITIONAL))
+        {
+            this.getItem().appendHoverText(this, pPlayer == null ? null : pPlayer.level, list, pIsAdvanced);
+        }
+
+        if (this.hasTag())
+        {
+            if (shouldShowInTooltip(j, ItemStack.TooltipPart.ENCHANTMENTS))
+            {
+                appendEnchantmentNames(list, this.getEnchantmentTags());
             }
 
-            compoundtag.remove("Name");
-         } catch (Exception exception) {
-            compoundtag.remove("Name");
-         }
-      }
+            if (this.tag.contains("display", 10))
+            {
+                CompoundTag compoundtag = this.tag.getCompound("display");
 
-      return this.getItem().getName(this);
-   }
+                if (shouldShowInTooltip(j, ItemStack.TooltipPart.DYE) && compoundtag.contains("color", 99))
+                {
+                    if (pIsAdvanced.isAdvanced())
+                    {
+                        list.add((new TranslatableComponent("item.color", String.format("#%06X", compoundtag.getInt("color")))).withStyle(ChatFormatting.GRAY));
+                    }
+                    else
+                    {
+                        list.add((new TranslatableComponent("item.dyed")).a(new ChatFormatting[] {ChatFormatting.GRAY, ChatFormatting.ITALIC}));
+                    }
+                }
 
-   public ItemStack setHoverName(@Nullable Component p_41715_) {
-      CompoundTag compoundtag = this.getOrCreateTagElement("display");
-      if (p_41715_ != null) {
-         compoundtag.putString("Name", Component.Serializer.toJson(p_41715_));
-      } else {
-         compoundtag.remove("Name");
-      }
+                if (compoundtag.getTagType("Lore") == 9)
+                {
+                    ListTag listtag = compoundtag.getList("Lore", 8);
 
-      return this;
-   }
+                    for (int i = 0; i < listtag.size(); ++i)
+                    {
+                        String s = listtag.getString(i);
 
-   public void resetHoverName() {
-      CompoundTag compoundtag = this.getTagElement("display");
-      if (compoundtag != null) {
-         compoundtag.remove("Name");
-         if (compoundtag.isEmpty()) {
-            this.removeTagKey("display");
-         }
-      }
+                        try
+                        {
+                            MutableComponent mutablecomponent1 = Component.Serializer.fromJson(s);
 
-      if (this.tag != null && this.tag.isEmpty()) {
-         this.tag = null;
-      }
+                            if (mutablecomponent1 != null)
+                            {
+                                list.add(ComponentUtils.mergeStyles(mutablecomponent1, LORE_STYLE));
+                            }
+                        }
+                        catch (Exception exception)
+                        {
+                            compoundtag.remove("Lore");
+                        }
+                    }
+                }
+            }
+        }
 
-   }
+        if (shouldShowInTooltip(j, ItemStack.TooltipPart.MODIFIERS))
+        {
+            for (EquipmentSlot equipmentslot : EquipmentSlot.values())
+            {
+                Multimap<Attribute, AttributeModifier> multimap = this.getAttributeModifiers(equipmentslot);
 
-   public boolean hasCustomHoverName() {
-      CompoundTag compoundtag = this.getTagElement("display");
-      return compoundtag != null && compoundtag.contains("Name", 8);
-   }
+                if (!multimap.isEmpty())
+                {
+                    list.add(TextComponent.EMPTY);
+                    list.add((new TranslatableComponent("item.modifiers." + equipmentslot.getName())).withStyle(ChatFormatting.GRAY));
 
-   public List<Component> getTooltipLines(@Nullable Player p_41652_, TooltipFlag p_41653_) {
-      List<Component> list = Lists.newArrayList();
-      MutableComponent mutablecomponent = (new TextComponent("")).append(this.getHoverName()).withStyle(this.getRarity().color);
-      if (this.hasCustomHoverName()) {
-         mutablecomponent.withStyle(ChatFormatting.ITALIC);
-      }
+                    for (Entry<Attribute, AttributeModifier> entry : multimap.entries())
+                    {
+                        AttributeModifier attributemodifier = entry.getValue();
+                        double d0 = attributemodifier.getAmount();
+                        boolean flag = false;
 
-      list.add(mutablecomponent);
-      if (!p_41653_.isAdvanced() && !this.hasCustomHoverName() && this.is(Items.FILLED_MAP)) {
-         Integer integer = MapItem.getMapId(this);
-         if (integer != null) {
-            list.add((new TextComponent("#" + integer)).withStyle(ChatFormatting.GRAY));
-         }
-      }
+                        if (pPlayer != null)
+                        {
+                            if (attributemodifier.getId() == Item.BASE_ATTACK_DAMAGE_UUID)
+                            {
+                                d0 += pPlayer.getAttributeBaseValue(Attributes.ATTACK_DAMAGE);
+                                d0 += (double)EnchantmentHelper.getDamageBonus(this, MobType.UNDEFINED);
+                                flag = true;
+                            }
+                            else if (attributemodifier.getId() == Item.BASE_ATTACK_SPEED_UUID)
+                            {
+                                d0 += pPlayer.getAttributeBaseValue(Attributes.ATTACK_SPEED);
+                                flag = true;
+                            }
+                        }
 
-      int j = this.getHideFlags();
-      if (shouldShowInTooltip(j, ItemStack.TooltipPart.ADDITIONAL)) {
-         this.getItem().appendHoverText(this, p_41652_ == null ? null : p_41652_.level, list, p_41653_);
-      }
+                        double d1;
 
-      if (this.hasTag()) {
-         if (shouldShowInTooltip(j, ItemStack.TooltipPart.ENCHANTMENTS)) {
-            appendEnchantmentNames(list, this.getEnchantmentTags());
-         }
+                        if (attributemodifier.getOperation() != AttributeModifier.Operation.MULTIPLY_BASE && attributemodifier.getOperation() != AttributeModifier.Operation.MULTIPLY_TOTAL)
+                        {
+                            if (entry.getKey().equals(Attributes.KNOCKBACK_RESISTANCE))
+                            {
+                                d1 = d0 * 10.0D;
+                            }
+                            else
+                            {
+                                d1 = d0;
+                            }
+                        }
+                        else
+                        {
+                            d1 = d0 * 100.0D;
+                        }
 
-         if (this.tag.contains("display", 10)) {
-            CompoundTag compoundtag = this.tag.getCompound("display");
-            if (shouldShowInTooltip(j, ItemStack.TooltipPart.DYE) && compoundtag.contains("color", 99)) {
-               if (p_41653_.isAdvanced()) {
-                  list.add((new TranslatableComponent("item.color", String.format("#%06X", compoundtag.getInt("color")))).withStyle(ChatFormatting.GRAY));
-               } else {
-                  list.add((new TranslatableComponent("item.dyed")).withStyle(new ChatFormatting[]{ChatFormatting.GRAY, ChatFormatting.ITALIC}));
-               }
+                        if (flag)
+                        {
+                            list.add((new TextComponent(" ")).append(new TranslatableComponent("attribute.modifier.equals." + attributemodifier.getOperation().toValue(), ATTRIBUTE_MODIFIER_FORMAT.format(d1), new TranslatableComponent(entry.getKey().getDescriptionId()))).withStyle(ChatFormatting.DARK_GREEN));
+                        }
+                        else if (d0 > 0.0D)
+                        {
+                            list.add((new TranslatableComponent("attribute.modifier.plus." + attributemodifier.getOperation().toValue(), ATTRIBUTE_MODIFIER_FORMAT.format(d1), new TranslatableComponent(entry.getKey().getDescriptionId()))).withStyle(ChatFormatting.BLUE));
+                        }
+                        else if (d0 < 0.0D)
+                        {
+                            d1 *= -1.0D;
+                            list.add((new TranslatableComponent("attribute.modifier.take." + attributemodifier.getOperation().toValue(), ATTRIBUTE_MODIFIER_FORMAT.format(d1), new TranslatableComponent(entry.getKey().getDescriptionId()))).withStyle(ChatFormatting.RED));
+                        }
+                    }
+                }
+            }
+        }
+
+        if (this.hasTag())
+        {
+            if (shouldShowInTooltip(j, ItemStack.TooltipPart.UNBREAKABLE) && this.tag.getBoolean("Unbreakable"))
+            {
+                list.add((new TranslatableComponent("item.unbreakable")).withStyle(ChatFormatting.BLUE));
             }
 
-            if (compoundtag.getTagType("Lore") == 9) {
-               ListTag listtag = compoundtag.getList("Lore", 8);
+            if (shouldShowInTooltip(j, ItemStack.TooltipPart.CAN_DESTROY) && this.tag.contains("CanDestroy", 9))
+            {
+                ListTag listtag1 = this.tag.getList("CanDestroy", 8);
 
-               for(int i = 0; i < listtag.size(); ++i) {
-                  String s = listtag.getString(i);
+                if (!listtag1.isEmpty())
+                {
+                    list.add(TextComponent.EMPTY);
+                    list.add((new TranslatableComponent("item.canBreak")).withStyle(ChatFormatting.GRAY));
 
-                  try {
-                     MutableComponent mutablecomponent1 = Component.Serializer.fromJson(s);
-                     if (mutablecomponent1 != null) {
-                        list.add(ComponentUtils.mergeStyles(mutablecomponent1, LORE_STYLE));
-                     }
-                  } catch (Exception exception) {
-                     compoundtag.remove("Lore");
-                  }
-               }
-            }
-         }
-      }
-
-      if (shouldShowInTooltip(j, ItemStack.TooltipPart.MODIFIERS)) {
-         for(EquipmentSlot equipmentslot : EquipmentSlot.values()) {
-            Multimap<Attribute, AttributeModifier> multimap = this.getAttributeModifiers(equipmentslot);
-            if (!multimap.isEmpty()) {
-               list.add(TextComponent.EMPTY);
-               list.add((new TranslatableComponent("item.modifiers." + equipmentslot.getName())).withStyle(ChatFormatting.GRAY));
-
-               for(Entry<Attribute, AttributeModifier> entry : multimap.entries()) {
-                  AttributeModifier attributemodifier = entry.getValue();
-                  double d0 = attributemodifier.getAmount();
-                  boolean flag = false;
-                  if (p_41652_ != null) {
-                     if (attributemodifier.getId() == Item.BASE_ATTACK_DAMAGE_UUID) {
-                        d0 += p_41652_.getAttributeBaseValue(Attributes.ATTACK_DAMAGE);
-                        d0 += (double)EnchantmentHelper.getDamageBonus(this, MobType.UNDEFINED);
-                        flag = true;
-                     } else if (attributemodifier.getId() == Item.BASE_ATTACK_SPEED_UUID) {
-                        d0 += p_41652_.getAttributeBaseValue(Attributes.ATTACK_SPEED);
-                        flag = true;
-                     }
-                  }
-
-                  double d1;
-                  if (attributemodifier.getOperation() != AttributeModifier.Operation.MULTIPLY_BASE && attributemodifier.getOperation() != AttributeModifier.Operation.MULTIPLY_TOTAL) {
-                     if (entry.getKey().equals(Attributes.KNOCKBACK_RESISTANCE)) {
-                        d1 = d0 * 10.0D;
-                     } else {
-                        d1 = d0;
-                     }
-                  } else {
-                     d1 = d0 * 100.0D;
-                  }
-
-                  if (flag) {
-                     list.add((new TextComponent(" ")).append(new TranslatableComponent("attribute.modifier.equals." + attributemodifier.getOperation().toValue(), ATTRIBUTE_MODIFIER_FORMAT.format(d1), new TranslatableComponent(entry.getKey().getDescriptionId()))).withStyle(ChatFormatting.DARK_GREEN));
-                  } else if (d0 > 0.0D) {
-                     list.add((new TranslatableComponent("attribute.modifier.plus." + attributemodifier.getOperation().toValue(), ATTRIBUTE_MODIFIER_FORMAT.format(d1), new TranslatableComponent(entry.getKey().getDescriptionId()))).withStyle(ChatFormatting.BLUE));
-                  } else if (d0 < 0.0D) {
-                     d1 *= -1.0D;
-                     list.add((new TranslatableComponent("attribute.modifier.take." + attributemodifier.getOperation().toValue(), ATTRIBUTE_MODIFIER_FORMAT.format(d1), new TranslatableComponent(entry.getKey().getDescriptionId()))).withStyle(ChatFormatting.RED));
-                  }
-               }
-            }
-         }
-      }
-
-      if (this.hasTag()) {
-         if (shouldShowInTooltip(j, ItemStack.TooltipPart.UNBREAKABLE) && this.tag.getBoolean("Unbreakable")) {
-            list.add((new TranslatableComponent("item.unbreakable")).withStyle(ChatFormatting.BLUE));
-         }
-
-         if (shouldShowInTooltip(j, ItemStack.TooltipPart.CAN_DESTROY) && this.tag.contains("CanDestroy", 9)) {
-            ListTag listtag1 = this.tag.getList("CanDestroy", 8);
-            if (!listtag1.isEmpty()) {
-               list.add(TextComponent.EMPTY);
-               list.add((new TranslatableComponent("item.canBreak")).withStyle(ChatFormatting.GRAY));
-
-               for(int k = 0; k < listtag1.size(); ++k) {
-                  list.addAll(expandBlockState(listtag1.getString(k)));
-               }
-            }
-         }
-
-         if (shouldShowInTooltip(j, ItemStack.TooltipPart.CAN_PLACE) && this.tag.contains("CanPlaceOn", 9)) {
-            ListTag listtag2 = this.tag.getList("CanPlaceOn", 8);
-            if (!listtag2.isEmpty()) {
-               list.add(TextComponent.EMPTY);
-               list.add((new TranslatableComponent("item.canPlace")).withStyle(ChatFormatting.GRAY));
-
-               for(int l = 0; l < listtag2.size(); ++l) {
-                  list.addAll(expandBlockState(listtag2.getString(l)));
-               }
-            }
-         }
-      }
-
-      if (p_41653_.isAdvanced()) {
-         if (this.isDamaged()) {
-            list.add(new TranslatableComponent("item.durability", this.getMaxDamage() - this.getDamageValue(), this.getMaxDamage()));
-         }
-
-         list.add((new TextComponent(Registry.ITEM.getKey(this.getItem()).toString())).withStyle(ChatFormatting.DARK_GRAY));
-         if (this.hasTag()) {
-            list.add((new TranslatableComponent("item.nbt_tags", this.tag.getAllKeys().size())).withStyle(ChatFormatting.DARK_GRAY));
-         }
-      }
-
-      return list;
-   }
-
-   private static boolean shouldShowInTooltip(int p_41627_, ItemStack.TooltipPart p_41628_) {
-      return (p_41627_ & p_41628_.getMask()) == 0;
-   }
-
-   private int getHideFlags() {
-      return this.hasTag() && this.tag.contains("HideFlags", 99) ? this.tag.getInt("HideFlags") : 0;
-   }
-
-   public void hideTooltipPart(ItemStack.TooltipPart p_41655_) {
-      CompoundTag compoundtag = this.getOrCreateTag();
-      compoundtag.putInt("HideFlags", compoundtag.getInt("HideFlags") | p_41655_.getMask());
-   }
-
-   public static void appendEnchantmentNames(List<Component> p_41710_, ListTag p_41711_) {
-      for(int i = 0; i < p_41711_.size(); ++i) {
-         CompoundTag compoundtag = p_41711_.getCompound(i);
-         Registry.ENCHANTMENT.getOptional(EnchantmentHelper.getEnchantmentId(compoundtag)).ifPresent((p_41708_) -> {
-            p_41710_.add(p_41708_.getFullname(EnchantmentHelper.getEnchantmentLevel(compoundtag)));
-         });
-      }
-
-   }
-
-   private static Collection<Component> expandBlockState(String p_41762_) {
-      try {
-         BlockStateParser blockstateparser = (new BlockStateParser(new StringReader(p_41762_), true)).parse(true);
-         BlockState blockstate = blockstateparser.getState();
-         ResourceLocation resourcelocation = blockstateparser.getTag();
-         boolean flag = blockstate != null;
-         boolean flag1 = resourcelocation != null;
-         if (flag || flag1) {
-            if (flag) {
-               return Lists.newArrayList(blockstate.getBlock().getName().withStyle(ChatFormatting.DARK_GRAY));
+                    for (int k = 0; k < listtag1.size(); ++k)
+                    {
+                        list.addAll(expandBlockState(listtag1.getString(k)));
+                    }
+                }
             }
 
-            Tag<Block> tag = BlockTags.getAllTags().getTag(resourcelocation);
-            if (tag != null) {
-               Collection<Block> collection = tag.getValues();
-               if (!collection.isEmpty()) {
-                  return collection.stream().map(Block::getName).map((p_41717_) -> {
-                     return p_41717_.withStyle(ChatFormatting.DARK_GRAY);
-                  }).collect(Collectors.toList());
-               }
+            if (shouldShowInTooltip(j, ItemStack.TooltipPart.CAN_PLACE) && this.tag.contains("CanPlaceOn", 9))
+            {
+                ListTag listtag2 = this.tag.getList("CanPlaceOn", 8);
+
+                if (!listtag2.isEmpty())
+                {
+                    list.add(TextComponent.EMPTY);
+                    list.add((new TranslatableComponent("item.canPlace")).withStyle(ChatFormatting.GRAY));
+
+                    for (int l = 0; l < listtag2.size(); ++l)
+                    {
+                        list.addAll(expandBlockState(listtag2.getString(l)));
+                    }
+                }
             }
-         }
-      } catch (CommandSyntaxException commandsyntaxexception) {
-      }
+        }
 
-      return Lists.newArrayList((new TextComponent("missingno")).withStyle(ChatFormatting.DARK_GRAY));
-   }
-
-   public boolean hasFoil() {
-      return this.getItem().isFoil(this);
-   }
-
-   public Rarity getRarity() {
-      return this.getItem().getRarity(this);
-   }
-
-   public boolean isEnchantable() {
-      if (!this.getItem().isEnchantable(this)) {
-         return false;
-      } else {
-         return !this.isEnchanted();
-      }
-   }
-
-   public void enchant(Enchantment p_41664_, int p_41665_) {
-      this.getOrCreateTag();
-      if (!this.tag.contains("Enchantments", 9)) {
-         this.tag.put("Enchantments", new ListTag());
-      }
-
-      ListTag listtag = this.tag.getList("Enchantments", 10);
-      listtag.add(EnchantmentHelper.storeEnchantment(EnchantmentHelper.getEnchantmentId(p_41664_), (byte)p_41665_));
-   }
-
-   public boolean isEnchanted() {
-      if (this.tag != null && this.tag.contains("Enchantments", 9)) {
-         return !this.tag.getList("Enchantments", 10).isEmpty();
-      } else {
-         return false;
-      }
-   }
-
-   public void addTagElement(String p_41701_, net.minecraft.nbt.Tag p_41702_) {
-      this.getOrCreateTag().put(p_41701_, p_41702_);
-   }
-
-   public boolean isFramed() {
-      return this.entityRepresentation instanceof ItemFrame;
-   }
-
-   public void setEntityRepresentation(@Nullable Entity p_41637_) {
-      this.entityRepresentation = p_41637_;
-   }
-
-   @Nullable
-   public ItemFrame getFrame() {
-      return this.entityRepresentation instanceof ItemFrame ? (ItemFrame)this.getEntityRepresentation() : null;
-   }
-
-   @Nullable
-   public Entity getEntityRepresentation() {
-      return !this.emptyCacheFlag ? this.entityRepresentation : null;
-   }
-
-   public int getBaseRepairCost() {
-      return this.hasTag() && this.tag.contains("RepairCost", 3) ? this.tag.getInt("RepairCost") : 0;
-   }
-
-   public void setRepairCost(int p_41743_) {
-      this.getOrCreateTag().putInt("RepairCost", p_41743_);
-   }
-
-   public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot p_41639_) {
-      Multimap<Attribute, AttributeModifier> multimap;
-      if (this.hasTag() && this.tag.contains("AttributeModifiers", 9)) {
-         multimap = HashMultimap.create();
-         ListTag listtag = this.tag.getList("AttributeModifiers", 10);
-
-         for(int i = 0; i < listtag.size(); ++i) {
-            CompoundTag compoundtag = listtag.getCompound(i);
-            if (!compoundtag.contains("Slot", 8) || compoundtag.getString("Slot").equals(p_41639_.getName())) {
-               Optional<Attribute> optional = Registry.ATTRIBUTE.getOptional(ResourceLocation.tryParse(compoundtag.getString("AttributeName")));
-               if (optional.isPresent()) {
-                  AttributeModifier attributemodifier = AttributeModifier.load(compoundtag);
-                  if (attributemodifier != null && attributemodifier.getId().getLeastSignificantBits() != 0L && attributemodifier.getId().getMostSignificantBits() != 0L) {
-                     multimap.put(optional.get(), attributemodifier);
-                  }
-               }
+        if (pIsAdvanced.isAdvanced())
+        {
+            if (this.isDamaged())
+            {
+                list.add(new TranslatableComponent("item.durability", this.getMaxDamage() - this.getDamageValue(), this.getMaxDamage()));
             }
-         }
-      } else {
-         multimap = this.getItem().getDefaultAttributeModifiers(p_41639_);
-      }
 
-      return multimap;
-   }
+            list.add((new TextComponent(Registry.ITEM.getKey(this.getItem()).toString())).withStyle(ChatFormatting.DARK_GRAY));
 
-   public void addAttributeModifier(Attribute p_41644_, AttributeModifier p_41645_, @Nullable EquipmentSlot p_41646_) {
-      this.getOrCreateTag();
-      if (!this.tag.contains("AttributeModifiers", 9)) {
-         this.tag.put("AttributeModifiers", new ListTag());
-      }
+            if (this.hasTag())
+            {
+                list.add((new TranslatableComponent("item.nbt_tags", this.tag.getAllKeys().size())).withStyle(ChatFormatting.DARK_GRAY));
+            }
+        }
 
-      ListTag listtag = this.tag.getList("AttributeModifiers", 10);
-      CompoundTag compoundtag = p_41645_.save();
-      compoundtag.putString("AttributeName", Registry.ATTRIBUTE.getKey(p_41644_).toString());
-      if (p_41646_ != null) {
-         compoundtag.putString("Slot", p_41646_.getName());
-      }
+        return list;
+    }
 
-      listtag.add(compoundtag);
-   }
+    private static boolean shouldShowInTooltip(int pHideFlags, ItemStack.TooltipPart pPart)
+    {
+        return (pHideFlags & pPart.getMask()) == 0;
+    }
 
-   public Component getDisplayName() {
-      MutableComponent mutablecomponent = (new TextComponent("")).append(this.getHoverName());
-      if (this.hasCustomHoverName()) {
-         mutablecomponent.withStyle(ChatFormatting.ITALIC);
-      }
+    private int getHideFlags()
+    {
+        return this.hasTag() && this.tag.contains("HideFlags", 99) ? this.tag.getInt("HideFlags") : 0;
+    }
 
-      MutableComponent mutablecomponent1 = ComponentUtils.wrapInSquareBrackets(mutablecomponent);
-      if (!this.emptyCacheFlag) {
-         mutablecomponent1.withStyle(this.getRarity().color).withStyle((p_41719_) -> {
-            return p_41719_.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new HoverEvent.ItemStackInfo(this)));
-         });
-      }
+    public void hideTooltipPart(ItemStack.TooltipPart pPart)
+    {
+        CompoundTag compoundtag = this.getOrCreateTag();
+        compoundtag.putInt("HideFlags", compoundtag.getInt("HideFlags") | pPart.getMask());
+    }
 
-      return mutablecomponent1;
-   }
+    public static void appendEnchantmentNames(List<Component> pTooltipComponents, ListTag pStoredEnchantments)
+    {
+        for (int i = 0; i < pStoredEnchantments.size(); ++i)
+        {
+            CompoundTag compoundtag = pStoredEnchantments.getCompound(i);
+            Registry.ENCHANTMENT.getOptional(EnchantmentHelper.getEnchantmentId(compoundtag)).ifPresent((p_41708_) ->
+            {
+                pTooltipComponents.add(p_41708_.getFullname(EnchantmentHelper.getEnchantmentLevel(compoundtag)));
+            });
+        }
+    }
 
-   public boolean hasAdventureModePlaceTagForBlock(TagContainer p_41724_, BlockInWorld p_41725_) {
-      if (this.adventurePlaceCheck == null) {
-         this.adventurePlaceCheck = new AdventureModeCheck("CanPlaceOn");
-      }
+    private static Collection<Component> expandBlockState(String pStateString)
+    {
+        try
+        {
+            BlockStateParser blockstateparser = (new BlockStateParser(new StringReader(pStateString), true)).parse(true);
+            BlockState blockstate = blockstateparser.getState();
+            ResourceLocation resourcelocation = blockstateparser.getTag();
+            boolean flag = blockstate != null;
+            boolean flag1 = resourcelocation != null;
 
-      return this.adventurePlaceCheck.test(this, p_41724_, p_41725_);
-   }
+            if (flag || flag1)
+            {
+                if (flag)
+                {
+                    return Lists.newArrayList(blockstate.getBlock().getName().withStyle(ChatFormatting.DARK_GRAY));
+                }
 
-   public boolean hasAdventureModeBreakTagForBlock(TagContainer p_41634_, BlockInWorld p_41635_) {
-      if (this.adventureBreakCheck == null) {
-         this.adventureBreakCheck = new AdventureModeCheck("CanDestroy");
-      }
+                Tag<Block> tag = BlockTags.getAllTags().getTag(resourcelocation);
 
-      return this.adventureBreakCheck.test(this, p_41634_, p_41635_);
-   }
+                if (tag != null)
+                {
+                    Collection<Block> collection = tag.getValues();
 
-   public int getPopTime() {
-      return this.popTime;
-   }
+                    if (!collection.isEmpty())
+                    {
+                        return collection.stream().map(Block::getName).map((p_41717_) ->
+                        {
+                            return p_41717_.withStyle(ChatFormatting.DARK_GRAY);
+                        }).collect(Collectors.toList());
+                    }
+                }
+            }
+        }
+        catch (CommandSyntaxException commandsyntaxexception)
+        {
+        }
 
-   public void setPopTime(int p_41755_) {
-      this.popTime = p_41755_;
-   }
+        return Lists.newArrayList((new TextComponent("missingno")).withStyle(ChatFormatting.DARK_GRAY));
+    }
 
-   public int getCount() {
-      return this.emptyCacheFlag ? 0 : this.count;
-   }
+    public boolean hasFoil()
+    {
+        return this.getItem().isFoil(this);
+    }
 
-   public void setCount(int p_41765_) {
-      this.count = p_41765_;
-      this.updateEmptyCacheFlag();
-   }
+    public Rarity getRarity()
+    {
+        return this.getItem().getRarity(this);
+    }
 
-   public void grow(int p_41770_) {
-      this.setCount(this.count + p_41770_);
-   }
+    public boolean isEnchantable()
+    {
+        if (!this.getItem().isEnchantable(this))
+        {
+            return false;
+        }
+        else
+        {
+            return !this.isEnchanted();
+        }
+    }
 
-   public void shrink(int p_41775_) {
-      this.grow(-p_41775_);
-   }
+    public void enchant(Enchantment pEnchantment, int pLevel)
+    {
+        this.getOrCreateTag();
 
-   public void onUseTick(Level p_41732_, LivingEntity p_41733_, int p_41734_) {
-      this.getItem().onUseTick(p_41732_, p_41733_, this, p_41734_);
-   }
+        if (!this.tag.contains("Enchantments", 9))
+        {
+            this.tag.put("Enchantments", new ListTag());
+        }
 
-   public void onDestroyed(ItemEntity p_150925_) {
-      this.getItem().onDestroyed(p_150925_);
-   }
+        ListTag listtag = this.tag.getList("Enchantments", 10);
+        listtag.add(EnchantmentHelper.storeEnchantment(EnchantmentHelper.getEnchantmentId(pEnchantment), (byte)pLevel));
+    }
 
-   public boolean isEdible() {
-      return this.getItem().isEdible();
-   }
+    public boolean isEnchanted()
+    {
+        if (this.tag != null && this.tag.contains("Enchantments", 9))
+        {
+            return !this.tag.getList("Enchantments", 10).isEmpty();
+        }
+        else
+        {
+            return false;
+        }
+    }
 
-   public SoundEvent getDrinkingSound() {
-      return this.getItem().getDrinkingSound();
-   }
+    public void addTagElement(String pKey, net.minecraft.nbt.Tag pTag)
+    {
+        this.getOrCreateTag().put(pKey, pTag);
+    }
 
-   public SoundEvent getEatingSound() {
-      return this.getItem().getEatingSound();
-   }
+    public boolean isFramed()
+    {
+        return this.entityRepresentation instanceof ItemFrame;
+    }
 
-   @Nullable
-   public SoundEvent getEquipSound() {
-      return this.getItem().getEquipSound();
-   }
+    public void setEntityRepresentation(@Nullable Entity pEntity)
+    {
+        this.entityRepresentation = pEntity;
+    }
 
-   public static enum TooltipPart {
-      ENCHANTMENTS,
-      MODIFIERS,
-      UNBREAKABLE,
-      CAN_DESTROY,
-      CAN_PLACE,
-      ADDITIONAL,
-      DYE;
+    @Nullable
+    public ItemFrame getFrame()
+    {
+        return this.entityRepresentation instanceof ItemFrame ? (ItemFrame)this.getEntityRepresentation() : null;
+    }
 
-      private final int mask = 1 << this.ordinal();
+    @Nullable
+    public Entity getEntityRepresentation()
+    {
+        return !this.emptyCacheFlag ? this.entityRepresentation : null;
+    }
 
-      public int getMask() {
-         return this.mask;
-      }
-   }
+    public int getBaseRepairCost()
+    {
+        return this.hasTag() && this.tag.contains("RepairCost", 3) ? this.tag.getInt("RepairCost") : 0;
+    }
+
+    public void setRepairCost(int pCost)
+    {
+        this.getOrCreateTag().putInt("RepairCost", pCost);
+    }
+
+    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot pSlot)
+    {
+        Multimap<Attribute, AttributeModifier> multimap;
+
+        if (this.hasTag() && this.tag.contains("AttributeModifiers", 9))
+        {
+            multimap = HashMultimap.create();
+            ListTag listtag = this.tag.getList("AttributeModifiers", 10);
+
+            for (int i = 0; i < listtag.size(); ++i)
+            {
+                CompoundTag compoundtag = listtag.getCompound(i);
+
+                if (!compoundtag.contains("Slot", 8) || compoundtag.getString("Slot").equals(pSlot.getName()))
+                {
+                    Optional<Attribute> optional = Registry.ATTRIBUTE.getOptional(ResourceLocation.tryParse(compoundtag.getString("AttributeName")));
+
+                    if (optional.isPresent())
+                    {
+                        AttributeModifier attributemodifier = AttributeModifier.load(compoundtag);
+
+                        if (attributemodifier != null && attributemodifier.getId().getLeastSignificantBits() != 0L && attributemodifier.getId().getMostSignificantBits() != 0L)
+                        {
+                            multimap.put(optional.get(), attributemodifier);
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            multimap = this.getItem().getDefaultAttributeModifiers(pSlot);
+        }
+
+        return multimap;
+    }
+
+    public void addAttributeModifier(Attribute pAttribute, AttributeModifier pModifier, @Nullable EquipmentSlot pSlot)
+    {
+        this.getOrCreateTag();
+
+        if (!this.tag.contains("AttributeModifiers", 9))
+        {
+            this.tag.put("AttributeModifiers", new ListTag());
+        }
+
+        ListTag listtag = this.tag.getList("AttributeModifiers", 10);
+        CompoundTag compoundtag = pModifier.save();
+        compoundtag.putString("AttributeName", Registry.ATTRIBUTE.getKey(pAttribute).toString());
+
+        if (pSlot != null)
+        {
+            compoundtag.putString("Slot", pSlot.getName());
+        }
+
+        listtag.add(compoundtag);
+    }
+
+    public Component getDisplayName()
+    {
+        MutableComponent mutablecomponent = (new TextComponent("")).append(this.getHoverName());
+
+        if (this.hasCustomHoverName())
+        {
+            mutablecomponent.withStyle(ChatFormatting.ITALIC);
+        }
+
+        MutableComponent mutablecomponent1 = ComponentUtils.wrapInSquareBrackets(mutablecomponent);
+
+        if (!this.emptyCacheFlag)
+        {
+            mutablecomponent1.withStyle(this.getRarity().color).withStyle((p_41719_) ->
+            {
+                return p_41719_.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new HoverEvent.ItemStackInfo(this)));
+            });
+        }
+
+        return mutablecomponent1;
+    }
+
+    public boolean hasAdventureModePlaceTagForBlock(TagContainer pTagContainer, BlockInWorld pBlock)
+    {
+        if (this.adventurePlaceCheck == null)
+        {
+            this.adventurePlaceCheck = new AdventureModeCheck("CanPlaceOn");
+        }
+
+        return this.adventurePlaceCheck.test(this, pTagContainer, pBlock);
+    }
+
+    public boolean hasAdventureModeBreakTagForBlock(TagContainer pTagContainer, BlockInWorld pBlock)
+    {
+        if (this.adventureBreakCheck == null)
+        {
+            this.adventureBreakCheck = new AdventureModeCheck("CanDestroy");
+        }
+
+        return this.adventureBreakCheck.test(this, pTagContainer, pBlock);
+    }
+
+    public int getPopTime()
+    {
+        return this.popTime;
+    }
+
+    public void setPopTime(int pPopTime)
+    {
+        this.popTime = pPopTime;
+    }
+
+    public int getCount()
+    {
+        return this.emptyCacheFlag ? 0 : this.count;
+    }
+
+    public void setCount(int pCount)
+    {
+        this.count = pCount;
+        this.updateEmptyCacheFlag();
+    }
+
+    public void grow(int pIncrement)
+    {
+        this.setCount(this.count + pIncrement);
+    }
+
+    public void shrink(int pDecrement)
+    {
+        this.grow(-pDecrement);
+    }
+
+    public void onUseTick(Level pLevel, LivingEntity pLivingEntity, int pCount)
+    {
+        this.getItem().onUseTick(pLevel, pLivingEntity, this, pCount);
+    }
+
+    public void onDestroyed(ItemEntity pItemEntity)
+    {
+        this.getItem().onDestroyed(pItemEntity);
+    }
+
+    public boolean isEdible()
+    {
+        return this.getItem().isEdible();
+    }
+
+    public SoundEvent getDrinkingSound()
+    {
+        return this.getItem().getDrinkingSound();
+    }
+
+    public SoundEvent getEatingSound()
+    {
+        return this.getItem().getEatingSound();
+    }
+
+    @Nullable
+    public SoundEvent getEquipSound()
+    {
+        return this.getItem().getEquipSound();
+    }
+
+    public static enum TooltipPart
+    {
+        ENCHANTMENTS,
+        MODIFIERS,
+        UNBREAKABLE,
+        CAN_DESTROY,
+        CAN_PLACE,
+        ADDITIONAL,
+        DYE;
+
+        private final int mask = 1 << this.ordinal();
+
+        public int getMask()
+        {
+            return this.mask;
+        }
+    }
 }

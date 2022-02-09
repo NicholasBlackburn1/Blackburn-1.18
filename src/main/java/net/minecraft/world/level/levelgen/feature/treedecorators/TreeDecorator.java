@@ -11,14 +11,16 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
-public abstract class TreeDecorator {
-   public static final Codec<TreeDecorator> CODEC = Registry.TREE_DECORATOR_TYPES.byNameCodec().dispatch(TreeDecorator::type, TreeDecoratorType::codec);
+public abstract class TreeDecorator
+{
+    public static final Codec<TreeDecorator> CODEC = Registry.TREE_DECORATOR_TYPES.byNameCodec().dispatch(TreeDecorator::type, TreeDecoratorType::codec);
 
-   protected abstract TreeDecoratorType<?> type();
+    protected abstract TreeDecoratorType<?> type();
 
-   public abstract void place(LevelSimulatedReader p_161745_, BiConsumer<BlockPos, BlockState> p_161746_, Random p_161747_, List<BlockPos> p_161748_, List<BlockPos> p_161749_);
+    public abstract void place(LevelSimulatedReader pLevel, BiConsumer<BlockPos, BlockState> pBlockSetter, Random pRandom, List<BlockPos> pLogPositions, List<BlockPos> pLeafPositions);
 
-   protected static void placeVine(BiConsumer<BlockPos, BlockState> p_161751_, BlockPos p_161752_, BooleanProperty p_161753_) {
-      p_161751_.accept(p_161752_, Blocks.VINE.defaultBlockState().setValue(p_161753_, Boolean.valueOf(true)));
-   }
+    protected static void placeVine(BiConsumer<BlockPos, BlockState> pBlockSetter, BlockPos pPos, BooleanProperty pSideProperty)
+    {
+        pBlockSetter.accept(pPos, Blocks.VINE.defaultBlockState().setValue(pSideProperty, Boolean.valueOf(true)));
+    }
 }

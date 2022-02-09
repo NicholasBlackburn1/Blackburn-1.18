@@ -28,131 +28,155 @@ import net.minecraft.world.level.levelgen.structure.PoolElementStructurePiece;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureManager;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 
-public class JigsawBlockEntity extends BlockEntity {
-   public static final String TARGET = "target";
-   public static final String POOL = "pool";
-   public static final String JOINT = "joint";
-   public static final String NAME = "name";
-   public static final String FINAL_STATE = "final_state";
-   private ResourceLocation name = new ResourceLocation("empty");
-   private ResourceLocation target = new ResourceLocation("empty");
-   private ResourceLocation pool = new ResourceLocation("empty");
-   private JigsawBlockEntity.JointType joint = JigsawBlockEntity.JointType.ROLLABLE;
-   private String finalState = "minecraft:air";
+public class JigsawBlockEntity extends BlockEntity
+{
+    public static final String TARGET = "target";
+    public static final String POOL = "pool";
+    public static final String JOINT = "joint";
+    public static final String NAME = "name";
+    public static final String FINAL_STATE = "final_state";
+    private ResourceLocation name = new ResourceLocation("empty");
+    private ResourceLocation target = new ResourceLocation("empty");
+    private ResourceLocation pool = new ResourceLocation("empty");
+    private JigsawBlockEntity.JointType joint = JigsawBlockEntity.JointType.ROLLABLE;
+    private String finalState = "minecraft:air";
 
-   public JigsawBlockEntity(BlockPos p_155605_, BlockState p_155606_) {
-      super(BlockEntityType.JIGSAW, p_155605_, p_155606_);
-   }
+    public JigsawBlockEntity(BlockPos pWorldPosition, BlockState pBlockState)
+    {
+        super(BlockEntityType.JIGSAW, pWorldPosition, pBlockState);
+    }
 
-   public ResourceLocation getName() {
-      return this.name;
-   }
+    public ResourceLocation getName()
+    {
+        return this.name;
+    }
 
-   public ResourceLocation getTarget() {
-      return this.target;
-   }
+    public ResourceLocation getTarget()
+    {
+        return this.target;
+    }
 
-   public ResourceLocation getPool() {
-      return this.pool;
-   }
+    public ResourceLocation getPool()
+    {
+        return this.pool;
+    }
 
-   public String getFinalState() {
-      return this.finalState;
-   }
+    public String getFinalState()
+    {
+        return this.finalState;
+    }
 
-   public JigsawBlockEntity.JointType getJoint() {
-      return this.joint;
-   }
+    public JigsawBlockEntity.JointType getJoint()
+    {
+        return this.joint;
+    }
 
-   public void setName(ResourceLocation p_59436_) {
-      this.name = p_59436_;
-   }
+    public void setName(ResourceLocation pName)
+    {
+        this.name = pName;
+    }
 
-   public void setTarget(ResourceLocation p_59439_) {
-      this.target = p_59439_;
-   }
+    public void setTarget(ResourceLocation pTarget)
+    {
+        this.target = pTarget;
+    }
 
-   public void setPool(ResourceLocation p_59441_) {
-      this.pool = p_59441_;
-   }
+    public void setPool(ResourceLocation pPool)
+    {
+        this.pool = pPool;
+    }
 
-   public void setFinalState(String p_59432_) {
-      this.finalState = p_59432_;
-   }
+    public void setFinalState(String pFinalState)
+    {
+        this.finalState = pFinalState;
+    }
 
-   public void setJoint(JigsawBlockEntity.JointType p_59425_) {
-      this.joint = p_59425_;
-   }
+    public void setJoint(JigsawBlockEntity.JointType pJoint)
+    {
+        this.joint = pJoint;
+    }
 
-   protected void saveAdditional(CompoundTag p_187504_) {
-      super.saveAdditional(p_187504_);
-      p_187504_.putString("name", this.name.toString());
-      p_187504_.putString("target", this.target.toString());
-      p_187504_.putString("pool", this.pool.toString());
-      p_187504_.putString("final_state", this.finalState);
-      p_187504_.putString("joint", this.joint.getSerializedName());
-   }
+    protected void saveAdditional(CompoundTag p_187504_)
+    {
+        super.saveAdditional(p_187504_);
+        p_187504_.putString("name", this.name.toString());
+        p_187504_.putString("target", this.target.toString());
+        p_187504_.putString("pool", this.pool.toString());
+        p_187504_.putString("final_state", this.finalState);
+        p_187504_.putString("joint", this.joint.getSerializedName());
+    }
 
-   public void load(CompoundTag p_155608_) {
-      super.load(p_155608_);
-      this.name = new ResourceLocation(p_155608_.getString("name"));
-      this.target = new ResourceLocation(p_155608_.getString("target"));
-      this.pool = new ResourceLocation(p_155608_.getString("pool"));
-      this.finalState = p_155608_.getString("final_state");
-      this.joint = JigsawBlockEntity.JointType.byName(p_155608_.getString("joint")).orElseGet(() -> {
-         return JigsawBlock.getFrontFacing(this.getBlockState()).getAxis().isHorizontal() ? JigsawBlockEntity.JointType.ALIGNED : JigsawBlockEntity.JointType.ROLLABLE;
-      });
-   }
+    public void load(CompoundTag pTag)
+    {
+        super.load(pTag);
+        this.name = new ResourceLocation(pTag.getString("name"));
+        this.target = new ResourceLocation(pTag.getString("target"));
+        this.pool = new ResourceLocation(pTag.getString("pool"));
+        this.finalState = pTag.getString("final_state");
+        this.joint = JigsawBlockEntity.JointType.byName(pTag.getString("joint")).orElseGet(() ->
+        {
+            return JigsawBlock.getFrontFacing(this.getBlockState()).getAxis().isHorizontal() ? JigsawBlockEntity.JointType.ALIGNED : JigsawBlockEntity.JointType.ROLLABLE;
+        });
+    }
 
-   public ClientboundBlockEntityDataPacket getUpdatePacket() {
-      return ClientboundBlockEntityDataPacket.create(this);
-   }
+    public ClientboundBlockEntityDataPacket getUpdatePacket()
+    {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
 
-   public CompoundTag getUpdateTag() {
-      return this.saveWithoutMetadata();
-   }
+    public CompoundTag getUpdateTag()
+    {
+        return this.saveWithoutMetadata();
+    }
 
-   public void generate(ServerLevel p_59421_, int p_59422_, boolean p_59423_) {
-      ChunkGenerator chunkgenerator = p_59421_.getChunkSource().getGenerator();
-      StructureManager structuremanager = p_59421_.getStructureManager();
-      StructureFeatureManager structurefeaturemanager = p_59421_.structureFeatureManager();
-      Random random = p_59421_.getRandom();
-      BlockPos blockpos = this.getBlockPos();
-      List<PoolElementStructurePiece> list = Lists.newArrayList();
-      StructureTemplate structuretemplate = new StructureTemplate();
-      structuretemplate.fillFromWorld(p_59421_, blockpos, new Vec3i(1, 1, 1), false, (Block)null);
-      StructurePoolElement structurepoolelement = new SinglePoolElement(structuretemplate);
-      PoolElementStructurePiece poolelementstructurepiece = new PoolElementStructurePiece(structuremanager, structurepoolelement, blockpos, 1, Rotation.NONE, new BoundingBox(blockpos));
-      JigsawPlacement.addPieces(p_59421_.registryAccess(), poolelementstructurepiece, p_59422_, PoolElementStructurePiece::new, chunkgenerator, structuremanager, list, random, p_59421_);
+    public void generate(ServerLevel p_59421_, int p_59422_, boolean p_59423_)
+    {
+        ChunkGenerator chunkgenerator = p_59421_.getChunkSource().getGenerator();
+        StructureManager structuremanager = p_59421_.getStructureManager();
+        StructureFeatureManager structurefeaturemanager = p_59421_.structureFeatureManager();
+        Random random = p_59421_.getRandom();
+        BlockPos blockpos = this.getBlockPos();
+        List<PoolElementStructurePiece> list = Lists.newArrayList();
+        StructureTemplate structuretemplate = new StructureTemplate();
+        structuretemplate.fillFromWorld(p_59421_, blockpos, new Vec3i(1, 1, 1), false, (Block)null);
+        StructurePoolElement structurepoolelement = new SinglePoolElement(structuretemplate);
+        PoolElementStructurePiece poolelementstructurepiece = new PoolElementStructurePiece(structuremanager, structurepoolelement, blockpos, 1, Rotation.NONE, new BoundingBox(blockpos));
+        JigsawPlacement.addPieces(p_59421_.registryAccess(), poolelementstructurepiece, p_59422_, PoolElementStructurePiece::new, chunkgenerator, structuremanager, list, random, p_59421_);
 
-      for(PoolElementStructurePiece poolelementstructurepiece1 : list) {
-         poolelementstructurepiece1.place(p_59421_, structurefeaturemanager, chunkgenerator, random, BoundingBox.infinite(), blockpos, p_59423_);
-      }
+        for (PoolElementStructurePiece poolelementstructurepiece1 : list)
+        {
+            poolelementstructurepiece1.place(p_59421_, structurefeaturemanager, chunkgenerator, random, BoundingBox.infinite(), blockpos, p_59423_);
+        }
+    }
 
-   }
+    public static enum JointType implements StringRepresentable
+    {
+        ROLLABLE("rollable"),
+        ALIGNED("aligned");
 
-   public static enum JointType implements StringRepresentable {
-      ROLLABLE("rollable"),
-      ALIGNED("aligned");
+        private final String name;
 
-      private final String name;
+        private JointType(String p_59455_)
+        {
+            this.name = p_59455_;
+        }
 
-      private JointType(String p_59455_) {
-         this.name = p_59455_;
-      }
+        public String getSerializedName()
+        {
+            return this.name;
+        }
 
-      public String getSerializedName() {
-         return this.name;
-      }
+        public static Optional<JigsawBlockEntity.JointType> byName(String pName)
+        {
+            return Arrays.stream(values()).filter((p_59461_) ->
+            {
+                return p_59461_.getSerializedName().equals(pName);
+            }).findFirst();
+        }
 
-      public static Optional<JigsawBlockEntity.JointType> byName(String p_59458_) {
-         return Arrays.stream(values()).filter((p_59461_) -> {
-            return p_59461_.getSerializedName().equals(p_59458_);
-         }).findFirst();
-      }
-
-      public Component getTranslatedName() {
-         return new TranslatableComponent("jigsaw_block.joint." + this.name);
-      }
-   }
+        public Component getTranslatedName()
+        {
+            return new TranslatableComponent("jigsaw_block.joint." + this.name);
+        }
+    }
 }

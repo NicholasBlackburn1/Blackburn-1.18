@@ -24,73 +24,89 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureMana
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 
-public class ShipwreckPieces {
-   static final BlockPos PIVOT = new BlockPos(4, 0, 15);
-   private static final ResourceLocation[] STRUCTURE_LOCATION_BEACHED = new ResourceLocation[]{new ResourceLocation("shipwreck/with_mast"), new ResourceLocation("shipwreck/sideways_full"), new ResourceLocation("shipwreck/sideways_fronthalf"), new ResourceLocation("shipwreck/sideways_backhalf"), new ResourceLocation("shipwreck/rightsideup_full"), new ResourceLocation("shipwreck/rightsideup_fronthalf"), new ResourceLocation("shipwreck/rightsideup_backhalf"), new ResourceLocation("shipwreck/with_mast_degraded"), new ResourceLocation("shipwreck/rightsideup_full_degraded"), new ResourceLocation("shipwreck/rightsideup_fronthalf_degraded"), new ResourceLocation("shipwreck/rightsideup_backhalf_degraded")};
-   private static final ResourceLocation[] STRUCTURE_LOCATION_OCEAN = new ResourceLocation[]{new ResourceLocation("shipwreck/with_mast"), new ResourceLocation("shipwreck/upsidedown_full"), new ResourceLocation("shipwreck/upsidedown_fronthalf"), new ResourceLocation("shipwreck/upsidedown_backhalf"), new ResourceLocation("shipwreck/sideways_full"), new ResourceLocation("shipwreck/sideways_fronthalf"), new ResourceLocation("shipwreck/sideways_backhalf"), new ResourceLocation("shipwreck/rightsideup_full"), new ResourceLocation("shipwreck/rightsideup_fronthalf"), new ResourceLocation("shipwreck/rightsideup_backhalf"), new ResourceLocation("shipwreck/with_mast_degraded"), new ResourceLocation("shipwreck/upsidedown_full_degraded"), new ResourceLocation("shipwreck/upsidedown_fronthalf_degraded"), new ResourceLocation("shipwreck/upsidedown_backhalf_degraded"), new ResourceLocation("shipwreck/sideways_full_degraded"), new ResourceLocation("shipwreck/sideways_fronthalf_degraded"), new ResourceLocation("shipwreck/sideways_backhalf_degraded"), new ResourceLocation("shipwreck/rightsideup_full_degraded"), new ResourceLocation("shipwreck/rightsideup_fronthalf_degraded"), new ResourceLocation("shipwreck/rightsideup_backhalf_degraded")};
-   static final Map<String, ResourceLocation> MARKERS_TO_LOOT = Map.of("map_chest", BuiltInLootTables.SHIPWRECK_MAP, "treasure_chest", BuiltInLootTables.SHIPWRECK_TREASURE, "supply_chest", BuiltInLootTables.SHIPWRECK_SUPPLY);
+public class ShipwreckPieces
+{
+    static final BlockPos PIVOT = new BlockPos(4, 0, 15);
+    private static final ResourceLocation[] STRUCTURE_LOCATION_BEACHED = new ResourceLocation[] {new ResourceLocation("shipwreck/with_mast"), new ResourceLocation("shipwreck/sideways_full"), new ResourceLocation("shipwreck/sideways_fronthalf"), new ResourceLocation("shipwreck/sideways_backhalf"), new ResourceLocation("shipwreck/rightsideup_full"), new ResourceLocation("shipwreck/rightsideup_fronthalf"), new ResourceLocation("shipwreck/rightsideup_backhalf"), new ResourceLocation("shipwreck/with_mast_degraded"), new ResourceLocation("shipwreck/rightsideup_full_degraded"), new ResourceLocation("shipwreck/rightsideup_fronthalf_degraded"), new ResourceLocation("shipwreck/rightsideup_backhalf_degraded")};
+    private static final ResourceLocation[] STRUCTURE_LOCATION_OCEAN = new ResourceLocation[] {new ResourceLocation("shipwreck/with_mast"), new ResourceLocation("shipwreck/upsidedown_full"), new ResourceLocation("shipwreck/upsidedown_fronthalf"), new ResourceLocation("shipwreck/upsidedown_backhalf"), new ResourceLocation("shipwreck/sideways_full"), new ResourceLocation("shipwreck/sideways_fronthalf"), new ResourceLocation("shipwreck/sideways_backhalf"), new ResourceLocation("shipwreck/rightsideup_full"), new ResourceLocation("shipwreck/rightsideup_fronthalf"), new ResourceLocation("shipwreck/rightsideup_backhalf"), new ResourceLocation("shipwreck/with_mast_degraded"), new ResourceLocation("shipwreck/upsidedown_full_degraded"), new ResourceLocation("shipwreck/upsidedown_fronthalf_degraded"), new ResourceLocation("shipwreck/upsidedown_backhalf_degraded"), new ResourceLocation("shipwreck/sideways_full_degraded"), new ResourceLocation("shipwreck/sideways_fronthalf_degraded"), new ResourceLocation("shipwreck/sideways_backhalf_degraded"), new ResourceLocation("shipwreck/rightsideup_full_degraded"), new ResourceLocation("shipwreck/rightsideup_fronthalf_degraded"), new ResourceLocation("shipwreck/rightsideup_backhalf_degraded")};
+    static final Map<String, ResourceLocation> MARKERS_TO_LOOT = Map.of("map_chest", BuiltInLootTables.SHIPWRECK_MAP, "treasure_chest", BuiltInLootTables.SHIPWRECK_TREASURE, "supply_chest", BuiltInLootTables.SHIPWRECK_SUPPLY);
 
-   public static void addPieces(StructureManager p_163201_, BlockPos p_163202_, Rotation p_163203_, StructurePieceAccessor p_163204_, Random p_163205_, ShipwreckConfiguration p_163206_) {
-      ResourceLocation resourcelocation = Util.getRandom(p_163206_.isBeached ? STRUCTURE_LOCATION_BEACHED : STRUCTURE_LOCATION_OCEAN, p_163205_);
-      p_163204_.addPiece(new ShipwreckPieces.ShipwreckPiece(p_163201_, resourcelocation, p_163202_, p_163203_, p_163206_.isBeached));
-   }
+    public static void addPieces(StructureManager pStructureManager, BlockPos pPos, Rotation pRotation, StructurePieceAccessor pPieces, Random pRandom, ShipwreckConfiguration pConfig)
+    {
+        ResourceLocation resourcelocation = Util.a(pConfig.isBeached ? STRUCTURE_LOCATION_BEACHED : STRUCTURE_LOCATION_OCEAN, pRandom);
+        pPieces.addPiece(new ShipwreckPieces.ShipwreckPiece(pStructureManager, resourcelocation, pPos, pRotation, pConfig.isBeached));
+    }
 
-   public static class ShipwreckPiece extends TemplateStructurePiece {
-      private final boolean isBeached;
+    public static class ShipwreckPiece extends TemplateStructurePiece
+    {
+        private final boolean isBeached;
 
-      public ShipwreckPiece(StructureManager p_72828_, ResourceLocation p_72829_, BlockPos p_72830_, Rotation p_72831_, boolean p_72832_) {
-         super(StructurePieceType.SHIPWRECK_PIECE, 0, p_72828_, p_72829_, p_72829_.toString(), makeSettings(p_72831_), p_72830_);
-         this.isBeached = p_72832_;
-      }
+        public ShipwreckPiece(StructureManager pStructureManager, ResourceLocation pLocation, BlockPos pPos, Rotation pRotation, boolean pIsBeached)
+        {
+            super(StructurePieceType.SHIPWRECK_PIECE, 0, pStructureManager, pLocation, pLocation.toString(), makeSettings(pRotation), pPos);
+            this.isBeached = pIsBeached;
+        }
 
-      public ShipwreckPiece(StructureManager p_192475_, CompoundTag p_192476_) {
-         super(StructurePieceType.SHIPWRECK_PIECE, p_192476_, p_192475_, (p_163217_) -> {
-            return makeSettings(Rotation.valueOf(p_192476_.getString("Rot")));
-         });
-         this.isBeached = p_192476_.getBoolean("isBeached");
-      }
+        public ShipwreckPiece(StructureManager p_192475_, CompoundTag p_192476_)
+        {
+            super(StructurePieceType.SHIPWRECK_PIECE, p_192476_, p_192475_, (p_163217_) ->
+            {
+                return makeSettings(Rotation.valueOf(p_192476_.getString("Rot")));
+            });
+            this.isBeached = p_192476_.getBoolean("isBeached");
+        }
 
-      protected void addAdditionalSaveData(StructurePieceSerializationContext p_192486_, CompoundTag p_192487_) {
-         super.addAdditionalSaveData(p_192486_, p_192487_);
-         p_192487_.putBoolean("isBeached", this.isBeached);
-         p_192487_.putString("Rot", this.placeSettings.getRotation().name());
-      }
+        protected void addAdditionalSaveData(StructurePieceSerializationContext p_192486_, CompoundTag p_192487_)
+        {
+            super.addAdditionalSaveData(p_192486_, p_192487_);
+            p_192487_.putBoolean("isBeached", this.isBeached);
+            p_192487_.putString("Rot", this.placeSettings.getRotation().name());
+        }
 
-      private static StructurePlaceSettings makeSettings(Rotation p_163214_) {
-         return (new StructurePlaceSettings()).setRotation(p_163214_).setMirror(Mirror.NONE).setRotationPivot(ShipwreckPieces.PIVOT).addProcessor(BlockIgnoreProcessor.STRUCTURE_AND_AIR);
-      }
+        private static StructurePlaceSettings makeSettings(Rotation pRotation)
+        {
+            return (new StructurePlaceSettings()).setRotation(pRotation).setMirror(Mirror.NONE).setRotationPivot(ShipwreckPieces.PIVOT).addProcessor(BlockIgnoreProcessor.STRUCTURE_AND_AIR);
+        }
 
-      protected void handleDataMarker(String p_72844_, BlockPos p_72845_, ServerLevelAccessor p_72846_, Random p_72847_, BoundingBox p_72848_) {
-         ResourceLocation resourcelocation = ShipwreckPieces.MARKERS_TO_LOOT.get(p_72844_);
-         if (resourcelocation != null) {
-            RandomizableContainerBlockEntity.setLootTable(p_72846_, p_72847_, p_72845_.below(), resourcelocation);
-         }
+        protected void handleDataMarker(String pMarker, BlockPos pPos, ServerLevelAccessor pLevel, Random pRandom, BoundingBox pBox)
+        {
+            ResourceLocation resourcelocation = ShipwreckPieces.MARKERS_TO_LOOT.get(pMarker);
 
-      }
+            if (resourcelocation != null)
+            {
+                RandomizableContainerBlockEntity.setLootTable(pLevel, pRandom, pPos.below(), resourcelocation);
+            }
+        }
 
-      public void postProcess(WorldGenLevel p_192478_, StructureFeatureManager p_192479_, ChunkGenerator p_192480_, Random p_192481_, BoundingBox p_192482_, ChunkPos p_192483_, BlockPos p_192484_) {
-         int i = p_192478_.getMaxBuildHeight();
-         int j = 0;
-         Vec3i vec3i = this.template.getSize();
-         Heightmap.Types heightmap$types = this.isBeached ? Heightmap.Types.WORLD_SURFACE_WG : Heightmap.Types.OCEAN_FLOOR_WG;
-         int k = vec3i.getX() * vec3i.getZ();
-         if (k == 0) {
-            j = p_192478_.getHeight(heightmap$types, this.templatePosition.getX(), this.templatePosition.getZ());
-         } else {
-            BlockPos blockpos = this.templatePosition.offset(vec3i.getX() - 1, 0, vec3i.getZ() - 1);
+        public void postProcess(WorldGenLevel p_192478_, StructureFeatureManager p_192479_, ChunkGenerator p_192480_, Random p_192481_, BoundingBox p_192482_, ChunkPos p_192483_, BlockPos p_192484_)
+        {
+            int i = p_192478_.getMaxBuildHeight();
+            int j = 0;
+            Vec3i vec3i = this.template.getSize();
+            Heightmap.Types heightmap$types = this.isBeached ? Heightmap.Types.WORLD_SURFACE_WG : Heightmap.Types.OCEAN_FLOOR_WG;
+            int k = vec3i.getX() * vec3i.getZ();
 
-            for(BlockPos blockpos1 : BlockPos.betweenClosed(this.templatePosition, blockpos)) {
-               int l = p_192478_.getHeight(heightmap$types, blockpos1.getX(), blockpos1.getZ());
-               j += l;
-               i = Math.min(i, l);
+            if (k == 0)
+            {
+                j = p_192478_.getHeight(heightmap$types, this.templatePosition.getX(), this.templatePosition.getZ());
+            }
+            else
+            {
+                BlockPos blockpos = this.templatePosition.offset(vec3i.getX() - 1, 0, vec3i.getZ() - 1);
+
+                for (BlockPos blockpos1 : BlockPos.betweenClosed(this.templatePosition, blockpos))
+                {
+                    int l = p_192478_.getHeight(heightmap$types, blockpos1.getX(), blockpos1.getZ());
+                    j += l;
+                    i = Math.min(i, l);
+                }
+
+                j /= k;
             }
 
-            j /= k;
-         }
-
-         int i1 = this.isBeached ? i - vec3i.getY() / 2 - p_192481_.nextInt(3) : j;
-         this.templatePosition = new BlockPos(this.templatePosition.getX(), i1, this.templatePosition.getZ());
-         super.postProcess(p_192478_, p_192479_, p_192480_, p_192481_, p_192482_, p_192483_, p_192484_);
-      }
-   }
+            int i1 = this.isBeached ? i - vec3i.getY() / 2 - p_192481_.nextInt(3) : j;
+            this.templatePosition = new BlockPos(this.templatePosition.getX(), i1, this.templatePosition.getZ());
+            super.postProcess(p_192478_, p_192479_, p_192480_, p_192481_, p_192482_, p_192483_, p_192484_);
+        }
+    }
 }

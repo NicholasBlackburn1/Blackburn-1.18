@@ -4,26 +4,32 @@ import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 
-public class AxolotlAttackablesSensor extends NearestVisibleLivingEntitySensor {
-   public static final float TARGET_DETECTION_DISTANCE = 8.0F;
+public class AxolotlAttackablesSensor extends NearestVisibleLivingEntitySensor
+{
+    public static final float TARGET_DETECTION_DISTANCE = 8.0F;
 
-   protected boolean isMatchingEntity(LivingEntity p_148266_, LivingEntity p_148267_) {
-      return this.isClose(p_148266_, p_148267_) && p_148267_.isInWaterOrBubble() && (this.isHostileTarget(p_148267_) || this.isHuntTarget(p_148266_, p_148267_)) && Sensor.isEntityAttackable(p_148266_, p_148267_);
-   }
+    protected boolean isMatchingEntity(LivingEntity pAttacker, LivingEntity pTarget)
+    {
+        return this.isClose(pAttacker, pTarget) && pTarget.isInWaterOrBubble() && (this.isHostileTarget(pTarget) || this.isHuntTarget(pAttacker, pTarget)) && Sensor.isEntityAttackable(pAttacker, pTarget);
+    }
 
-   private boolean isHuntTarget(LivingEntity p_148272_, LivingEntity p_148273_) {
-      return !p_148272_.getBrain().hasMemoryValue(MemoryModuleType.HAS_HUNTING_COOLDOWN) && EntityTypeTags.AXOLOTL_HUNT_TARGETS.contains(p_148273_.getType());
-   }
+    private boolean isHuntTarget(LivingEntity pAttacker, LivingEntity pTarget)
+    {
+        return !pAttacker.getBrain().hasMemoryValue(MemoryModuleType.HAS_HUNTING_COOLDOWN) && EntityTypeTags.AXOLOTL_HUNT_TARGETS.contains(pTarget.getType());
+    }
 
-   private boolean isHostileTarget(LivingEntity p_148270_) {
-      return EntityTypeTags.AXOLOTL_ALWAYS_HOSTILES.contains(p_148270_.getType());
-   }
+    private boolean isHostileTarget(LivingEntity pTarget)
+    {
+        return EntityTypeTags.AXOLOTL_ALWAYS_HOSTILES.contains(pTarget.getType());
+    }
 
-   private boolean isClose(LivingEntity p_148275_, LivingEntity p_148276_) {
-      return p_148276_.distanceToSqr(p_148275_) <= 64.0D;
-   }
+    private boolean isClose(LivingEntity pAttacker, LivingEntity pTarget)
+    {
+        return pTarget.distanceToSqr(pAttacker) <= 64.0D;
+    }
 
-   protected MemoryModuleType<LivingEntity> getMemory() {
-      return MemoryModuleType.NEAREST_ATTACKABLE;
-   }
+    protected MemoryModuleType<LivingEntity> getMemory()
+    {
+        return MemoryModuleType.NEAREST_ATTACKABLE;
+    }
 }

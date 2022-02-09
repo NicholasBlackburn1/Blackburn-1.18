@@ -23,7 +23,7 @@ public class PlayerCritCommand implements ICommandRegister{
                 
                 command.clear();
               
-                TextComponent lightlevelenable = new TextComponent(" §5"+I18n.get("blackburn.command.crit.useage"));
+                TextComponent lightlevelenable = new TextComponent(" §5"+I18n.a("blackburn.command.crit.useage"));
                 mc.gui.getChat().addMessage(lightlevelenable);
             
                 
@@ -39,7 +39,7 @@ public class PlayerCritCommand implements ICommandRegister{
 
               
                 
-                TextComponent lightlevelenable = new TextComponent("crit"+" "+I18n.get("blackburn.command.enabled"));
+                TextComponent lightlevelenable = new TextComponent("crit"+" "+I18n.a("blackburn.command.enabled"));
                 mc.gui.getChat().addMessage(lightlevelenable);
             
                 
@@ -55,7 +55,7 @@ public class PlayerCritCommand implements ICommandRegister{
                 
                Consts.crit = false;
 
-                TextComponent lightlevelenable = new TextComponent("crit"+" "+I18n.get("blackburn.command.disabled"));
+                TextComponent lightlevelenable = new TextComponent("crit"+" "+I18n.a("blackburn.command.disabled"));
                 mc.gui.getChat().addMessage(lightlevelenable);
             
                 

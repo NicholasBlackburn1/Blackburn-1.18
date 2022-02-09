@@ -11,47 +11,59 @@ import net.minecraft.world.level.levelgen.WorldGenerationContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class UniformHeight extends HeightProvider {
-   public static final Codec<UniformHeight> CODEC = RecordCodecBuilder.create((p_162033_) -> {
-      return p_162033_.group(VerticalAnchor.CODEC.fieldOf("min_inclusive").forGetter((p_162043_) -> {
-         return p_162043_.minInclusive;
-      }), VerticalAnchor.CODEC.fieldOf("max_inclusive").forGetter((p_162038_) -> {
-         return p_162038_.maxInclusive;
-      })).apply(p_162033_, UniformHeight::new);
-   });
-   private static final Logger LOGGER = LogManager.getLogger();
-   private final VerticalAnchor minInclusive;
-   private final VerticalAnchor maxInclusive;
-   private final LongSet warnedFor = new LongOpenHashSet();
+public class UniformHeight extends HeightProvider
+{
+    public static final Codec<UniformHeight> CODEC = RecordCodecBuilder.create((p_162033_) ->
+    {
+        return p_162033_.group(VerticalAnchor.CODEC.fieldOf("min_inclusive").forGetter((p_162043_) -> {
+            return p_162043_.minInclusive;
+        }), VerticalAnchor.CODEC.fieldOf("max_inclusive").forGetter((p_162038_) -> {
+            return p_162038_.maxInclusive;
+        })).apply(p_162033_, UniformHeight::new);
+    });
+    private static final Logger LOGGER = LogManager.getLogger();
+    private final VerticalAnchor minInclusive;
+    private final VerticalAnchor maxInclusive;
+    private final LongSet warnedFor = new LongOpenHashSet();
 
-   private UniformHeight(VerticalAnchor p_162029_, VerticalAnchor p_162030_) {
-      this.minInclusive = p_162029_;
-      this.maxInclusive = p_162030_;
-   }
+    private UniformHeight(VerticalAnchor p_162029_, VerticalAnchor p_162030_)
+    {
+        this.minInclusive = p_162029_;
+        this.maxInclusive = p_162030_;
+    }
 
-   public static UniformHeight of(VerticalAnchor p_162035_, VerticalAnchor p_162036_) {
-      return new UniformHeight(p_162035_, p_162036_);
-   }
+    public static UniformHeight of(VerticalAnchor pMinInclusive, VerticalAnchor pMaxInclusive)
+    {
+        return new UniformHeight(pMinInclusive, pMaxInclusive);
+    }
 
-   public int sample(Random p_162040_, WorldGenerationContext p_162041_) {
-      int i = this.minInclusive.resolveY(p_162041_);
-      int j = this.maxInclusive.resolveY(p_162041_);
-      if (i > j) {
-         if (this.warnedFor.add((long)i << 32 | (long)j)) {
-            LOGGER.warn("Empty height range: {}", (Object)this);
-         }
+    public int sample(Random pRandom, WorldGenerationContext pContext)
+    {
+        int i = this.minInclusive.resolveY(pContext);
+        int j = this.maxInclusive.resolveY(pContext);
 
-         return i;
-      } else {
-         return Mth.randomBetweenInclusive(p_162040_, i, j);
-      }
-   }
+        if (i > j)
+        {
+            if (this.warnedFor.add((long)i << 32 | (long)j))
+            {
+                LOGGER.warn("Empty height range: {}", (Object)this);
+            }
 
-   public HeightProviderType<?> getType() {
-      return HeightProviderType.UNIFORM;
-   }
+            return i;
+        }
+        else
+        {
+            return Mth.randomBetweenInclusive(pRandom, i, j);
+        }
+    }
 
-   public String toString() {
-      return "[" + this.minInclusive + "-" + this.maxInclusive + "]";
-   }
+    public HeightProviderType<?> getType()
+    {
+        return HeightProviderType.UNIFORM;
+    }
+
+    public String toString()
+    {
+        return "[" + this.minInclusive + "-" + this.maxInclusive + "]";
+    }
 }

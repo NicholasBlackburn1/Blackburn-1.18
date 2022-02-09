@@ -12,37 +12,44 @@ import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.dimension.DimensionType;
 
-public record ClientboundLoginPacket(int playerId, boolean hardcore, GameType gameType, @Nullable GameType previousGameType, Set<ResourceKey<Level>> levels, RegistryAccess.RegistryHolder registryHolder, DimensionType dimensionType, ResourceKey<Level> dimension, long seed, int maxPlayers, int chunkRadius, int simulationDistance, boolean reducedDebugInfo, boolean showDeathScreen, boolean isDebug, boolean isFlat) implements Packet<ClientGamePacketListener> {
-   public ClientboundLoginPacket(FriendlyByteBuf p_178960_) {
-      this(p_178960_.readInt(), p_178960_.readBoolean(), GameType.byId(p_178960_.readByte()), GameType.byNullableId(p_178960_.readByte()), p_178960_.readCollection(Sets::newHashSetWithExpectedSize, (p_178965_) -> {
-         return ResourceKey.create(Registry.DIMENSION_REGISTRY, p_178965_.readResourceLocation());
-      }), p_178960_.readWithCodec(RegistryAccess.RegistryHolder.NETWORK_CODEC), p_178960_.readWithCodec(DimensionType.CODEC).get(), ResourceKey.create(Registry.DIMENSION_REGISTRY, p_178960_.readResourceLocation()), p_178960_.readLong(), p_178960_.readVarInt(), p_178960_.readVarInt(), p_178960_.readVarInt(), p_178960_.readBoolean(), p_178960_.readBoolean(), p_178960_.readBoolean(), p_178960_.readBoolean());
-   }
+public record ClientboundLoginPacket(int playerId, boolean hardcore, GameType gameType, @Nullable GameType previousGameType, Set<ResourceKey<Level>> levels, RegistryAccess.RegistryHolder registryHolder, DimensionType dimensionType, ResourceKey<Level> dimension, long seed, int maxPlayers, int chunkRadius, int simulationDistance, boolean reducedDebugInfo, boolean showDeathScreen, boolean isDebug, boolean isFlat) implements Packet<ClientGamePacketListener>
+{
+    public ClientboundLoginPacket(FriendlyByteBuf pBuffer)
+    {
+        this(pBuffer.readInt(), pBuffer.readBoolean(), GameType.byId(pBuffer.readByte()), GameType.byNullableId(pBuffer.readByte()), pBuffer.readCollection(Sets::newHashSetWithExpectedSize, (p_178965_) ->
+        {
+            return ResourceKey.create(Registry.DIMENSION_REGISTRY, p_178965_.readResourceLocation());
+        }), pBuffer.readWithCodec(RegistryAccess.RegistryHolder.NETWORK_CODEC), pBuffer.readWithCodec(DimensionType.CODEC).get(), ResourceKey.create(Registry.DIMENSION_REGISTRY, pBuffer.readResourceLocation()), pBuffer.readLong(), pBuffer.readVarInt(), pBuffer.readVarInt(), pBuffer.readVarInt(), pBuffer.readBoolean(), pBuffer.readBoolean(), pBuffer.readBoolean(), pBuffer.readBoolean());
+    }
 
-   public void write(FriendlyByteBuf p_132400_) {
-      p_132400_.writeInt(this.playerId);
-      p_132400_.writeBoolean(this.hardcore);
-      p_132400_.writeByte(this.gameType.getId());
-      p_132400_.writeByte(GameType.getNullableId(this.previousGameType));
-      p_132400_.writeCollection(this.levels, (p_178962_, p_178963_) -> {
-         p_178962_.writeResourceLocation(p_178963_.location());
-      });
-      p_132400_.writeWithCodec(RegistryAccess.RegistryHolder.NETWORK_CODEC, this.registryHolder);
-      p_132400_.writeWithCodec(DimensionType.CODEC, () -> {
-         return this.dimensionType;
-      });
-      p_132400_.writeResourceLocation(this.dimension.location());
-      p_132400_.writeLong(this.seed);
-      p_132400_.writeVarInt(this.maxPlayers);
-      p_132400_.writeVarInt(this.chunkRadius);
-      p_132400_.writeVarInt(this.simulationDistance);
-      p_132400_.writeBoolean(this.reducedDebugInfo);
-      p_132400_.writeBoolean(this.showDeathScreen);
-      p_132400_.writeBoolean(this.isDebug);
-      p_132400_.writeBoolean(this.isFlat);
-   }
+    public void write(FriendlyByteBuf pBuffer)
+    {
+        pBuffer.writeInt(this.playerId);
+        pBuffer.writeBoolean(this.hardcore);
+        pBuffer.writeByte(this.gameType.getId());
+        pBuffer.writeByte(GameType.getNullableId(this.previousGameType));
+        pBuffer.writeCollection(this.levels, (p_178962_, p_178963_) ->
+        {
+            p_178962_.writeResourceLocation(p_178963_.location());
+        });
+        pBuffer.writeWithCodec(RegistryAccess.RegistryHolder.NETWORK_CODEC, this.registryHolder);
+        pBuffer.writeWithCodec(DimensionType.CODEC, () ->
+        {
+            return this.dimensionType;
+        });
+        pBuffer.writeResourceLocation(this.dimension.location());
+        pBuffer.writeLong(this.seed);
+        pBuffer.writeVarInt(this.maxPlayers);
+        pBuffer.writeVarInt(this.chunkRadius);
+        pBuffer.writeVarInt(this.simulationDistance);
+        pBuffer.writeBoolean(this.reducedDebugInfo);
+        pBuffer.writeBoolean(this.showDeathScreen);
+        pBuffer.writeBoolean(this.isDebug);
+        pBuffer.writeBoolean(this.isFlat);
+    }
 
-   public void handle(ClientGamePacketListener p_132397_) {
-      p_132397_.handleLogin(this);
-   }
+    public void handle(ClientGamePacketListener pHandler)
+    {
+        pHandler.handleLogin(this);
+    }
 }

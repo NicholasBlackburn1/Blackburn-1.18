@@ -157,7 +157,7 @@ public class TitleScreenOverlay {
       }
 
       if (Minecraft.checkModStatus().shouldReportAsModified()) {
-         s = s + I18n.get("menu.modded");
+         s = s + I18n.a("menu.modded");
       }
       screen.drawString(pose, font, s, 2, height - 10, 16777215 | l);
       

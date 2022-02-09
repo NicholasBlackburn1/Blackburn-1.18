@@ -4,19 +4,19 @@ import com.mojang.realmsclient.client.RealmsClient;
 import com.mojang.realmsclient.exception.RealmsServiceException;
 import com.mojang.realmsclient.util.WorldGenerationInfo;
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
-public class ResettingGeneratedWorldTask extends ResettingWorldTask {
-   private final WorldGenerationInfo generationInfo;
+public class ResettingGeneratedWorldTask extends ResettingWorldTask
+{
+    private final WorldGenerationInfo generationInfo;
 
-   public ResettingGeneratedWorldTask(WorldGenerationInfo p_167659_, long p_167660_, Component p_167661_, Runnable p_167662_) {
-      super(p_167660_, p_167661_, p_167662_);
-      this.generationInfo = p_167659_;
-   }
+    public ResettingGeneratedWorldTask(WorldGenerationInfo pGenerationInfo, long pServerId, Component p_167661_, Runnable pTitle)
+    {
+        super(pServerId, p_167661_, pTitle);
+        this.generationInfo = pGenerationInfo;
+    }
 
-   protected void sendResetRequest(RealmsClient p_167664_, long p_167665_) throws RealmsServiceException {
-      p_167664_.resetWorldWithSeed(p_167665_, this.generationInfo);
-   }
+    protected void sendResetRequest(RealmsClient pClient, long pServerId) throws RealmsServiceException
+    {
+        pClient.resetWorldWithSeed(pServerId, this.generationInfo);
+    }
 }

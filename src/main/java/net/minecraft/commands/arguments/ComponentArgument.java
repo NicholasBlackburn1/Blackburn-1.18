@@ -11,38 +11,52 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 
-public class ComponentArgument implements ArgumentType<Component> {
-   private static final Collection<String> EXAMPLES = Arrays.asList("\"hello world\"", "\"\"", "\"{\"text\":\"hello world\"}", "[\"\"]");
-   public static final DynamicCommandExceptionType ERROR_INVALID_JSON = new DynamicCommandExceptionType((p_87121_) -> {
-      return new TranslatableComponent("argument.component.invalid", p_87121_);
-   });
+public class ComponentArgument implements ArgumentType<Component>
+{
+    private static final Collection<String> EXAMPLES = Arrays.asList("\"hello world\"", "\"\"", "\"{\"text\":\"hello world\"}", "[\"\"]");
+    public static final DynamicCommandExceptionType ERROR_INVALID_JSON = new DynamicCommandExceptionType((p_87121_) ->
+    {
+        return new TranslatableComponent("argument.component.invalid", p_87121_);
+    });
 
-   private ComponentArgument() {
-   }
+    private ComponentArgument()
+    {
+    }
 
-   public static Component getComponent(CommandContext<CommandSourceStack> p_87118_, String p_87119_) {
-      return p_87118_.getArgument(p_87119_, Component.class);
-   }
+    public static Component getComponent(CommandContext<CommandSourceStack> pContext, String pName)
+    {
+        return pContext.getArgument(pName, Component.class);
+    }
 
-   public static ComponentArgument textComponent() {
-      return new ComponentArgument();
-   }
+    public static ComponentArgument textComponent()
+    {
+        return new ComponentArgument();
+    }
 
-   public Component parse(StringReader p_87116_) throws CommandSyntaxException {
-      try {
-         Component component = Component.Serializer.fromJson(p_87116_);
-         if (component == null) {
-            throw ERROR_INVALID_JSON.createWithContext(p_87116_, "empty");
-         } else {
-            return component;
-         }
-      } catch (Exception exception) {
-         String s = exception.getCause() != null ? exception.getCause().getMessage() : exception.getMessage();
-         throw ERROR_INVALID_JSON.createWithContext(p_87116_, s);
-      }
-   }
+    public Component parse(StringReader pReader) throws CommandSyntaxException
+    {
+        try
+        {
+            Component component = Component.Serializer.fromJson(pReader);
 
-   public Collection<String> getExamples() {
-      return EXAMPLES;
-   }
+            if (component == null)
+            {
+                throw ERROR_INVALID_JSON.createWithContext(pReader, "empty");
+            }
+            else
+            {
+                return component;
+            }
+        }
+        catch (Exception exception)
+        {
+            String s = exception.getCause() != null ? exception.getCause().getMessage() : exception.getMessage();
+            throw ERROR_INVALID_JSON.createWithContext(pReader, s);
+        }
+    }
+
+    public Collection<String> getExamples()
+    {
+        return EXAMPLES;
+    }
 }

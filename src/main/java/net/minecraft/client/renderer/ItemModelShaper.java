@@ -9,47 +9,52 @@ import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
-public class ItemModelShaper {
-   public final Int2ObjectMap<ModelResourceLocation> shapes = new Int2ObjectOpenHashMap<>(256);
-   private final Int2ObjectMap<BakedModel> shapesCache = new Int2ObjectOpenHashMap<>(256);
-   private final ModelManager modelManager;
+public class ItemModelShaper
+{
+    public final Int2ObjectMap<ModelResourceLocation> shapes = new Int2ObjectOpenHashMap<>(256);
+    private final Int2ObjectMap<BakedModel> shapesCache = new Int2ObjectOpenHashMap<>(256);
+    private final ModelManager modelManager;
 
-   public ItemModelShaper(ModelManager p_109392_) {
-      this.modelManager = p_109392_;
-   }
+    public ItemModelShaper(ModelManager pModelManager)
+    {
+        this.modelManager = pModelManager;
+    }
 
-   public BakedModel getItemModel(ItemStack p_109407_) {
-      BakedModel bakedmodel = this.getItemModel(p_109407_.getItem());
-      return bakedmodel == null ? this.modelManager.getMissingModel() : bakedmodel;
-   }
+    public BakedModel getItemModel(ItemStack pItem)
+    {
+        BakedModel bakedmodel = this.getItemModel(pItem.getItem());
+        return bakedmodel == null ? this.modelManager.getMissingModel() : bakedmodel;
+    }
 
-   @Nullable
-   public BakedModel getItemModel(Item p_109395_) {
-      return this.shapesCache.get(getIndex(p_109395_));
-   }
+    @Nullable
+    public BakedModel getItemModel(Item pItem)
+    {
+        return this.shapesCache.get(getIndex(pItem));
+    }
 
-   private static int getIndex(Item p_109405_) {
-      return Item.getId(p_109405_);
-   }
+    private static int getIndex(Item pItem)
+    {
+        return Item.getId(pItem);
+    }
 
-   public void register(Item p_109397_, ModelResourceLocation p_109398_) {
-      this.shapes.put(getIndex(p_109397_), p_109398_);
-   }
+    public void register(Item pItem, ModelResourceLocation pModelLocation)
+    {
+        this.shapes.put(getIndex(pItem), pModelLocation);
+    }
 
-   public ModelManager getModelManager() {
-      return this.modelManager;
-   }
+    public ModelManager getModelManager()
+    {
+        return this.modelManager;
+    }
 
-   public void rebuildCache() {
-      this.shapesCache.clear();
+    public void rebuildCache()
+    {
+        this.shapesCache.clear();
 
-      for(Entry<Integer, ModelResourceLocation> entry : this.shapes.entrySet()) {
-         this.shapesCache.put(entry.getKey(), this.modelManager.getModel(entry.getValue()));
-      }
-
-   }
+        for (Entry<Integer, ModelResourceLocation> entry : this.shapes.entrySet())
+        {
+            this.shapesCache.put(entry.getKey(), this.modelManager.getModel(entry.getValue()));
+        }
+    }
 }

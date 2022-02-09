@@ -7,29 +7,37 @@ import java.util.Optional;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 
-public class RegistryWriteOps<T> extends DelegatingOps<T> {
-   private final RegistryAccess registryAccess;
+public class RegistryWriteOps<T> extends DelegatingOps<T>
+{
+    private final RegistryAccess registryAccess;
 
-   public static <T> RegistryWriteOps<T> create(DynamicOps<T> p_135768_, RegistryAccess p_135769_) {
-      return new RegistryWriteOps<>(p_135768_, p_135769_);
-   }
+    public static <T> RegistryWriteOps<T> create(DynamicOps<T> pDelegate, RegistryAccess pRegistryAccess)
+    {
+        return new RegistryWriteOps<>(pDelegate, pRegistryAccess);
+    }
 
-   private RegistryWriteOps(DynamicOps<T> p_135765_, RegistryAccess p_135766_) {
-      super(p_135765_);
-      this.registryAccess = p_135766_;
-   }
+    private RegistryWriteOps(DynamicOps<T> pDelegate, RegistryAccess pRegistryAccess)
+    {
+        super(pDelegate);
+        this.registryAccess = pRegistryAccess;
+    }
 
-   protected <E> DataResult<T> encode(E p_135771_, T p_135772_, ResourceKey<? extends Registry<E>> p_135773_, Codec<E> p_135774_) {
-      Optional<? extends Registry<E>> optional = this.registryAccess.ownedRegistry(p_135773_);
-      if (optional.isPresent()) {
-         Registry<E> registry = optional.get();
-         Optional<ResourceKey<E>> optional1 = registry.getResourceKey(p_135771_);
-         if (optional1.isPresent()) {
-            ResourceKey<E> resourcekey = optional1.get();
-            return ResourceLocation.CODEC.encode(resourcekey.location(), this.delegate, p_135772_);
-         }
-      }
+    protected <E> DataResult<T> encode(E pElement, T pPrefix, ResourceKey <? extends Registry<E >> pRegistryKey, Codec<E> pElementCodec)
+    {
+        Optional <? extends Registry<E >> optional = this.registryAccess.ownedRegistry(pRegistryKey);
 
-      return p_135774_.encode(p_135771_, this, p_135772_);
-   }
+        if (optional.isPresent())
+        {
+            Registry<E> registry = optional.get();
+            Optional<ResourceKey<E>> optional1 = registry.getResourceKey(pElement);
+
+            if (optional1.isPresent())
+            {
+                ResourceKey<E> resourcekey = optional1.get();
+                return ResourceLocation.CODEC.encode(resourcekey.location(), this.delegate, pPrefix);
+            }
+        }
+
+        return pElementCodec.encode(pElement, this, pPrefix);
+    }
 }

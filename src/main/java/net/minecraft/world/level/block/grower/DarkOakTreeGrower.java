@@ -5,14 +5,17 @@ import javax.annotation.Nullable;
 import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 
-public class DarkOakTreeGrower extends AbstractMegaTreeGrower {
-   @Nullable
-   protected ConfiguredFeature<?, ?> getConfiguredFeature(Random p_60028_, boolean p_60029_) {
-      return null;
-   }
+public class DarkOakTreeGrower extends AbstractMegaTreeGrower
+{
+    @Nullable
+    protected ConfiguredFeature <? , ? > getConfiguredFeature(Random pRandom, boolean pLargeHive)
+    {
+        return null;
+    }
 
-   @Nullable
-   protected ConfiguredFeature<?, ?> getConfiguredMegaFeature(Random p_60026_) {
-      return TreeFeatures.DARK_OAK;
-   }
+    @Nullable
+    protected ConfiguredFeature <? , ? > getConfiguredMegaFeature(Random pRand)
+    {
+        return TreeFeatures.DARK_OAK;
+    }
 }

@@ -29,7 +29,7 @@ public class HelpCommand implements ICommandRegister{
 
                 if (command.contains(".help")){
 
-                    startup = new TextComponent(I18n.get("blackburn.commands.help"));
+                    startup = new TextComponent(I18n.a("blackburn.commands.help"));
                         startup.setStyle(Style.EMPTY);
                         mc.gui.getChat().addMessage(startup);
 
@@ -38,7 +38,7 @@ public class HelpCommand implements ICommandRegister{
                         
                             Consts.log("data ib the commands list are "+Consts.commands.get(i).toString());
                     
-                            mc.gui.getChat().addMessage(new TextComponent(I18n.get(Consts.commands.get(i).toString())+" "+I18n.get(Consts.commanddesc.get(i).toString())));
+                            mc.gui.getChat().addMessage(new TextComponent(I18n.a(Consts.commands.get(i).toString())+" "+I18n.a(Consts.commanddesc.get(i).toString())));
                             
                             
                     }   

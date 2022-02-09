@@ -4,121 +4,147 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-public class IntTag extends NumericTag {
-   private static final int SELF_SIZE_IN_BITS = 96;
-   public static final TagType<IntTag> TYPE = new TagType.StaticSize<IntTag>() {
-      public IntTag load(DataInput p_128703_, int p_128704_, NbtAccounter p_128705_) throws IOException {
-         p_128705_.accountBits(96L);
-         return IntTag.valueOf(p_128703_.readInt());
-      }
+public class IntTag extends NumericTag
+{
+    private static final int SELF_SIZE_IN_BITS = 96;
+    public static final TagType<IntTag> TYPE = new TagType.StaticSize<IntTag>()
+    {
+        public IntTag load(DataInput p_128703_, int p_128704_, NbtAccounter p_128705_) throws IOException
+        {
+            p_128705_.accountBits(96L);
+            return IntTag.valueOf(p_128703_.readInt());
+        }
+        public StreamTagVisitor.ValueResult parse(DataInput p_197483_, StreamTagVisitor p_197484_) throws IOException
+        {
+            return p_197484_.visit(p_197483_.readInt());
+        }
+        public int size()
+        {
+            return 4;
+        }
+        public String getName()
+        {
+            return "INT";
+        }
+        public String getPrettyName()
+        {
+            return "TAG_Int";
+        }
+        public boolean isValue()
+        {
+            return true;
+        }
+    };
+    private final int data;
 
-      public StreamTagVisitor.ValueResult parse(DataInput p_197483_, StreamTagVisitor p_197484_) throws IOException {
-         return p_197484_.visit(p_197483_.readInt());
-      }
+    IntTag(int pData)
+    {
+        this.data = pData;
+    }
 
-      public int size() {
-         return 4;
-      }
+    public static IntTag valueOf(int pData)
+    {
+        return pData >= -128 && pData <= 1024 ? IntTag.Cache.cache[pData - -128] : new IntTag(pData);
+    }
 
-      public String getName() {
-         return "INT";
-      }
+    public void write(DataOutput pOutput) throws IOException
+    {
+        pOutput.writeInt(this.data);
+    }
 
-      public String getPrettyName() {
-         return "TAG_Int";
-      }
+    public byte getId()
+    {
+        return 3;
+    }
 
-      public boolean isValue() {
-         return true;
-      }
-   };
-   private final int data;
+    public TagType<IntTag> getType()
+    {
+        return TYPE;
+    }
 
-   IntTag(int p_128674_) {
-      this.data = p_128674_;
-   }
+    public IntTag copy()
+    {
+        return this;
+    }
 
-   public static IntTag valueOf(int p_128680_) {
-      return p_128680_ >= -128 && p_128680_ <= 1024 ? IntTag.Cache.cache[p_128680_ - -128] : new IntTag(p_128680_);
-   }
+    public boolean equals(Object pOther)
+    {
+        if (this == pOther)
+        {
+            return true;
+        }
+        else
+        {
+            return pOther instanceof IntTag && this.data == ((IntTag)pOther).data;
+        }
+    }
 
-   public void write(DataOutput p_128682_) throws IOException {
-      p_128682_.writeInt(this.data);
-   }
+    public int hashCode()
+    {
+        return this.data;
+    }
 
-   public byte getId() {
-      return 3;
-   }
+    public void accept(TagVisitor pVisitor)
+    {
+        pVisitor.visitInt(this);
+    }
 
-   public TagType<IntTag> getType() {
-      return TYPE;
-   }
+    public long getAsLong()
+    {
+        return (long)this.data;
+    }
 
-   public IntTag copy() {
-      return this;
-   }
+    public int getAsInt()
+    {
+        return this.data;
+    }
 
-   public boolean equals(Object p_128691_) {
-      if (this == p_128691_) {
-         return true;
-      } else {
-         return p_128691_ instanceof IntTag && this.data == ((IntTag)p_128691_).data;
-      }
-   }
+    public short getAsShort()
+    {
+        return (short)(this.data & 65535);
+    }
 
-   public int hashCode() {
-      return this.data;
-   }
+    public byte getAsByte()
+    {
+        return (byte)(this.data & 255);
+    }
 
-   public void accept(TagVisitor p_177984_) {
-      p_177984_.visitInt(this);
-   }
+    public double getAsDouble()
+    {
+        return (double)this.data;
+    }
 
-   public long getAsLong() {
-      return (long)this.data;
-   }
+    public float getAsFloat()
+    {
+        return (float)this.data;
+    }
 
-   public int getAsInt() {
-      return this.data;
-   }
+    public Number getAsNumber()
+    {
+        return this.data;
+    }
 
-   public short getAsShort() {
-      return (short)(this.data & '\uffff');
-   }
+    public StreamTagVisitor.ValueResult accept(StreamTagVisitor pVisitor)
+    {
+        return pVisitor.visit(this.data);
+    }
 
-   public byte getAsByte() {
-      return (byte)(this.data & 255);
-   }
+    static class Cache
+    {
+        private static final int HIGH = 1024;
+        private static final int LOW = -128;
+        static final IntTag[] cache = new IntTag[1153];
 
-   public double getAsDouble() {
-      return (double)this.data;
-   }
+        private Cache()
+        {
+        }
 
-   public float getAsFloat() {
-      return (float)this.data;
-   }
-
-   public Number getAsNumber() {
-      return this.data;
-   }
-
-   public StreamTagVisitor.ValueResult accept(StreamTagVisitor p_197481_) {
-      return p_197481_.visit(this.data);
-   }
-
-   static class Cache {
-      private static final int HIGH = 1024;
-      private static final int LOW = -128;
-      static final IntTag[] cache = new IntTag[1153];
-
-      private Cache() {
-      }
-
-      static {
-         for(int i = 0; i < cache.length; ++i) {
-            cache[i] = new IntTag(-128 + i);
-         }
-
-      }
-   }
+        static
+        {
+            for (int i = 0; i < cache.length; ++i)
+            {
+                cache[i] = new IntTag(-128 + i);
+            }
+        }
+    }
 }

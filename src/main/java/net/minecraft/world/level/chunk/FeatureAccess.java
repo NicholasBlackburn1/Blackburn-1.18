@@ -6,17 +6,18 @@ import javax.annotation.Nullable;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.structure.StructureStart;
 
-public interface FeatureAccess {
-   @Nullable
-   StructureStart<?> getStartForFeature(StructureFeature<?> p_62632_);
+public interface FeatureAccess
+{
+    @Nullable
+    StructureStart<?> getStartForFeature(StructureFeature<?> pStructure);
 
-   void setStartForFeature(StructureFeature<?> p_62635_, StructureStart<?> p_62636_);
+    void setStartForFeature(StructureFeature<?> pStructure, StructureStart<?> pStart);
 
-   LongSet getReferencesForFeature(StructureFeature<?> p_62637_);
+    LongSet getReferencesForFeature(StructureFeature<?> pStructure);
 
-   void addReferenceForFeature(StructureFeature<?> p_62633_, long p_62634_);
+    void addReferenceForFeature(StructureFeature<?> pStructure, long pReference);
 
-   Map<StructureFeature<?>, LongSet> getAllReferences();
+    Map < StructureFeature<?>, LongSet > getAllReferences();
 
-   void setAllReferences(Map<StructureFeature<?>, LongSet> p_62638_);
+    void setAllReferences(Map < StructureFeature<?>, LongSet > pStructureReferences);
 }

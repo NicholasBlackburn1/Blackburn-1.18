@@ -15,94 +15,117 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
 import net.minecraft.world.level.levelgen.structure.pieces.PiecesContainer;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceSerializationContext;
 
-public final class StructureStart<C extends FeatureConfiguration> {
-   public static final String INVALID_START_ID = "INVALID";
-   public static final StructureStart<?> INVALID_START = new StructureStart(null, new ChunkPos(0, 0), 0, new PiecesContainer(List.of()));
-   private final StructureFeature<C> feature;
-   private final PiecesContainer pieceContainer;
-   private final ChunkPos chunkPos;
-   private int references;
-   @Nullable
-   private volatile BoundingBox cachedBoundingBox;
+public final class StructureStart<C extends FeatureConfiguration>
+{
+    public static final String INVALID_START_ID = "INVALID";
+    public static final StructureStart<?> INVALID_START = new StructureStart(null, new ChunkPos(0, 0), 0, new PiecesContainer(List.of()));
+    private final StructureFeature<C> feature;
+    private final PiecesContainer pieceContainer;
+    private final ChunkPos chunkPos;
+    private int references;
+    @Nullable
+    private volatile BoundingBox cachedBoundingBox;
 
-   public StructureStart(StructureFeature<C> p_192656_, ChunkPos p_192657_, int p_192658_, PiecesContainer p_192659_) {
-      this.feature = p_192656_;
-      this.chunkPos = p_192657_;
-      this.references = p_192658_;
-      this.pieceContainer = p_192659_;
-   }
+    public StructureStart(StructureFeature<C> p_192656_, ChunkPos p_192657_, int p_192658_, PiecesContainer p_192659_)
+    {
+        this.feature = p_192656_;
+        this.chunkPos = p_192657_;
+        this.references = p_192658_;
+        this.pieceContainer = p_192659_;
+    }
 
-   public BoundingBox getBoundingBox() {
-      BoundingBox boundingbox = this.cachedBoundingBox;
-      if (boundingbox == null) {
-         boundingbox = this.feature.adjustBoundingBox(this.pieceContainer.calculateBoundingBox());
-         this.cachedBoundingBox = boundingbox;
-      }
+    public BoundingBox getBoundingBox()
+    {
+        BoundingBox boundingbox = this.cachedBoundingBox;
 
-      return boundingbox;
-   }
+        if (boundingbox == null)
+        {
+            boundingbox = this.feature.adjustBoundingBox(this.pieceContainer.calculateBoundingBox());
+            this.cachedBoundingBox = boundingbox;
+        }
 
-   public void placeInChunk(WorldGenLevel p_73584_, StructureFeatureManager p_73585_, ChunkGenerator p_73586_, Random p_73587_, BoundingBox p_73588_, ChunkPos p_73589_) {
-      List<StructurePiece> list = this.pieceContainer.pieces();
-      if (!list.isEmpty()) {
-         BoundingBox boundingbox = (list.get(0)).boundingBox;
-         BlockPos blockpos = boundingbox.getCenter();
-         BlockPos blockpos1 = new BlockPos(blockpos.getX(), boundingbox.minY(), blockpos.getZ());
+        return boundingbox;
+    }
 
-         for(StructurePiece structurepiece : list) {
-            if (structurepiece.getBoundingBox().intersects(p_73588_)) {
-               structurepiece.postProcess(p_73584_, p_73585_, p_73586_, p_73587_, p_73588_, p_73589_, blockpos1);
+    public void placeInChunk(WorldGenLevel pLevel, StructureFeatureManager pStructureManager, ChunkGenerator pChunkGenerator, Random pRandom, BoundingBox pBox, ChunkPos pChunkPos)
+    {
+        List<StructurePiece> list = this.pieceContainer.pieces();
+
+        if (!list.isEmpty())
+        {
+            BoundingBox boundingbox = (list.get(0)).boundingBox;
+            BlockPos blockpos = boundingbox.getCenter();
+            BlockPos blockpos1 = new BlockPos(blockpos.getX(), boundingbox.minY(), blockpos.getZ());
+
+            for (StructurePiece structurepiece : list)
+            {
+                if (structurepiece.getBoundingBox().intersects(pBox))
+                {
+                    structurepiece.postProcess(pLevel, pStructureManager, pChunkGenerator, pRandom, pBox, pChunkPos, blockpos1);
+                }
             }
-         }
 
-         this.feature.getPostPlacementProcessor().afterPlace(p_73584_, p_73585_, p_73586_, p_73587_, p_73588_, p_73589_, this.pieceContainer);
-      }
-   }
+            this.feature.getPostPlacementProcessor().afterPlace(pLevel, pStructureManager, pChunkGenerator, pRandom, pBox, pChunkPos, this.pieceContainer);
+        }
+    }
 
-   public CompoundTag createTag(StructurePieceSerializationContext p_192661_, ChunkPos p_192662_) {
-      CompoundTag compoundtag = new CompoundTag();
-      if (this.isValid()) {
-         compoundtag.putString("id", Registry.STRUCTURE_FEATURE.getKey(this.getFeature()).toString());
-         compoundtag.putInt("ChunkX", p_192662_.x);
-         compoundtag.putInt("ChunkZ", p_192662_.z);
-         compoundtag.putInt("references", this.references);
-         compoundtag.put("Children", this.pieceContainer.save(p_192661_));
-         return compoundtag;
-      } else {
-         compoundtag.putString("id", "INVALID");
-         return compoundtag;
-      }
-   }
+    public CompoundTag createTag(StructurePieceSerializationContext p_192661_, ChunkPos p_192662_)
+    {
+        CompoundTag compoundtag = new CompoundTag();
 
-   public boolean isValid() {
-      return !this.pieceContainer.isEmpty();
-   }
+        if (this.isValid())
+        {
+            compoundtag.putString("id", Registry.STRUCTURE_FEATURE.getKey(this.getFeature()).toString());
+            compoundtag.putInt("ChunkX", p_192662_.x);
+            compoundtag.putInt("ChunkZ", p_192662_.z);
+            compoundtag.putInt("references", this.references);
+            compoundtag.put("Children", this.pieceContainer.save(p_192661_));
+            return compoundtag;
+        }
+        else
+        {
+            compoundtag.putString("id", "INVALID");
+            return compoundtag;
+        }
+    }
 
-   public ChunkPos getChunkPos() {
-      return this.chunkPos;
-   }
+    public boolean isValid()
+    {
+        return !this.pieceContainer.isEmpty();
+    }
 
-   public boolean canBeReferenced() {
-      return this.references < this.getMaxReferences();
-   }
+    public ChunkPos getChunkPos()
+    {
+        return this.chunkPos;
+    }
 
-   public void addReference() {
-      ++this.references;
-   }
+    public boolean canBeReferenced()
+    {
+        return this.references < this.getMaxReferences();
+    }
 
-   public int getReferences() {
-      return this.references;
-   }
+    public void addReference()
+    {
+        ++this.references;
+    }
 
-   protected int getMaxReferences() {
-      return 1;
-   }
+    public int getReferences()
+    {
+        return this.references;
+    }
 
-   public StructureFeature<?> getFeature() {
-      return this.feature;
-   }
+    protected int getMaxReferences()
+    {
+        return 1;
+    }
 
-   public List<StructurePiece> getPieces() {
-      return this.pieceContainer.pieces();
-   }
+    public StructureFeature<?> getFeature()
+    {
+        return this.feature;
+    }
+
+    public List<StructurePiece> getPieces()
+    {
+        return this.pieceContainer.pieces();
+    }
 }

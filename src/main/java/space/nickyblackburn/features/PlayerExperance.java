@@ -11,7 +11,7 @@ public class PlayerExperance {
 
         if(enable){
             mc.player.setExperienceValues(90.0f, 1000, 1000);
-            mc.gui.getChat().addMessage(new TextComponent(I18n.get("blackburn.commmand.xp")));
+            mc.gui.getChat().addMessage(new TextComponent(I18n.a("blackburn.commmand.xp")));
         }
     }
 }

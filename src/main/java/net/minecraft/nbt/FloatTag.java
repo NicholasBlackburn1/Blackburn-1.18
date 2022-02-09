@@ -5,106 +5,129 @@ import java.io.DataOutput;
 import java.io.IOException;
 import net.minecraft.util.Mth;
 
-public class FloatTag extends NumericTag {
-   private static final int SELF_SIZE_IN_BITS = 96;
-   public static final FloatTag ZERO = new FloatTag(0.0F);
-   public static final TagType<FloatTag> TYPE = new TagType.StaticSize<FloatTag>() {
-      public FloatTag load(DataInput p_128590_, int p_128591_, NbtAccounter p_128592_) throws IOException {
-         p_128592_.accountBits(96L);
-         return FloatTag.valueOf(p_128590_.readFloat());
-      }
+public class FloatTag extends NumericTag
+{
+    private static final int SELF_SIZE_IN_BITS = 96;
+    public static final FloatTag ZERO = new FloatTag(0.0F);
+    public static final TagType<FloatTag> TYPE = new TagType.StaticSize<FloatTag>()
+    {
+        public FloatTag load(DataInput p_128590_, int p_128591_, NbtAccounter p_128592_) throws IOException
+        {
+            p_128592_.accountBits(96L);
+            return FloatTag.valueOf(p_128590_.readFloat());
+        }
+        public StreamTagVisitor.ValueResult parse(DataInput p_197470_, StreamTagVisitor p_197471_) throws IOException
+        {
+            return p_197471_.visit(p_197470_.readFloat());
+        }
+        public int size()
+        {
+            return 4;
+        }
+        public String getName()
+        {
+            return "FLOAT";
+        }
+        public String getPrettyName()
+        {
+            return "TAG_Float";
+        }
+        public boolean isValue()
+        {
+            return true;
+        }
+    };
+    private final float data;
 
-      public StreamTagVisitor.ValueResult parse(DataInput p_197470_, StreamTagVisitor p_197471_) throws IOException {
-         return p_197471_.visit(p_197470_.readFloat());
-      }
+    private FloatTag(float pData)
+    {
+        this.data = pData;
+    }
 
-      public int size() {
-         return 4;
-      }
+    public static FloatTag valueOf(float pData)
+    {
+        return pData == 0.0F ? ZERO : new FloatTag(pData);
+    }
 
-      public String getName() {
-         return "FLOAT";
-      }
+    public void write(DataOutput pOutput) throws IOException
+    {
+        pOutput.writeFloat(this.data);
+    }
 
-      public String getPrettyName() {
-         return "TAG_Float";
-      }
+    public byte getId()
+    {
+        return 5;
+    }
 
-      public boolean isValue() {
-         return true;
-      }
-   };
-   private final float data;
+    public TagType<FloatTag> getType()
+    {
+        return TYPE;
+    }
 
-   private FloatTag(float p_128564_) {
-      this.data = p_128564_;
-   }
+    public FloatTag copy()
+    {
+        return this;
+    }
 
-   public static FloatTag valueOf(float p_128567_) {
-      return p_128567_ == 0.0F ? ZERO : new FloatTag(p_128567_);
-   }
+    public boolean equals(Object pOther)
+    {
+        if (this == pOther)
+        {
+            return true;
+        }
+        else
+        {
+            return pOther instanceof FloatTag && this.data == ((FloatTag)pOther).data;
+        }
+    }
 
-   public void write(DataOutput p_128569_) throws IOException {
-      p_128569_.writeFloat(this.data);
-   }
+    public int hashCode()
+    {
+        return Float.floatToIntBits(this.data);
+    }
 
-   public byte getId() {
-      return 5;
-   }
+    public void accept(TagVisitor pVisitor)
+    {
+        pVisitor.visitFloat(this);
+    }
 
-   public TagType<FloatTag> getType() {
-      return TYPE;
-   }
+    public long getAsLong()
+    {
+        return (long)this.data;
+    }
 
-   public FloatTag copy() {
-      return this;
-   }
+    public int getAsInt()
+    {
+        return Mth.floor(this.data);
+    }
 
-   public boolean equals(Object p_128578_) {
-      if (this == p_128578_) {
-         return true;
-      } else {
-         return p_128578_ instanceof FloatTag && this.data == ((FloatTag)p_128578_).data;
-      }
-   }
+    public short getAsShort()
+    {
+        return (short)(Mth.floor(this.data) & 65535);
+    }
 
-   public int hashCode() {
-      return Float.floatToIntBits(this.data);
-   }
+    public byte getAsByte()
+    {
+        return (byte)(Mth.floor(this.data) & 255);
+    }
 
-   public void accept(TagVisitor p_177866_) {
-      p_177866_.visitFloat(this);
-   }
+    public double getAsDouble()
+    {
+        return (double)this.data;
+    }
 
-   public long getAsLong() {
-      return (long)this.data;
-   }
+    public float getAsFloat()
+    {
+        return this.data;
+    }
 
-   public int getAsInt() {
-      return Mth.floor(this.data);
-   }
+    public Number getAsNumber()
+    {
+        return this.data;
+    }
 
-   public short getAsShort() {
-      return (short)(Mth.floor(this.data) & '\uffff');
-   }
-
-   public byte getAsByte() {
-      return (byte)(Mth.floor(this.data) & 255);
-   }
-
-   public double getAsDouble() {
-      return (double)this.data;
-   }
-
-   public float getAsFloat() {
-      return this.data;
-   }
-
-   public Number getAsNumber() {
-      return this.data;
-   }
-
-   public StreamTagVisitor.ValueResult accept(StreamTagVisitor p_197468_) {
-      return p_197468_.visit(this.data);
-   }
+    public StreamTagVisitor.ValueResult accept(StreamTagVisitor pVisitor)
+    {
+        return pVisitor.visit(this.data);
+    }
 }
