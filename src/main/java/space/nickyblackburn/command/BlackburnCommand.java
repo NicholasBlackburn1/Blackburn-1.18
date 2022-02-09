@@ -168,12 +168,7 @@ public class BlackburnCommand {
                 }
  
                 mutablecomponent1.append(commandsyntaxexception.getInput().substring(Math.max(0, j - 10), j));
-                if (j < commandsyntaxexception.getInput().length()) {
-                   Component component = (new TextComponent(commandsyntaxexception.getInput().substring(j))).withStyle(new ChatFormatting[]{ChatFormatting.RED, ChatFormatting.UNDERLINE});
-                   mutablecomponent1.append(component);
-                }
- 
-                mutablecomponent1.append((new TranslatableComponent("command.context.here")).withStyle(new ChatFormatting[]{ChatFormatting.RED, ChatFormatting.ITALIC}));
+                
                 p_82118_.sendFailure(mutablecomponent1);
              }
           } catch (Exception exception) {

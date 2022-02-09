@@ -27,6 +27,7 @@ import net.optifine.reflect.Reflector;
 import net.optifine.render.GlBlendState;
 import net.optifine.shaders.config.ShaderPackParser;
 import net.optifine.util.PropertiesOrdered;
+import space.nickyblackburn.screens.LoadingOverlayImage;
 
 public class LoadingOverlay extends Overlay
 {
@@ -69,6 +70,10 @@ public class LoadingOverlay extends Overlay
 
     public static void registerTextures(Minecraft pMc)
     {
+        LoadingOverlayImage image = new LoadingOverlayImage();
+        // ALLOWS ME TO Swich the loading image based on day
+
+        MOJANG_STUDIOS_LOGO_LOCATION = new ResourceLocation(image.setLoadingImage());
         pMc.getTextureManager().register(MOJANG_STUDIOS_LOGO_LOCATION, new LoadingOverlay.LogoTexture());
     }
 
