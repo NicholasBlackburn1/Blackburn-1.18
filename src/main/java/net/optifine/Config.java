@@ -75,7 +75,7 @@ public class Config
     public static final String MC_VERSION = "1.18.1";
     public static final String OF_EDITION = "HD_U";
     public static final String OF_RELEASE = "H4";
-    public static final String VERSION = "OptiFine_1.18.1_HD_U_H4";
+    public static final String VERSION = "§eOptiFine_1.18.1_HD_U_H4";
     private static String build = null;
     private static String newRelease = null;
     private static boolean notify64BitJava = false;

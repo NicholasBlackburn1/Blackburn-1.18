@@ -13,6 +13,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.optifine.Config;
 import space.nickyblackburn.utils.*;
 
 import com.google.common.util.concurrent.Runnables;
@@ -159,6 +160,7 @@ public class TitleScreenOverlay {
       if (Minecraft.checkModStatus().shouldReportAsModified()) {
          s = s + I18n.a("menu.modded");
       }
+      screen.drawString(pose, font, Config.VERSION+" "+"§cI§6n§es§at§9a§bl§5l§ce§6d§e!", 2, height - 20, 16777215 | l);
       screen.drawString(pose, font, s, 2, height - 10, 16777215 | l);
       
     }

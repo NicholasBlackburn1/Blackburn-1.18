@@ -26,7 +26,7 @@ configurations {
 }
 
 group = 'space.nickyblackburn'
-version = '1.0.3'
+version = '1.0.4-Optifine'
 
 ext {
     minecraft_version = '1.18.1'
@@ -43,7 +43,7 @@ repositories {
 
 dependencies {
     implementation 'net.minecraftforge:forgespi:' + spi_version
-    shade 'com.github.gikkman:Java-Twirk:0.6.3'
+   
 
     // https://mvnrepository.com/artifact/org.jsoup/jsoup
 
