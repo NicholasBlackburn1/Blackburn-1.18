@@ -38,10 +38,13 @@ ext {
 
 repositories {
     mavenCentral()
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
     implementation 'net.minecraftforge:forgespi:' + spi_version
+    shade 'com.github.techbrew-mc:jtwirc:0.3.0'
+
     // https://mvnrepository.com/artifact/org.jsoup/jsoup
 
 
