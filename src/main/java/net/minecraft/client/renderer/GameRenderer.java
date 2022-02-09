@@ -87,6 +87,9 @@ import net.optifine.shaders.Shaders;
 import net.optifine.shaders.ShadersRender;
 import net.optifine.util.MemoryMonitor;
 import net.optifine.util.TimedEvent;
+import space.nickyblackburn.ClientStartup;
+import space.nickyblackburn.utils.Consts;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -1661,26 +1664,11 @@ public class GameRenderer implements ResourceManagerReloadListener, AutoCloseabl
 
         Level level = this.minecraft.level;
 
-        if (level != null)
-        {
-            if (Config.getNewRelease() != null)
-            {
-                String s = "HD_U".replace("HD_U", "HD Ultra").replace("L", "Light");
-                String s1 = s + " " + Config.getNewRelease();
-                TextComponent textcomponent = new TextComponent(I18n.a("of.message.newVersion", "\u00a7n" + s1 + "\u00a7r"));
-                textcomponent.setStyle(Style.EMPTY.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://optifine.net/downloads")));
-                this.minecraft.gui.getChat().addMessage(textcomponent);
-                Config.setNewRelease((String)null);
-            }
-
-            if (Config.isNotify64BitJava())
-            {
-                Config.setNotify64BitJava(false);
-                TextComponent textcomponent1 = new TextComponent(I18n.a("of.message.java64Bit"));
-                this.minecraft.gui.getChat().addMessage(textcomponent1);
-            }
-        }
-
+        // allows me to tap onto main thread in mc 
+        ClientStartup startup = new ClientStartup();
+        startup.sendStartupMessages(this.minecraft);
+        Consts.showStart = false;
+    
         if (this.updatedWorld != level)
         {
             RandomEntities.worldChanged(this.updatedWorld, level);

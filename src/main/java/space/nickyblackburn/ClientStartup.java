@@ -16,6 +16,10 @@ import space.nickyblackburn.utils.Consts;
 public class ClientStartup {
 
 
+
+
+
+    // allows me to send start up messages
     private void messages(){
         
         
