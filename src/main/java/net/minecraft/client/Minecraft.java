@@ -344,7 +344,7 @@ public class Minecraft extends ReentrantBlockableEventLoop<Runnable> implements 
     public HitResult hitResult;
     private int rightClickDelay;
     protected int missTime;
-    private volatile boolean pause;
+    public volatile boolean pause;
     private float pausePartialTick;
     private long lastNanoTime = Util.getNanos();
     private long lastTime;

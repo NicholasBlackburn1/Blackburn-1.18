@@ -88,7 +88,7 @@ public abstract class GuiComponent
         RenderSystem.disableBlend();
     }
 
-    protected void fillGradient(PoseStack pPoseStack, int pX1, int pY1, int pX2, int pY2, int pColorFrom, int pColorTo)
+    public void fillGradient(PoseStack pPoseStack, int pX1, int pY1, int pX2, int pY2, int pColorFrom, int pColorTo)
     {
         fillGradient(pPoseStack, pX1, pY1, pX2, pY2, pColorFrom, pColorTo, this.blitOffset);
     }

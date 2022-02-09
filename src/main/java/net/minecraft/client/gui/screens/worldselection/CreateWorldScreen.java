@@ -442,12 +442,12 @@ public class CreateWorldScreen extends Screen
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
     }
 
-    protected <T extends GuiEventListener & NarratableEntry> T addWidget(T pListener)
+    public <T extends GuiEventListener & NarratableEntry> T addWidget(T pListener)
     {
         return super.addWidget(pListener);
     }
 
-    protected <T extends GuiEventListener & Widget & NarratableEntry> T addRenderableWidget(T pWidget)
+    public <T extends GuiEventListener & Widget & NarratableEntry> T addRenderableWidget(T pWidget)
     {
         return super.addRenderableWidget(pWidget);
     }
