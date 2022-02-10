@@ -64,6 +64,10 @@ public class Consts {
     public static String Date = null;
 
 
+    public static String TwitchUsername; 
+    public static String TwitchPass;
+
+
     public static String ReleaseName = "§cB§6l§ea§ac§9k§bb§5u§cr§6n§e'§as§r";
 
 
@@ -77,7 +81,7 @@ public class Consts {
 
 
     public static List twitchlog = new LinkedList<>();
-    
+
     public boolean getEnablePos(){
         return enablePosInfo;
     }

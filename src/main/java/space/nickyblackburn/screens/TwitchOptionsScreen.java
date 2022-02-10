@@ -61,8 +61,10 @@ public class TwitchOptionsScreen extends GuiScreenOF{
 
          // gui buttons
          this.connect = new Button(this.width / 2 -0 , l+ 60,150, 20, new TranslatableComponent("blakcburn.twitch.connect"), (p_95981_) ->
-         {
-             this.onSelect();
+         {  
+             // sets the global var as the password and user to log into twithc 
+             Consts.TwitchPass = this.password.getValue();
+             Consts.TwitchUsername = this.username.getValue();
          });
 
          // this returns to the previuse screen
@@ -79,7 +81,7 @@ public class TwitchOptionsScreen extends GuiScreenOF{
          this.username.setValue("please enter username");
          this.username.setResponder((p_95983_) ->
          {
-             Consts.twitchlog.add("Twitch irc: user entered "+ this.username.getValue());
+            
          });
  
 
@@ -89,7 +91,7 @@ public class TwitchOptionsScreen extends GuiScreenOF{
          this.password.setValue("please enter password");
          this.password.setResponder((p_95983_) ->
          {
-            Consts.twitchlog.add("Twitch irc: user entered "+ this.password.getValue());
+            
          });
 
         
@@ -97,7 +99,7 @@ public class TwitchOptionsScreen extends GuiScreenOF{
  
  
     }
-
+    int count = 0 ;
     // renders all the gui elements
     public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick)
     {   
@@ -111,20 +113,13 @@ public class TwitchOptionsScreen extends GuiScreenOF{
         // draws the title and the stuff
         drawCenteredString(pPoseStack, this.minecraft.font, this.title, this.width / 2, 15, 16777215);
         drawString(pPoseStack, this.minecraft.font, s2, this.width - i - 2, this.height - 10, 8421504);
-
+        
+       
         buttonLayout(pPoseStack);
 
-        // trys to make a little log loop to print to streing 
-        
-        try{
-            for(int count = 0; i < Consts.twitchlog.size(); count++){
-                drawCenteredString(pPoseStack, this.minecraft.font,Consts.twitchlog.get(count).toString(), this.width / 2 , 15, 16777215);
-            }
-        }
-        catch(Exception e){
-            Consts.error(e.toString());
-        }
-        
+        drawCenteredString(pPoseStack, this.minecraft.font, "the username entered is "+Consts.TwitchUsername, this.width / 2 + 20, 15+20, 16777215);
+        drawCenteredString(pPoseStack, this.minecraft.font, "the password entered is "+Consts.TwitchPass, this.width / 2 + 20, 15+30, 16777215);
+
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
       
     }
@@ -164,6 +159,7 @@ public class TwitchOptionsScreen extends GuiScreenOF{
     {
         if (!this.connect.active || this.getFocused() != this.password || pKeyCode != 257 && pKeyCode != 335)
         {
+          
             return super.keyPressed(pKeyCode, pScanCode, pModifiers);
         }
         else
@@ -175,9 +171,9 @@ public class TwitchOptionsScreen extends GuiScreenOF{
     
     private void onSelect()
     {
-     Consts.error("got data from usrrname : "+this.username.getValue()+ " "+ "this is the password "+ this.password.getValue());
+        Consts.error("got data from usrrname : "+this.username.getValue()+ " "+ "this is the password "+ this.password.getValue());
         
-    
+        count++;
 }
 
     
