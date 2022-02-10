@@ -3,6 +3,13 @@
   "blackburn.message.cutie":"§d§lpsst...§r§e§lthis is a beta release~",
   "blackburn.message.howto":"§cT§6o §aA§9c§bc§5e§cs§6s §aC§9u§bs§5t§co§6m §aC§9o§bm§5m§ca§6n§ed§as §bt§5y§cp§6e §a.§9h§be§5l§cp ",
 
+
+  "blackburn.twitch.title":"Twitch IRC Settings",
+  "blackburn.twitch.email":"Twitch Username",
+  "blackburn.twitch.password": "Twitch Password",
+  "blakcburn.twitch.connect":"Connect to Twitch irc",
+  "blakcburn.twitch.exit":"go back",
+
   "blackburn.death.sufix": "",
   "blackburn.command.enabled": "§a is Enabled!",
   "blackburn.command.disabled": "§4 is Disabled!",
