@@ -15,7 +15,7 @@ import space.nickyblackburn.utils.Consts;
 public class DeathScreenOverlay {
     
     // this renders custom death screen
-    public void renderDeathScreen(PoseStack p_95920_, Screen screen, Component title, Font font, Component causeOfDeath, Component sufix, String Splash, int width, int height,int p_95921_, int p_95922_){
+    public void renderDeathScreen(PoseStack p_95920_, Screen screen, Component title, Font font, Component causeOfDeath, Component sufix, int width, int height){
 
         screen.fillGradient(p_95920_, 0, 0, width, height, 1615855616, -1602211792);
         p_95920_.pushPose();
@@ -30,6 +30,8 @@ public class DeathScreenOverlay {
             screen.drawCenteredString(p_95920_,font, causeOfDeath, width / 2, 100, 16777215);
   
         }
+
+        
   
         //screen.drawCenteredString(p_95920_, font,  "§e§b"+Splash, width / 2, 100, 16777215);
   
