@@ -58,10 +58,11 @@ public class TwitchOptionsScreen extends GuiScreenOF{
     private void buttonLayout(){
         int l = this.height / 6 + 21 * 5 / 2 - 12;
     
-        this.addRenderableWidget(new GuiScreenButtonOF(302, 0, l+ 40, Lang.get("blackburn.twitch.email")));
-        this.addRenderableWidget(new GuiScreenButtonOF(303, 0, l+ 60, Lang.get("blackburn.twitch.password")));
-        this.addRenderableWidget(new GuiScreenButtonOF(304, 0, l+ 80, Lang.get("blackburn.twitch.connect")));
-        this.addRenderableWidget(new GuiScreenButtonOF(305, 0, l+100, Lang.get("blackburn.twitch.exit")));
+        this.addRenderableWidget(new GuiScreenButtonOF(302, 0, l+ 05, Lang.get("blackburn.twitch.email")));
+        this.addRenderableWidget(new GuiScreenButtonOF(303, 0, l+ 30, Lang.get("blackburn.twitch.password")));
+        this.addRenderableWidget(new GuiScreenButtonOF(304, 0, l+ 60, Lang.get("blackburn.twitch.connect")));
+        this.addRenderableWidget(new GuiScreenButtonOF(305, 0, l+90, Lang.get("blackburn.twitch.exit")));
+      
     }
 
 
