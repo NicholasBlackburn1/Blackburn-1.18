@@ -15,6 +15,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.optifine.gui.GuiScreenOF;
 import space.nickyblackburn.utils.*;
 
 import com.google.common.util.concurrent.Runnables;
@@ -262,4 +263,5 @@ public class GuiUtils {
 
    }
  }
+
 }

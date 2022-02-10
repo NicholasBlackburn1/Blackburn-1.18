@@ -37,6 +37,10 @@ public abstract class Option
 {
     public static final Map<String, Option> OPTIONS_BY_KEY = new HashMap<>();
     protected static final int OPTIONS_TOOLTIP_WIDTH = 200;
+
+
+
+    
     public static final ProgressOption BIOME_BLEND_RADIUS = new ProgressOption("options.biomeBlendRadius", 0.0D, 7.0D, 1.0F, (p_91712_0_) ->
     {
         return (double)p_91712_0_.biomeBlendRadius;

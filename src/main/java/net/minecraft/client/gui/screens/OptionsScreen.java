@@ -18,6 +18,8 @@ import net.minecraft.network.protocol.game.ServerboundLockDifficultyPacket;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackRepository;
 import net.minecraft.world.Difficulty;
+import space.nickyblackburn.screens.TwitchOptionsScreen;
+import space.nickyblackburn.utils.GuiUtils;
 
 public class OptionsScreen extends Screen
 {
@@ -26,6 +28,9 @@ public class OptionsScreen extends Screen
     private final Options options;
     private CycleButton<Difficulty> difficultyButton;
     private LockIconButton lockButton;
+
+    private GuiUtils utils = new GuiUtils();
+
 
     public OptionsScreen(Screen pLastScreen, Options pOptions)
     {
@@ -49,7 +54,7 @@ public class OptionsScreen extends Screen
         if (this.minecraft.level != null && this.minecraft.hasSingleplayerServer())
         {
             this.difficultyButton = this.addRenderableWidget(createDifficultyButton(i, this.width, this.height, "options.difficulty", this.minecraft));
-
+            
             if (!this.minecraft.level.getLevelData().isHardcore())
             {
                 this.difficultyButton.setWidth(this.difficultyButton.getWidth() - 20);
@@ -98,6 +103,17 @@ public class OptionsScreen extends Screen
         {
             this.minecraft.setScreen(new ChatOptionsScreen(this, this.options));
         }));
+
+
+
+        // this is the twitch settings button 
+        this.addRenderableWidget(new Button(this.width / 2 - 100, this.height / 6 + 148, 200, 20, new TranslatableComponent("blackburn.twitch.title"), (p_96266_) ->
+        {
+            this.minecraft.setScreen(new TwitchOptionsScreen(this.getTitle()));
+        }));
+
+
+
         this.addRenderableWidget(new Button(this.width / 2 - 155, this.height / 6 + 120 - 6, 150, 20, new TranslatableComponent("options.resourcepack"), (p_96263_) ->
         {
             this.minecraft.setScreen(new PackSelectionScreen(this, this.minecraft.getResourcePackRepository(), this::updatePackList, this.minecraft.getResourcePackDirectory(), new TranslatableComponent("resourcePack.title")));
