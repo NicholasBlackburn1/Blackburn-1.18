@@ -47,7 +47,7 @@ public class TwitchOptionsScreen extends GuiScreenOF{
         this.minecraft.getInstance().keyboardHandler.setSendRepeatsToGui(true);
 
          // editboxes for input
-         this.username =  new EditBox(this.font, this.width / 2 - 210, l+ 10, 150, 20, new TranslatableComponent("blackburn.twitch.username"));
+         this.username =  new EditBox(this.font, this.width / 2 - 210, l+ -5, 150, 20, new TranslatableComponent("blackburn.twitch.username"));
          this.password = new EditBox(this.font, this.width / 2 - 210, l+ 30, 150, 20, new TranslatableComponent("blackburn.twitch.password"));
 
          // gui buttons
@@ -108,7 +108,7 @@ public class TwitchOptionsScreen extends GuiScreenOF{
 
         // this is the entry box for the componet email 
     
-        this.drawString(pPoseStack, this.minecraft.font, I18n.a("blackburn.twitch.email"),this.width / 2 - 210, l+ 10, 16777215);
+        this.drawString(pPoseStack, this.minecraft.font, I18n.a("blackburn.twitch.email"),this.width / 2 - 210, l+ -15, 16777215);
         this.addRenderableWidget(this.username);
         
 
@@ -138,7 +138,7 @@ public class TwitchOptionsScreen extends GuiScreenOF{
     
     private void onSelect()
     {
-     
+     Consts.error("got data from usrrname : "+this.username.getValue()+ " "+ "this is the password "+ this.password.getValue());
     }
 
     
