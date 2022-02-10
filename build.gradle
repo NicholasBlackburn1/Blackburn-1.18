@@ -26,7 +26,7 @@ configurations {
 }
 
 group = 'space.nickyblackburn'
-version = '1.0.6-Optifine'
+version = '1.0.7-Optifine'
 
 ext {
     minecraft_version = '1.18.1'
