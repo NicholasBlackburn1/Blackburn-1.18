@@ -69,8 +69,8 @@ public class TwitchOptionsScreen extends GuiScreenOF{
         */
 
         // entry box for password
-        this.drawString(pPoseStack, this.minecraft.font, I18n.a("blackburn.twitch.password"),this.width / 2 - 208, l+ 20, 16777215);
-        this.addRenderableWidget(new EditBox(this.font, this.width / 2 - 208, l+ 30, 200, 20, new TranslatableComponent("blackburn.twitch.password")));
+        this.drawString(pPoseStack, this.minecraft.font, I18n.a("blackburn.twitch.password"),this.width / 2 - 210, l+ 20, 16777215);
+        this.addRenderableWidget(new EditBox(this.font, this.width / 2 - 210, l+ 30, 150, 20, new TranslatableComponent("blackburn.twitch.password")));
 
         // cbuttons
         this.addRenderableWidget(new GuiScreenButtonOF(304, 0 , l+ 60, Lang.get("blackburn.twitch.connect")));
