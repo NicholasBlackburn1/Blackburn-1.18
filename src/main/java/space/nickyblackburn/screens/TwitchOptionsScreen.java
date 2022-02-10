@@ -108,7 +108,7 @@ public class TwitchOptionsScreen extends GuiScreenOF{
         int l = this.height / 6 + 21 * 5 / 2 - 12;
         this.renderBackground(pPoseStack);
         
-        String s2 = "Minecraft 1.18.1";
+        String s2 = "Blackburn-TwitchIRC 1.0.1-b";
         int i = this.minecraft.font.width(s2);
         // draws the title and the stuff
         drawCenteredString(pPoseStack, this.minecraft.font, this.title, this.width / 2, 15, 16777215);
