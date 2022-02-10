@@ -76,6 +76,8 @@ public class Consts {
     public static boolean speed = false;
 
 
+    public static List twitchlog = new LinkedList<>();
+    
     public boolean getEnablePos(){
         return enablePosInfo;
     }

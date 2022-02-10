@@ -114,6 +114,8 @@ public class SocialInteractionsScreen extends Screen
             this.socialInteractionsPlayerList = new SocialInteractionsPlayerList(this, this.minecraft, this.width, this.height, 88, this.listEnd(), 36);
         }
 
+
+
         int i = this.socialInteractionsPlayerList.getRowWidth() / 3;
         int j = this.socialInteractionsPlayerList.getRowLeft();
         int k = this.socialInteractionsPlayerList.getRowRight();

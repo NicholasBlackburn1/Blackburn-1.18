@@ -38,6 +38,8 @@ public class TwitchOptionsScreen extends GuiScreenOF{
 
     private Screen last;
 
+    private PoseStack poseStack;
+
    
     public TwitchOptionsScreen(Component component,Screen lastScreen){
         super(new TextComponent("Twitch settings screen"));
@@ -47,6 +49,8 @@ public class TwitchOptionsScreen extends GuiScreenOF{
     }
     // intis the screen
     public void init(){
+        Consts.twitchlog.add("Twitch irc: Starting... ");
+
         int l = this.height / 6 + 21 * 5 / 2 - 12;
 
         this.minecraft.getInstance().keyboardHandler.setSendRepeatsToGui(true);
@@ -64,9 +68,10 @@ public class TwitchOptionsScreen extends GuiScreenOF{
          // this returns to the previuse screen
          this.exit = new Button(this.width / 2 -0 , l+ 90,150, 20, new TranslatableComponent("blakcburn.twitch.exit"), (p_95981_) ->
          {
-             this.minecraft.setScreen(this.last);;
+             this.minecraft.setScreen(this.last);
          });
-
+         
+        
 
          // username edit boxes
          this.username.setMaxLength(128);
@@ -74,7 +79,7 @@ public class TwitchOptionsScreen extends GuiScreenOF{
          this.username.setValue("please enter username");
          this.username.setResponder((p_95983_) ->
          {
-             
+             Consts.twitchlog.add("Twitch irc: user entered "+ this.username.getValue());
          });
  
 
@@ -84,9 +89,10 @@ public class TwitchOptionsScreen extends GuiScreenOF{
          this.password.setValue("please enter password");
          this.password.setResponder((p_95983_) ->
          {
-            
+            Consts.twitchlog.add("Twitch irc: user entered "+ this.password.getValue());
          });
 
+        
          
  
  
@@ -94,7 +100,9 @@ public class TwitchOptionsScreen extends GuiScreenOF{
 
     // renders all the gui elements
     public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick)
-    {
+    {   
+        this.poseStack = pPoseStack;
+
         int l = this.height / 6 + 21 * 5 / 2 - 12;
         this.renderBackground(pPoseStack);
         
@@ -106,6 +114,17 @@ public class TwitchOptionsScreen extends GuiScreenOF{
 
         buttonLayout(pPoseStack);
 
+        // trys to make a little log loop to print to streing 
+        
+        try{
+            for(int count = 0; i < Consts.twitchlog.size(); count++){
+                drawCenteredString(pPoseStack, this.minecraft.font,Consts.twitchlog.get(count).toString(), this.width / 2 , 15, 16777215);
+            }
+        }
+        catch(Exception e){
+            Consts.error(e.toString());
+        }
+        
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
       
     }
@@ -135,6 +154,7 @@ public class TwitchOptionsScreen extends GuiScreenOF{
 
         this.addRenderableWidget(this.connect);
         this.addRenderableWidget(this.exit);
+        
        
     }   
 
@@ -156,7 +176,9 @@ public class TwitchOptionsScreen extends GuiScreenOF{
     private void onSelect()
     {
      Consts.error("got data from usrrname : "+this.username.getValue()+ " "+ "this is the password "+ this.password.getValue());
-    }
+        
+    
+}
 
     
 }

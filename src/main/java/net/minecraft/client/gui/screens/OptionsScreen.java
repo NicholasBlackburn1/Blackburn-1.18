@@ -109,7 +109,7 @@ public class OptionsScreen extends Screen
         // this is the twitch settings button 
         this.addRenderableWidget(new Button(this.width / 2 - 100, this.height / 6 + 148, 200, 20, new TranslatableComponent("blackburn.twitch.title"), (p_96266_) ->
         {
-            this.minecraft.setScreen(new TwitchOptionsScreen(this.getTitle()));
+            this.minecraft.setScreen(new TwitchOptionsScreen(this.getTitle(),this.lastScreen));
         }));
 
 
