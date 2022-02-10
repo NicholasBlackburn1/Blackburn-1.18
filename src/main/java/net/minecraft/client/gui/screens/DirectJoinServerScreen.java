@@ -48,7 +48,8 @@ public class DirectJoinServerScreen extends Screen
 
     protected void init()
     {
-        this.minecraft.keyboardHandler.setSendRepeatsToGui(true);
+        this.minecraft.getInstance().keyboardHandler.setSendRepeatsToGui(true);
+        
         this.selectButton = this.addRenderableWidget(new Button(this.width / 2 - 100, this.height / 4 + 96 + 12, 200, 20, new TranslatableComponent("selectServer.select"), (p_95981_) ->
         {
             this.onSelect();
