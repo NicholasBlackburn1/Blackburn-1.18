@@ -1,6 +1,6 @@
 /**
  * This is the settings screen and simple button creation for the menu and the options screen
- * 
+ * TODO: GET TWITCH IRC TO WORK AND VALIDATE USERNAMES
  */
 package space.nickyblackburn.screens;
 
@@ -11,6 +11,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Options;
 import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.commands.arguments.ColorArgument;
@@ -32,12 +33,16 @@ public class TwitchOptionsScreen extends GuiScreenOF{
     private EditBox username;
     private EditBox password;
 
-    private GuiScreenButtonOF connect;
-    private GuiScreenButtonOF exit;
+    private Button connect;
+    private Button exit;
+
+    private Screen last;
 
    
-    public TwitchOptionsScreen(Component component){
+    public TwitchOptionsScreen(Component component,Screen lastScreen){
         super(new TextComponent("Twitch settings screen"));
+        this.last = lastScreen;
+
         init();
     }
     // intis the screen
@@ -51,8 +56,17 @@ public class TwitchOptionsScreen extends GuiScreenOF{
          this.password = new EditBox(this.font, this.width / 2 - 210, l+ 30, 150, 20, new TranslatableComponent("blackburn.twitch.password"));
 
          // gui buttons
-         this.connect = new GuiScreenButtonOF(304, 0 , l+ 60, Lang.get("blackburn.twitch.connect"));
-         this.exit = new GuiScreenButtonOF(305, 0, l+90, Lang.get("blackburn.twitch.exit"));
+         this.connect = new Button(this.width / 2 -0 , l+ 60,150, 20, new TranslatableComponent("blakcburn.twitch.connect"), (p_95981_) ->
+         {
+             this.onSelect();
+         });
+
+         // this returns to the previuse screen
+         this.exit = new Button(this.width / 2 -0 , l+ 90,150, 20, new TranslatableComponent("blakcburn.twitch.exit"), (p_95981_) ->
+         {
+             this.minecraft.setScreen(this.last);;
+         });
+
 
          // username edit boxes
          this.username.setMaxLength(128);
@@ -60,7 +74,7 @@ public class TwitchOptionsScreen extends GuiScreenOF{
          this.username.setValue("please enter username");
          this.username.setResponder((p_95983_) ->
          {
-             Consts.dbg("stuff entered in the twitch stuff "+this.username.getValue());
+             
          });
  
 
@@ -70,8 +84,10 @@ public class TwitchOptionsScreen extends GuiScreenOF{
          this.password.setValue("please enter password");
          this.password.setResponder((p_95983_) ->
          {
-             Consts.dbg("stuff entered in the twitch stuff "+this.password.getValue());
+            
          });
+
+         
  
  
     }
@@ -122,6 +138,7 @@ public class TwitchOptionsScreen extends GuiScreenOF{
        
     }   
 
+    
 
     public boolean keyPressed(int pKeyCode, int pScanCode, int pModifiers)
     {
