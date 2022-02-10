@@ -28,6 +28,8 @@ public class TwitchOptionsScreen extends GuiScreenOF{
     private String Email;
 
     private List <String> options;
+
+    private EditBox username;
     private EditBox password;
 
     private GuiScreenButtonOF connect;
@@ -45,11 +47,22 @@ public class TwitchOptionsScreen extends GuiScreenOF{
         this.minecraft.getInstance().keyboardHandler.setSendRepeatsToGui(true);
 
          // editboxes for input
+         this.username =  new EditBox(this.font, this.width / 2 - 210, l+ 10, 150, 20, new TranslatableComponent("blackburn.twitch.username"));
          this.password = new EditBox(this.font, this.width / 2 - 210, l+ 30, 150, 20, new TranslatableComponent("blackburn.twitch.password"));
 
          // gui buttons
          this.connect = new GuiScreenButtonOF(304, 0 , l+ 60, Lang.get("blackburn.twitch.connect"));
          this.exit = new GuiScreenButtonOF(305, 0, l+90, Lang.get("blackburn.twitch.exit"));
+
+         // username edit boxes
+         this.username.setMaxLength(128);
+         this.username.setFocus(true);
+         this.username.setValue("please enter username");
+         this.username.setResponder((p_95983_) ->
+         {
+             Consts.dbg("stuff entered in the twitch stuff "+this.username.getValue());
+         });
+ 
 
          // password edit boxes
          this.password.setMaxLength(128);
@@ -57,13 +70,13 @@ public class TwitchOptionsScreen extends GuiScreenOF{
          this.password.setValue("please enter password");
          this.password.setResponder((p_95983_) ->
          {
-             Consts.dbg("stuff entered in the twitch stuff"+this.password.getValue());
+             Consts.dbg("stuff entered in the twitch stuff "+this.password.getValue());
          });
  
  
     }
 
-    
+    // renders all the gui elements
     public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick)
     {
         int l = this.height / 6 + 21 * 5 / 2 - 12;
@@ -84,6 +97,7 @@ public class TwitchOptionsScreen extends GuiScreenOF{
     public void tick()
     {
         this.password.tick();
+        this.username.tick();
     }
 
 
@@ -93,10 +107,10 @@ public class TwitchOptionsScreen extends GuiScreenOF{
     
 
         // this is the entry box for the componet email 
-        /**
-        this.drawString(pPoseStack, this.minecraft.font, I18n.a("blackburn.twitch.email"),this.width / 2 - 100, l+ 15, 16777215);
-        this.addRenderableWidget(new EditBox(this.font, this.width / 2 - 100, l+ 05 , 200, 20, new TranslatableComponent("blackburn.twitch.email")));
-        */
+    
+        this.drawString(pPoseStack, this.minecraft.font, I18n.a("blackburn.twitch.email"),this.width / 2 - 210, l+ 10, 16777215);
+        this.addRenderableWidget(this.username);
+        
 
         // entry box for password
         this.drawString(pPoseStack, this.minecraft.font, I18n.a("blackburn.twitch.password"),this.width / 2 - 210, l+ 20, 16777215);
