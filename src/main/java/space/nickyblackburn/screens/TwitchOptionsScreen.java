@@ -117,8 +117,8 @@ public class TwitchOptionsScreen extends GuiScreenOF{
        
         buttonLayout(pPoseStack);
 
-        drawCenteredString(pPoseStack, this.minecraft.font, "the username entered is "+Consts.TwitchUsername, this.width / 2 + 20, 15+20, 16777215);
-        drawCenteredString(pPoseStack, this.minecraft.font, "the password entered is "+Consts.TwitchPass, this.width / 2 + 20, 15+30, 16777215);
+        drawCenteredString(pPoseStack, this.minecraft.font, "the username entered is §6"+Consts.TwitchUsername, this.width / 2 + 100, 15+20, 16777215);
+        drawCenteredString(pPoseStack, this.minecraft.font, "the password entered is §6"+Consts.TwitchPass, this.width / 2 + 100, 15+30, 16777215);
 
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
       
