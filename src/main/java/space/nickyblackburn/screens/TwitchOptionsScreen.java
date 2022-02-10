@@ -56,12 +56,12 @@ public class TwitchOptionsScreen extends GuiScreenOF{
 
     // allows me to set up custom buttons in the menu
     private void buttonLayout(){
-        int l = this.height / 6 + 21 * (options.size() / 2) - 12;
-        int i1 = 0;
+        int l = this.height / 6 + 21 * 5 / 2 - 12;
     
-        // Exit button from twich config
-        i1 = this.width / 2 - 155 + 160;
-        this.addRenderableWidget(new GuiScreenButtonOF(302, i1, l, Lang.get("Blackburn.twitch.exit")));
+        this.addRenderableWidget(new GuiScreenButtonOF(302, 0, l+ 40, Lang.get("blackburn.twitch.email")));
+        this.addRenderableWidget(new GuiScreenButtonOF(303, 0, l+ 60, Lang.get("blackburn.twitch.password")));
+        this.addRenderableWidget(new GuiScreenButtonOF(304, 0, l+ 80, Lang.get("blackburn.twitch.connect")));
+        this.addRenderableWidget(new GuiScreenButtonOF(305, 0, l+100, Lang.get("blackburn.twitch.exit")));
     }
 
 
