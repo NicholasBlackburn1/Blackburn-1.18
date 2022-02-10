@@ -63,15 +63,17 @@ public class TwitchOptionsScreen extends GuiScreenOF{
         int l = this.height / 6 + 21 * 5 / 2 - 12;
         
         // this is the entry box for the componet email 
-        this.drawString(pPoseStack, this.minecraft.font, I18n.a("blackburn.twitch.email"),0, l+ 10, 16777215);
-        this.addRenderableWidget(new EditBox(this.font, 0, l+ 05 , 200, 20, new TranslatableComponent("blackburn.twitch.email")));
+        /**
+        this.drawString(pPoseStack, this.minecraft.font, I18n.a("blackburn.twitch.email"),this.width / 2 - 100, l+ 15, 16777215);
+        this.addRenderableWidget(new EditBox(this.font, this.width / 2 - 100, l+ 05 , 200, 20, new TranslatableComponent("blackburn.twitch.email")));
+        */
 
         // entry box for password
-        this.drawString(pPoseStack, this.minecraft.font, I18n.a("blackburn.twitch.password"),0, l+ 25, 16777215);
-        this.addRenderableWidget(new EditBox(this.font, 0, l+ 30, 200, 20, new TranslatableComponent("blackburn.twitch.password")));
+        this.drawString(pPoseStack, this.minecraft.font, I18n.a("blackburn.twitch.password"),this.width / 2 - 208, l+ 20, 16777215);
+        this.addRenderableWidget(new EditBox(this.font, this.width / 2 - 208, l+ 30, 200, 20, new TranslatableComponent("blackburn.twitch.password")));
 
         // cbuttons
-        this.addRenderableWidget(new GuiScreenButtonOF(304, 0, l+ 60, Lang.get("blackburn.twitch.connect")));
+        this.addRenderableWidget(new GuiScreenButtonOF(304, 0 , l+ 60, Lang.get("blackburn.twitch.connect")));
         this.addRenderableWidget(new GuiScreenButtonOF(305, 0, l+90, Lang.get("blackburn.twitch.exit")));
        
     }   
