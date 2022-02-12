@@ -22,6 +22,7 @@ import net.optifine.Lang;
 import net.optifine.gui.GuiScreenButtonOF;
 import net.optifine.gui.GuiScreenOF;
 import net.optifine.util.GuiRect;
+import space.nickyblackburn.twitch.TwitchIRC;
 import space.nickyblackburn.utils.Consts;
 
 public class TwitchOptionsScreen extends GuiScreenOF{
@@ -39,6 +40,8 @@ public class TwitchOptionsScreen extends GuiScreenOF{
     private Screen last;
 
     private PoseStack poseStack;
+
+    private TwitchIRC irc;
 
    
     public TwitchOptionsScreen(Component component,Screen lastScreen){
@@ -65,6 +68,7 @@ public class TwitchOptionsScreen extends GuiScreenOF{
              // sets the global var as the password and user to log into twithc 
              Consts.TwitchPass = this.password.getValue();
              Consts.TwitchUsername = this.username.getValue();
+             onSelect();
          });
 
          // this returns to the previuse screen
@@ -78,7 +82,7 @@ public class TwitchOptionsScreen extends GuiScreenOF{
          // username edit boxes
          this.username.setMaxLength(128);
          this.username.setFocus(true);
-         this.username.setValue("please enter username");
+         this.username.setValue("");
          this.username.setResponder((p_95983_) ->
          {
             
@@ -88,7 +92,7 @@ public class TwitchOptionsScreen extends GuiScreenOF{
          // password edit boxes
          this.password.setMaxLength(128);
          this.password.setFocus(true);
-         this.password.setValue("please enter password");
+         this.password.setValue("");
          this.password.setResponder((p_95983_) ->
          {
             
@@ -172,6 +176,14 @@ public class TwitchOptionsScreen extends GuiScreenOF{
     private void onSelect()
     {
         Consts.error("got data from usrrname : "+this.username.getValue()+ " "+ "this is the password "+ this.password.getValue());
+
+        if(this.username.getValue().isEmpty()|| this.password.getValue().isEmpty()){
+            drawCenteredString(this.poseStack, this.minecraft.font, "Cannot add irc connection without irc info", this.width / 2, 15, 16777215);
+        } else{
+            Consts.warn("creating bot connection");
+            this.irc.setupBot();
+
+        }
         
         count++;
 }
