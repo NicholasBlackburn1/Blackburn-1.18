@@ -28,23 +28,24 @@ SimpleEventHandler eventHandler;
 public void setupBot(){
 
     Consts.info("starting to start twitch bot");
-  
-    // Creates basic client connection 
-    this.credential = new OAuth2Credential(Consts.TwitchUsername, Consts.TwitchPass);
-    this.eventHandler  = this.twitchClient.getEventManager().getEventHandler(SimpleEventHandler.class);
- 
-
-    this.twitchClient = TwitchClientBuilder.builder()
-        
-    .withEnableChat(true)
-    .withChatAccount(this.credential)
-    .build();
-
-    this.channle = new recvChannle(this.eventHandler);
+    try{
+        // Creates basic client connection 
+        this.credential = new OAuth2Credential(Consts.TwitchUsername, Consts.TwitchPass);
+        this.twitchClient = TwitchClientBuilder.builder()
+            
+        .withEnableChat(true)
+        .withChatAccount(this.credential)
+        .build();
+        this.eventHandler  = this.twitchClient.getEventManager().getEventHandler(SimpleEventHandler.class);
+        this.channle = new recvChannle(this.eventHandler);
 
 
-    Consts.info("started twitch bot...");
-    start();
+        Consts.info("started twitch bot...");
+        start();
+    }
+    catch(Exception e){
+        Consts.error(e.getLocalizedMessage());
+    }
 }
 
 // starts suwu

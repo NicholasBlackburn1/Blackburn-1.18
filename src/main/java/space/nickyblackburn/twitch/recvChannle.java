@@ -3,6 +3,8 @@ package space.nickyblackburn.twitch;
 import com.github.philippheuer.events4j.simple.SimpleEventHandler;
 import com.github.twitch4j.chat.events.channel.ChannelMessageEvent;
 
+import space.nickyblackburn.utils.Consts;
+
 public class recvChannle {
 
 
@@ -21,12 +23,8 @@ public class recvChannle {
      * Subscribe to the ChannelMessage Event and write the output to the console
      */
     public void onChannelMessage(ChannelMessageEvent event) {
-        System.out.printf(
-                "Channel [%s] - User[%s] - Message [%s]%n",
-                event.getChannel().getName(),
-                event.getUser().getName(),
-                event.getMessage()
-        );
+        Consts.TwitchCurrentMessage = event.getMessage();
+        Consts.TwitchCurrentSent =  event.getUser().getName();
     }
     
 }

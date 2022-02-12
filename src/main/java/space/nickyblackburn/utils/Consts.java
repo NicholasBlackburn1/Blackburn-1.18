@@ -63,6 +63,8 @@ public class Consts {
     public static String VERSION = "§c1§6.§e1§a8§9.§b1§5-§cB§6l§ea§ac§9k§bb§5u§cr§6n§r";
     public static String Date = null;
 
+    public static String TwitchCurrentMessage;
+    public static String TwitchCurrentSent;
 
     public static String TwitchUsername; 
     public static String TwitchPass;

@@ -175,11 +175,14 @@ public class TwitchOptionsScreen extends GuiScreenOF{
     
     private void onSelect()
     {
+        irc = new TwitchIRC();
+        
         Consts.error("got data from usrrname : "+this.username.getValue()+ " "+ "this is the password "+ this.password.getValue());
 
         if(this.username.getValue().isEmpty()|| this.password.getValue().isEmpty()){
             drawCenteredString(this.poseStack, this.minecraft.font, "Cannot add irc connection without irc info", this.width / 2, 15, 16777215);
         } else{
+            // creates the bot connection
             Consts.warn("creating bot connection");
             this.irc.setupBot();
 

@@ -13,6 +13,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.world.entity.Entity;
+import space.nickyblackburn.utils.Consts;
 
 public class TwitchChatOverlay extends GuiComponent{
     
@@ -40,6 +41,8 @@ public class TwitchChatOverlay extends GuiComponent{
 
         if (list == null || System.currentTimeMillis() > this.updateChatMS){
             list.add("");
+            list.add(Consts.TwitchCurrentSent+ " :"+ " "+ Consts.TwitchCurrentMessage);
+
         }
     }
 }
