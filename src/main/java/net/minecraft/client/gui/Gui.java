@@ -87,6 +87,9 @@ import net.optifine.CustomColors;
 import net.optifine.CustomItems;
 import net.optifine.TextureAnimations;
 import net.optifine.reflect.Reflector;
+import space.nickyblackburn.screens.TwitchChatOverlay;
+import space.nickyblackburn.utils.Consts;
+
 import org.apache.commons.lang3.StringUtils;
 
 public class Gui extends GuiComponent
@@ -308,6 +311,12 @@ public class Gui extends GuiComponent
         if (this.minecraft.options.renderDebug)
         {
             this.debugScreen.render(pPoseStack);
+        }
+        
+        if(Consts.enableTwitch == true){
+            
+            TwitchChatOverlay overlay = new TwitchChatOverlay(this.minecraft);
+            overlay.render(pPoseStack);
         }
 
         if (!this.minecraft.options.hideGui)

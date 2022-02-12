@@ -11,6 +11,8 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import space.nickyblackburn.command.CommandRegister;
+import space.nickyblackburn.screens.TwitchChatOverlay;
+import space.nickyblackburn.twitch.TwitchEnabler;
 import space.nickyblackburn.utils.Consts;
 
 public class ClientStartup {
@@ -45,9 +47,13 @@ public class ClientStartup {
                 
             }
             if (!mine.pause){
-                
+
+                TwitchEnabler enable = new TwitchEnabler();
+
                 register.registerCommands(mine);
                 register.hacks(mine);
+                
+                
             }
         }
     }

@@ -31,7 +31,8 @@ public class TwitchChatOverlay extends GuiComponent{
     public void render(PoseStack pPoseStack){
 
         Entity entity = this.minecraft.getCameraEntity();
-
+        drawTwitchChat(pPoseStack);
+        
     }
 
     // draws the twtich chat on the overlay 
@@ -42,7 +43,7 @@ public class TwitchChatOverlay extends GuiComponent{
         if (list == null || System.currentTimeMillis() > this.updateChatMS){
             list.add("");
             list.add(Consts.TwitchCurrentSent+ " :"+ " "+ Consts.TwitchCurrentMessage);
-
+           
         }
     }
 }

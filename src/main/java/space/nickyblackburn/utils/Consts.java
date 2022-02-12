@@ -33,6 +33,9 @@ public class Consts {
     public static boolean crit = false;
     public static boolean nofall = false;
 
+
+    public static  boolean enableTwitch = false;
+    
     private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();
    
     // this is the logo dimention on the loading screen
