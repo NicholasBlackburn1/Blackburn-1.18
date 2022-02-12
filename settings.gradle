@@ -1,4 +1,3 @@
 rootProject.name = 'Blackburn1.18'
-
 include ':mcp'
 project(":mcp").projectDir = file("projects/mcp")

@@ -39,13 +39,26 @@ ext {
 repositories {
     mavenCentral()
     maven { url 'https://jitpack.io' }
+    
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/libs'
+        }
+    }
 }
 
 dependencies {
     implementation 'net.minecraftforge:forgespi:' + spi_version
-   
+    implementation group: "com.github.twitch4j", name: "twitch4j", version: "1.8.0"
 
-    // https://mvnrepository.com/artifact/org.jsoup/jsoup
+	// Logging Implementation
+	implementation group: "ch.qos.logback", name: "logback-classic", version: "1.2.10"
+
+    // YAML Parser
+	implementation group: "com.fasterxml.jackson.dataformat", name: "jackson-dataformat-yaml", version: "2.13.0"
 
 
 //    Use the shade to add the lib to the jar

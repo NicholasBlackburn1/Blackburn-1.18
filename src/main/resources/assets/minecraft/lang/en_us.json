@@ -6,7 +6,7 @@
 
   "blackburn.twitch.title":"Twitch IRC Settings",
   "blackburn.twitch.email":"Twitch Username",
-  "blackburn.twitch.password": "Twitch Password",
+  "blackburn.twitch.password": "Twitch Oauth",
   "blakcburn.twitch.connect":"Connect to Twitch irc",
   "blakcburn.twitch.exit":"go back",
 
