@@ -52,7 +52,7 @@ public class TwitchChatOverlay extends GuiComponent{
         for (int i = 0; i < Consts.chatmessage.size(); ++i)
         {
             
-            String s =  (String) Consts.chatmessage.get(i);
+            String s =  Consts.chatmessage.get(i).toString();
 
             if (!Strings.isNullOrEmpty(s))
             {
@@ -66,6 +66,6 @@ public class TwitchChatOverlay extends GuiComponent{
         }
 
         GuiUtils.fill(pose.last().pose(), aguirect, -1873784752);
-        this.font.renderStrings(chat, aguipoint, 14737632, pose.last().pose(), false, this.font.isBidirectional());
+        this.font.renderStrings(Consts.chatmessage, aguipoint, 14737632, pose.last().pose(), false, this.font.isBidirectional());
     }
 }
