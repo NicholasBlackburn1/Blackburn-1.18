@@ -58,10 +58,12 @@ public class TwitchChatOverlay extends GuiComponent{
             {
                 int j = 9;
                 int k = this.font.width(s);
-                int l = 2;
+                int l = this.minecraft.getWindow().getGuiScaledWidth() - 2 - k;
                 int i1 = 2 + j * i;
-                aguirect[i] = new GuiRect(1, i1 - 1, 2 + k + 1, i1 + j - 1);
-                aguipoint[i] = new GuiPoint(2, i1);
+                aguirect[i] = new GuiRect(l - 1, i1 - 1, l + k + 1, i1 + j - 1);
+                aguipoint[i] = new GuiPoint(l, i1);
+
+                
             }
 
             if(Consts.chatmessage.size() == 11){
@@ -71,8 +73,10 @@ public class TwitchChatOverlay extends GuiComponent{
 
         }
         
+
         GuiUtils.fill(pose.last().pose(), aguirect, -1873784752);
         this.font.renderStrings(Consts.chatmessage, aguipoint, 14737632, pose.last().pose(), false, this.font.isBidirectional());
+    
         
     }
 }
