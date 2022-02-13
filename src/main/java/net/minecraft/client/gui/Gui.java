@@ -122,6 +122,7 @@ public class Gui extends GuiComponent
     public float vignetteBrightness = 1.0F;
     private int toolHighlightTimer;
     private ItemStack lastToolHighlight = ItemStack.EMPTY;
+    private final TwitchChatOverlay twitchScreen;
     private final DebugScreenOverlay debugScreen;
     private final SubtitleOverlay subtitleOverlay;
     private final SpectatorGui spectatorGui;
@@ -151,6 +152,7 @@ public class Gui extends GuiComponent
         this.minecraft = pMinecraft;
         this.itemRenderer = pMinecraft.getItemRenderer();
         this.debugScreen = new DebugScreenOverlay(pMinecraft);
+        this.twitchScreen = new TwitchChatOverlay(pMinecraft);
         this.spectatorGui = new SpectatorGui(pMinecraft);
         this.chat = new ChatComponent(pMinecraft);
         this.tabList = new PlayerTabOverlay(pMinecraft, this);
@@ -312,6 +314,12 @@ public class Gui extends GuiComponent
         {
             this.debugScreen.render(pPoseStack);
         }
+        
+        if (this.minecraft.options.twitchRender)
+        {
+            this.twitchScreen.render(pPoseStack);
+        }
+        
         
         if(Consts.enableTwitch == true){
             

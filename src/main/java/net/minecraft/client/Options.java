@@ -200,6 +200,7 @@ public class Options
     public boolean hideGui;
     private CameraType cameraType = CameraType.FIRST_PERSON;
     public boolean renderDebug;
+    public boolean twitchRender;
     public boolean renderDebugCharts;
     public boolean renderFpsChart;
     public String lastMpIp = "";

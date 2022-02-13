@@ -2,6 +2,7 @@ package space.nickyblackburn.twitch;
 
 import com.github.philippheuer.events4j.simple.SimpleEventHandler;
 import com.github.twitch4j.chat.events.channel.ChannelMessageEvent;
+import com.github.twitch4j.chat.events.channel.IRCMessageEvent;
 
 import space.nickyblackburn.utils.Consts;
 
@@ -16,15 +17,18 @@ public class recvChannle {
      * @return 
      */
     public recvChannle(SimpleEventHandler eventHandler) {
-        eventHandler.onEvent(ChannelMessageEvent.class, event -> onChannelMessage(event));
+
+        eventHandler.onEvent(ChannelMessageEvent.class, event -> {
+
+            if (event.getMessage() == null){
+
+            }else{
+            Consts.chatmessage.add(event.getMessage());
+            }
+        
+        });
+        
     }
 
-    /**
-     * Subscribe to the ChannelMessage Event and write the output to the console
-     */
-    public void onChannelMessage(ChannelMessageEvent event) {
-        Consts.TwitchCurrentMessage = event.getMessage();
-        Consts.TwitchCurrentSent =  event.getUser().getName();
-    }
     
 }

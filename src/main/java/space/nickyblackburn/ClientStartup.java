@@ -13,13 +13,14 @@ import net.minecraft.world.entity.player.Player;
 import space.nickyblackburn.command.CommandRegister;
 import space.nickyblackburn.screens.TwitchChatOverlay;
 import space.nickyblackburn.twitch.TwitchEnabler;
+import space.nickyblackburn.twitch.TwitchIRC;
+import space.nickyblackburn.twitch.recvChannle;
 import space.nickyblackburn.utils.Consts;
 
 public class ClientStartup {
 
-
-
-
+    TwitchIRC irc = new TwitchIRC();
+    recvChannle chan;
 
     // allows me to send start up messages
     private void messages(){
@@ -52,6 +53,7 @@ public class ClientStartup {
 
                 register.registerCommands(mine);
                 register.hacks(mine);
+         
                 
                 
             }

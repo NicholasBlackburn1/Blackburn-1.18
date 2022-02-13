@@ -547,11 +547,13 @@ public class KeyboardHandler
             if (this.minecraft.screen == null || this.minecraft.screen.passEvents)
             {
                 InputConstants.Key inputconstants$key = InputConstants.getKey(p_90895_, pKey);
+                
+
 
                 if (pScanCode == 0)
                 {
                     KeyMapping.set(inputconstants$key, false);
-
+                    
                     if (p_90895_ == 292)
                     {
                         if (this.handledDebugKey)
@@ -565,7 +567,9 @@ public class KeyboardHandler
                             this.minecraft.options.renderFpsChart = this.minecraft.options.renderDebug && Screen.hasAltDown();
 
                             if (this.minecraft.options.renderDebug)
+                            
                             {
+                                this.minecraft.options.twitchRender = true;
                                 if (this.minecraft.options.ofLagometer)
                                 {
                                     this.minecraft.options.renderFpsChart = true;
