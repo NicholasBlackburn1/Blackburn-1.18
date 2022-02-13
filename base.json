@@ -380,6 +380,17 @@
         {
             "downloads": {
                 "artifact": {
+                    "path": "com/mojang/blocklist/1.0.6/blocklist-1.0.6.jar",
+                    "sha1": "7039c2c6209064ee4132cea7a0737b63b92c725e",
+                    "size": 964,
+                    "url": "https://libraries.minecraft.net/com/mojang/blocklist/1.0.6/blocklist-1.0.6.jar"
+                }
+            },
+            "name": "com.mojang:blocklist:1.0.6"
+        },
+        {
+            "downloads": {
+                "artifact": {
                     "path": "org/apache/httpcomponents/httpcore/4.4.14/httpcore-4.4.14.jar",
                     "sha1": "9dd1a631c082d92ecd4bd8fd4cf55026c720a8c1",
                     "size": 328436,
