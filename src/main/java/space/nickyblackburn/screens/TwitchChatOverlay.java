@@ -64,8 +64,13 @@ public class TwitchChatOverlay extends GuiComponent{
                 aguipoint[i] = new GuiPoint(2, i1);
             }
 
-        }
+            if(Consts.chatmessage.size() == 11){
+                pose.translate(-4.0D, 0.0D, 0.0D);
+                Consts.chatmessage.clear();
+            }
 
+        }
+        
         GuiUtils.fill(pose.last().pose(), aguirect, -1873784752);
         this.font.renderStrings(Consts.chatmessage, aguipoint, 14737632, pose.last().pose(), false, this.font.isBidirectional());
         
