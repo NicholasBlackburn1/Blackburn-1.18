@@ -381,13 +381,110 @@
             "downloads": {
                 "artifact": {
                     "path": "com/mojang/blocklist/1.0.6/blocklist-1.0.6.jar",
-                    "sha1": "7039c2c6209064ee4132cea7a0737b63b92c725e",
+                    "sha1": "01569f5cb14f0ede6f47d4680e424626521a34af",
                     "size": 964,
                     "url": "https://libraries.minecraft.net/com/mojang/blocklist/1.0.6/blocklist-1.0.6.jar"
                 }
             },
             "name": "com.mojang:blocklist:1.0.6"
         },
+        
+        {
+            "downloads": {
+                "artifact": {
+                    "path": "com/github/philippheuer/events4j/events4j-core/0.9.9/events4j-core-0.9.9.jar",
+                    "sha1": "b956bb026aac89687365f12b7d5195c7a7f7cb67",
+                    "size": 8829,
+                    "url": "https://repo1.maven.org/maven2/com/github/philippheuer/events4j/events4j-core/0.9.9/events4j-core-0.9.9.jar"
+                }
+            },
+            "name": "com.github.philippheuer.events4j:events4j-core:0.9.9"
+        },
+
+
+
+
+        {
+            "downloads": {
+                "artifact": {
+                    "path": "com/github/philippheuer/credentialmanager/credentialmanager/0.1.2/credentialmanager-0.1.2.jar",
+                    "sha1": "fef97b49c43d902baca970753837900fdeeace3f",
+                    "size": 268,
+                    "url": "https://repo1.maven.org/maven2/com/github/philippheuer/credentialmanager/credentialmanager/0.1.2/credentialmanager-0.1.2.jar"
+                }
+            },
+            "name": "com.github.philippheuer.credentialmanager:credentialmanager:0.1.2"
+        },
+
+
+
+        {
+            "downloads": {
+                "artifact": {
+                    "path": "com/github/twitch4j/twitch4j/1.8.0/twitch4j-1.8.0.jar",
+                    "sha1": "5c70d2882a5f4f70184fd8b72f84ec6f69e6625b",
+                    "size": 552,
+                    "url": "https://repo1.maven.org/maven2/com/github/twitch4j/twitch4j/1.8.0/twitch4j-1.8.0.jar"
+                }
+            },
+            "name": "com.github.twitch4j:twitch4j:1.8.0"
+        },
+
+        {
+            "downloads": {
+                "artifact": {
+                    "path": "com/github/twitch4j/twitch4j-common/1.8.0/twitch4j-common-1.8.0.jar",
+                    "sha1": "5340cc5193b134d1632cd9c3bc345860ebd92f0d",
+                    "size": 552,
+                    "url": "https://repo1.maven.org/maven2/com/github/twitch4j/twitch4j-common/1.8.0/twitch4j-common-1.8.0.jar"
+                }
+            },
+            "name": "com.github.twitch4j:twitch4j-common:1.8.0"
+        },
+
+        {
+            "downloads": {
+                "artifact": {
+                    "path": "com/github/twitch4j/twitch4j-chat/1.8.0/twitch4j-chat-1.8.0.jar",
+                    "sha1": "ed0080389154e0f3ff41f0dca84619b87611c28f",
+                    "size": 143644,
+                    "url": "https://repo1.maven.org/maven2/com/github/twitch4j/twitch4j-chat/1.8.0/twitch4j-chat-1.8.0.jar"
+                }
+            },
+            "name": "com.github.twitch4j:twitch4j-chat:1.8.0"
+        },
+
+
+        {
+            "downloads": {
+                "artifact": {
+                    "path": "ch/qos/logback/logback-classic/1.2.10/logback-classic-1.2.10.jar",
+                    "sha1": "f69d97ef3335c6ab82fc21dfb77ac613f90c1221",
+                    "size": 552,
+                    "url": "https://repo1.maven.org/maven2/ch/qos/logback/logback-classic/1.2.10/logback-classic-1.2.10.jar"
+                }
+            },
+            "name": "ch.qos.logback:logback-classic:1.2.10"
+        },
+
+
+        {
+            "downloads": {
+                "artifact": {
+                    "path": "com/fasterxml/jackson/dataformat/jackson-dataformat-yaml/2.13.0/jackson-dataformat-yaml-2.13.0.jar",
+                    "sha1": "90c7265058f7b8b805abde4da1e2e59febb30c7d",
+                    "size": 228,
+                    "url": "https://repo1.maven.org/maven2/com/fasterxml/jackson/dataformat/jackson-dataformat-yaml/2.13.0/jackson-dataformat-yaml-2.13.0.jar"
+                }
+            },
+            "name": "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.0"
+        },
+
+
+
+
+
+
         {
             "downloads": {
                 "artifact": {
