@@ -389,6 +389,73 @@
             "name": "com.mojang:blocklist:1.0.6"
         },
         
+
+        
+       
+        {
+            "downloads": {
+                "artifact": {
+                    "path": "io/github/openfeign/feign-core/11.8/feign-core-11.8.jar",
+                    "sha1": "9eab16a2ec5286808afde890dbf3c533ff517fbe",
+                    "size": 197092,
+                    "url": "https://repo1.maven.org/maven2/io/github/openfeign/feign-core/11.8/feign-core-11.8.jar"
+                    
+                }
+            },
+            "name": "io.github.openfeign:feign-core:jar:11.8"
+        },
+
+        {
+            "downloads": {
+                "artifact": {
+                    "path": "com/github/vladimir-bukhtoyarov/bucket4j-core/7.2.0/bucket4j-core-7.2.0.jar",
+                    "sha1": "fa8429c0e057f85e140bb7ff3e726bbaf4a61c85",
+                    "size": 7498,
+                    "url": "https://repo1.maven.org/maven2/com/github/vladimir-bukhtoyarov/bucket4j-core/7.2.0/bucket4j-core-7.2.0.jar"
+                }
+            },
+            "name": "com.github.vladimir-bukhtoyarov:bucket4j-core:7.2.0"
+        },
+
+
+
+        {
+            "downloads": {
+                "artifact": {
+                    "path": "com/github/philippheuer/events4j/events4j-handler-simple/0.10.0/events4j-handler-simple-0.10.0.jar",
+                    "sha1": "a2a50f59674d64231e082050ad600b8bc3132669",
+                    "size": 7498,
+                    "url": "https://repo1.maven.org/maven2/com/github/philippheuer/events4j/events4j-handler-simple/0.10.0/events4j-handler-simple-0.10.0.jar"
+                }
+            },
+            "name": "com.github.philippheuer.events4j:events4j-handler-simple:0.10.0"
+        },
+
+
+        {
+            "downloads": {
+                "artifact": {
+                    "path": "com/github/philippheuer/events4j/events4j-api/0.10.0/events4j-api-0.10.0.jar",
+                    "sha1": "59a77ccf21b54e414c50a6cd2689ed47ff716369",
+                    "size": 5698,
+                    "url": "https://repo1.maven.org/maven2/com/github/philippheuer/events4j/events4j-api/0.10.0/events4j-api-0.10.0.jar"
+                }
+            },
+            "name": "com.github.philippheuer.events4j:events4j-api:0.10.0"
+        },
+
+        {
+            "downloads": {
+                "artifact": {
+                    "path": "com/github/philippheuer/events4j/events4j-handler-reactor/0.10.0/events4j-handler-reactor-0.10.0.jar",
+                    "sha1": "db86ae7e9cecc3c6f205b8a5d68b036e52e2e808",
+                    "size": 4115,
+                    "url": "https://repo1.maven.org/maven2/com/github/philippheuer/events4j/events4j-handler-reactor/0.10.0/events4j-handler-reactor-0.10.0.jar"
+                }
+            },
+            "name": "com.github.philippheuer.events4j:events4j-handler-reactor:0.10.0"
+        },
+
         {
             "downloads": {
                 "artifact": {
@@ -454,6 +521,33 @@
             "name": "com.github.twitch4j:twitch4j-chat:1.8.0"
         },
 
+        {
+            "downloads": {
+                "artifact": {
+                    "path": "https://repo1.maven.org/maven2/com/github/twitch4j/twitch4j-auth/1.8.0/twitch4j-auth-1.8.0.jar",
+                    "sha1": "7bcacbcb5bc3b6f2be8e1723078b685e8726c24f",
+                    "size": 143644,
+                    "url": "https://repo1.maven.org/maven2/com/github/twitch4j/twitch4j-auth/1.8.0/twitch4j-auth-1.8.0.jar"
+                }
+            },
+            "name": "com.github.twitch4j:twitch4j-auth:1.8.0"
+        },
+
+
+        {
+            "downloads": {
+                "artifact": {
+                    "path": "com/squareup/okhttp3/okhttp/4.9.3/okhttp-4.9.3.jar",
+                    "sha1": "b0b14b3d12980912723fb8b66afb48dcda742fcb",
+                    "size": 792081,
+                    "url": "https://repo1.maven.org/maven2/com/squareup/okhttp3/okhttp/4.9.3/okhttp-4.9.3.jar"
+                }
+            },
+            "name": "com.squareup.okhttp3:okhttp:4.9.3"
+        },
+
+
+
 
         {
             "downloads": {
@@ -478,6 +572,20 @@
                 }
             },
             "name": "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.0"
+        },
+
+
+        {
+            "downloads": {
+                "artifact": {
+                    "path": "com/fasterxml/jackson/core/jackson-core/2.13.0/jackson-core-2.13.0.jar",
+                    "sha1": "e957ec5442966e69cef543927bdc80e5426968bb",
+                    "size": 374571,
+                    "url": "https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/2.13.0/jackson-core-2.13.0.jar"
+                }
+            },
+            "name": "com.fasterxml.jackson.core:jackson-core:2.13.0"
+
         },
 
 
