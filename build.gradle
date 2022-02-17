@@ -62,6 +62,8 @@ dependencies {
 	// Logging Implementation
 	implementation group: "ch.qos.logback", name: "logback-classic", version: "1.2.10"
 
+    implementation 'club.minnced:java-discord-rpc:2.0.1'
+
     // YAML Parser
 	implementation group: "com.fasterxml.jackson.dataformat", name: "jackson-dataformat-yaml", version: "2.13.0"
   
@@ -69,6 +71,8 @@ dependencies {
 
 	// Logging Implementation
 	shade group: "ch.qos.logback", name: "logback-classic", version: "1.2.10"
+
+    shade 'club.minnced:java-discord-rpc:2.0.1'
 
     // YAML Parser
 	shade group: "com.fasterxml.jackson.dataformat", name: "jackson-dataformat-yaml", version: "2.13.0"
