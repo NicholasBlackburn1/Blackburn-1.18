@@ -216,8 +216,10 @@ public final class DiscordRPC {
 		}
 	}
 
+
 	//JNA Interface
 	private interface DLL extends Library {
+
 		//DLL INSTANCE = Native.load("discord-rpc", DLL.class);
 		DLL INSTANCE = Native.loadLibrary("/home/nicky/Documents/discord-rpc/builds/install/linux-dynamic/lib/libdiscord-rpc.so", DLL.class);
 

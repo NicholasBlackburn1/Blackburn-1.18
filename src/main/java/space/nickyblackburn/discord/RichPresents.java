@@ -61,7 +61,7 @@ public class RichPresents {
 
 
     // Allows the game to um create rich prents as it starts 
-    public void ImageWithDescPersantes(String status, String desc, String image, int currentPlayers, int maxPlayers) {
+    public static void ImageWithDescPersantes(String status, String desc, String image, int currentPlayers, int maxPlayers) {
         
         Consts.warn("Sending update to discord...");
         DiscordRichPresence rich = new DiscordRichPresence.Builder(status,desc,image,currentPlayers,maxPlayers).build();
