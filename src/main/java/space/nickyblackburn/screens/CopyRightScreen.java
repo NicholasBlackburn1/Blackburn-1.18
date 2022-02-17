@@ -23,6 +23,8 @@ public class CopyRightScreen extends Screen{
 
     public void render(PoseStack p_96295_, int p_96296_, int p_96297_, float p_96298){
         this.renderBackground(p_96295_);
+
+        Consts.rich.CustomPresenceWithImage("Who Made this UwU~", "By Nicky Blackburn", "projeto_14_6", "OwO licks ur Bulgy");
         
         drawCenteredString(p_96295_, this.font, this.title, this.width / 2, this.height / 4 - 60 + 20, 16777215);
         

@@ -26,7 +26,7 @@ public class RichPresents {
     // Allows the game to um create rich prents as it starts 
     public static void StartingPresence() {
         
-        DiscordRichPresence rich = new DiscordRichPresence.Builder("Minecraft is Starting....").setDetails("Loading the UwU's....").build();
+        DiscordRichPresence rich = new DiscordRichPresence.Builder("Minecraft is Starting....").setDetails("Loading the UwU's....").setBigImage("projeto_14_6", "Cum on me ~").build();
         DiscordRPC.discordUpdatePresence(rich);
       }
 
@@ -46,9 +46,9 @@ public class RichPresents {
 
     // ACreates custom pres messaage in
 
-    public void CustomPresenceWithImage(String title, String details,String image){
+    public void CustomPresenceWithImage(String title, String details,String image,String imagetxt){
         
-        DiscordRichPresence rich = new DiscordRichPresence.Builder(title,details,image).build();
+        DiscordRichPresence rich = new DiscordRichPresence.Builder(title,details,image,imagetxt).build();
         DiscordRPC.discordUpdatePresence(rich);
     }
 

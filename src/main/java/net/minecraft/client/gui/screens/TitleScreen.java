@@ -173,8 +173,10 @@ public class TitleScreen extends Screen
   
      public void render(PoseStack p_96739_, int p_96740_, int p_96741_, float p_96742_) {
         TitleScreenOverlay overlay = new TitleScreenOverlay();
-  
-  
+   
+         // Shows the Lurking presents 
+         Consts.rich.LerkingPresence();
+         
         if (this.fadeInStart == 0L && this.fading) {
            this.fadeInStart = Util.getMillis();
         }

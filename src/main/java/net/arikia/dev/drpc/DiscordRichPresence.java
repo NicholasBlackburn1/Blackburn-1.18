@@ -103,11 +103,12 @@ public class DiscordRichPresence extends Structure {
 			p.partyMax = partymax;
 		}
 
-		public Builder(String state,String details, String largeImageKey) {
+		public Builder(String state,String details, String largeImageKey, String larString) {
 			p = new DiscordRichPresence();
 			p.state = state;
 			p.details = details;
 			p.largeImageKey = largeImageKey;
+			p.largeImageText = larString;
 		
 		}
 

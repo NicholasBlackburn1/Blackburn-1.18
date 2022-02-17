@@ -17,8 +17,8 @@ public class DeathScreenOverlay {
     // this renders custom death screen
     public void renderDeathScreen(PoseStack p_95920_, Screen screen, Component title, Font font, Component causeOfDeath, Component sufix, int width, int height){
 
-        Consts.rich.CustomPresenceWithImage("U died....", "sad owo noises", "screem");
-        
+        Consts.rich.CustomPresenceWithImage("U died....", "sad owo noises", "screem","OwO Death");
+
         screen.fillGradient(p_95920_, 0, 0, width, height, 1615855616, -1602211792);
         p_95920_.pushPose();
         p_95920_.scale(2.0F, 2.0F, 2.0F);

@@ -43,17 +43,22 @@ public class ClientStartup {
                 register.addToCommandList();
                 messages();
                 Consts.showStart = false;
-                
+               
 
                 
             }
             if (!mine.pause){
 
                 TwitchEnabler enable = new TwitchEnabler();
-
+                
+             
                 register.registerCommands(mine);
                 register.hacks(mine);
-         
+                
+
+                if(mine.player.isAlive()){
+                    Consts.rich.CustomPresenceWithImage("Yaaa Playing Minecrafty~", "UwU~ Love all you Furries uwu~", "gamer", "OwO Gamer foxy~");
+                }
                 
                 
             }

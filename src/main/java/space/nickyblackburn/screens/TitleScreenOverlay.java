@@ -151,8 +151,6 @@ public class TitleScreenOverlay {
     public void setDrawVersionName(Minecraft minecraft,Screen screen, PoseStack pose,Font font, int height, int l ){
       Consts.showStart= true;
 
-      Consts.rich.LerkingPresence();
-      
       String s = Consts.ReleaseName + SharedConstants.getCurrentVersion().getName();
       if (minecraft.isDemo()) {
          s = s + " Demo";
@@ -316,6 +314,9 @@ public class TitleScreenOverlay {
       x = (JsonPrimitive) Consts.background.get(10);
       y = (JsonPrimitive) Consts.background.get(9);
       gui.CreatebuttonwithoutImageQuit(minecraft, titlescreen, buttonwidth, j, x.getAsInt(), y.getAsInt(), 20, "menu.quit");
+      
+     
+      
    }
 
    // does maths for the x an dy pos 
