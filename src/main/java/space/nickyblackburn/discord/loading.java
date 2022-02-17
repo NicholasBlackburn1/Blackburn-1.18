@@ -2,35 +2,82 @@ package space.nickyblackburn.discord;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import javax.print.DocFlavor.URL;
+
+import org.apache.commons.io.FileUtils;
+
+import net.minecraft.client.Minecraft;
 import space.nickyblackburn.utils.Consts;
 
 public class loading {
 
 
+    java.net.URL lib;
+    File dest;
+
     public void getOS(){
-        // windows os 
+
+
+        // windows os
         if(System.getProperty("os.name").startsWith("Windows")){
 
             Consts.log("Windows is detected loading RPC dll");
 
+            this.lib = getClass().getResource("/assets/minecraft/blackburn/discord/win32-x86-64/discord-rpc.dll");
+            this.dest= new File(Minecraft.getInstance().gameDirectory.getAbsolutePath()+"discord-rpc.dll");
+            
+            Consts.log("Copying files... to "+Minecraft.getInstance().gameDirectory.getAbsolutePath()+"discord-rpc.dll");
             try {
-                Consts.log(ExportResource("/resources/assets/minecraft/blackburn/discord/win32-x86-64/discord-rpc.dll"));
+
+                Consts.log("Copyting dll");
+                FileUtils.copyURLToFile(lib, dest);
+                Consts.error("copyed successfully");
+
+                Consts.rpcdll =(Minecraft.getInstance().gameDirectory.getAbsolutePath()+"discord-rpc.dll");
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
         }
+
+        // linux oso
         if(System.getProperty("os.name").startsWith("Linux")){
 
             Consts.log("Linux is detected loading RPC so");
 
+            this.lib = getClass().getResource("/assets/minecraft/blackburn/discord/linux-x86-64/libdiscord-rpc.so");
+            this.dest= new File(Minecraft.getInstance().gameDirectory.getAbsolutePath()+"libdiscord-rpc.so");
+            
+            Consts.log("Copying files... to "+Minecraft.getInstance().gameDirectory.getAbsolutePath()+"libdiscord-rpc.so");
             try {
-                Consts.log(ExportResource("/resources/assets/minecraft/blackburn/discord/linux-x86-64/libdiscord-rpc.so"));
-            } catch (Exception e) {
+                FileUtils.copyURLToFile(lib, dest);
+                Consts.error("copyed successfully");
+                Consts.rpcdll =(Minecraft.getInstance().gameDirectory.getAbsolutePath()+"libdiscord-rpc.so");
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+        }
+
+        if(System.getProperty("os.name").startsWith("Darwin")){
+
+            Consts.log("Linux is detected loading RPC so");
+
+            this.lib = getClass().getResource("/assets/minecraft/blackburn/discord/darwin/libdiscord-rpc.dylib");
+            this.dest= new File(Minecraft.getInstance().gameDirectory.getAbsolutePath()+"libdiscord-rpc.dylib");
+            
+            Consts.log("Copying files... to "+Minecraft.getInstance().gameDirectory.getAbsolutePath()+"libdiscord-rpc.dylib");
+            try {
+                FileUtils.copyURLToFile(lib, dest);
+                Consts.error("copyed successfully");
+                Consts.rpcdll =(Minecraft.getInstance().gameDirectory.getAbsolutePath()+"libdiscord-rpc.dylib");
+            } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
@@ -38,29 +85,5 @@ public class loading {
         }
     }
 
-    public String ExportResource(String resourceName) throws Exception {
-        InputStream stream = null;
-        OutputStream resStreamOut = null;
-        String jarFolder;
-        try {
-            stream = loading.class.getResourceAsStream(resourceName);//note that each / is a directory down in the "jar tree" been the jar the root of the tree
-            if(stream == null) {
-                throw new Exception("Cannot get resource \"" + resourceName + "\" from Jar file.");
-            }
-
-            int readBytes;
-            byte[] buffer = new byte[4096];
-            jarFolder = new File(loading.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace('\\', '/');
-            resStreamOut = new FileOutputStream(jarFolder + resourceName);
-            while ((readBytes = stream.read(buffer)) > 0) {
-                resStreamOut.write(buffer, 0, readBytes);
-            }
-        } catch (Exception ex) {
-            throw ex;
-        } finally {
-            
-        }
-
-        return jarFolder + resourceName;
-    }
+ 
 }

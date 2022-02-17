@@ -246,6 +246,9 @@ import net.minecraft.world.level.storage.WorldData;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import space.nickyblackburn.discord.RichPresents;
+import space.nickyblackburn.utils.Consts;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -385,6 +388,7 @@ public class Minecraft extends ReentrantBlockableEventLoop<Runnable> implements 
 
     public Minecraft(GameConfig pGameConfig)
     {
+
         super("Client");
         instance = this;
         this.gameDirectory = pGameConfig.location.gameDirectory;
@@ -409,6 +413,14 @@ public class Minecraft extends ReentrantBlockableEventLoop<Runnable> implements 
         this.singleplayerServer = null;
         String s;
         int i;
+
+        // gets os info
+        Consts.loader.getOS();
+        
+        // Discord rich 
+        RichPresents.setup();
+        RichPresents.StartingPresence();
+    
 
         if (this.allowsMultiplayer() && pGameConfig.server.hostname != null)
         {

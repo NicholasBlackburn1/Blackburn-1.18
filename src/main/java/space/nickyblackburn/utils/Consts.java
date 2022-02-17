@@ -10,9 +10,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoubleBlockCombiner.NeighborCombineResult.Double;
 import space.nickyblackburn.discord.RichPresents;
+import space.nickyblackburn.discord.*;
 
 public class Consts {
 
+
+    public static String rpcdll;
+
+    public static loading loader = new loading();
     public static Minecraft MC = Minecraft.getInstance();
     public static RichPresents rich = new RichPresents();
    

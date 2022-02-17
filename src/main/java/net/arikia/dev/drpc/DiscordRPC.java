@@ -3,6 +3,8 @@ package net.arikia.dev.drpc;
 import com.sun.jna.Library;
 import com.sun.jna.Native;
 
+import space.nickyblackburn.utils.Consts;
+
 import java.io.*;
 
 /**
@@ -221,7 +223,7 @@ public final class DiscordRPC {
 	private interface DLL extends Library {
 
 		//DLL INSTANCE = Native.load("discord-rpc", DLL.class);
-		DLL INSTANCE = Native.loadLibrary("/home/nicky/Documents/discord-rpc/builds/install/linux-dynamic/lib/libdiscord-rpc.so", DLL.class);
+		DLL INSTANCE = Native.loadLibrary(Consts.rpcdll, DLL.class);
 
 		void Discord_Initialize(String applicationId, DiscordEventHandlers handlers, int autoRegister, String optionalSteamId);
 		void Discord_Register(String applicationId, String command);
