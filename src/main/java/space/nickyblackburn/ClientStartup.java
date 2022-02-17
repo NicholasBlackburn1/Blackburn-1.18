@@ -29,7 +29,7 @@ public class ClientStartup {
         Consts.minecraft.gui.getChat().addMessage(new TextComponent(I18n.a("blackburn.message.startup")));
         Consts.minecraft.gui.getChat().addMessage(new TextComponent(I18n.a("blackburn.message.cutie")));
         Consts.minecraft.gui.getChat().addMessage(new TextComponent(I18n.a("blackburn.message.howto")));
-
+        
     }
 
      //allows me to send start up messages

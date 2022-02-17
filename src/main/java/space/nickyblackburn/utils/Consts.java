@@ -75,7 +75,7 @@ public class Consts {
     public static String TwitchUsername; 
     public static String TwitchPass;
 
-    public static String TwitchConnected;
+    public static String TwitchConnected= "blackburn.twitch.connected.false";
 
     public static String ReleaseName = "§cB§6l§ea§ac§9k§bb§5u§cr§6n§e'§as§r";
 

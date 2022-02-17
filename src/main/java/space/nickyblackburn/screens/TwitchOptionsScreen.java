@@ -52,8 +52,8 @@ public class TwitchOptionsScreen extends GuiScreenOF{
     }
     // intis the screen
     public void init(){
-        Consts.TwitchConnected = "blackburn.twitch.connected.false";
-        
+ 
+
         Consts.twitchlog.add("Twitch irc: Starting... ");
 
         int l = this.height / 6 + 21 * 5 / 2 - 12;
@@ -125,7 +125,7 @@ public class TwitchOptionsScreen extends GuiScreenOF{
 
         drawCenteredString(pPoseStack, this.minecraft.font, "the username entered is §6"+Consts.TwitchUsername, this.width / 2 + 100, 15+20, 16777215);
         drawCenteredString(pPoseStack, this.minecraft.font, "the password entered is §6"+Consts.TwitchPass, this.width / 2 + 100, 15+30, 16777215);
-        drawCenteredString(pPoseStack, this.minecraft.font, "Is The irc connected?"+I18n.a(Consts.TwitchConnected), this.width / 2 + 100, 15+30, 16777215);
+        drawCenteredString(pPoseStack, this.minecraft.font, "Is The irc connected?"+I18n.a(Consts.TwitchConnected), this.width / 2 + 100, 15+40, 16777215);
 
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
       
@@ -174,7 +174,7 @@ public class TwitchOptionsScreen extends GuiScreenOF{
         }
         else
         {
-            Consts.TwitchConnected = "blackburn.twitch.connected.true";
+          
             this.onSelect();
             
             return true;
@@ -184,7 +184,7 @@ public class TwitchOptionsScreen extends GuiScreenOF{
     private void onSelect()
     {
         irc = new TwitchIRC();
-        
+        Consts.TwitchConnected = "blackburn.twitch.connected.true";
         Consts.error("got data from usrrname : "+this.username.getValue()+ " "+ "this is the password "+ this.password.getValue());
 
         if(this.username.getValue().isEmpty()|| this.password.getValue().isEmpty()){
