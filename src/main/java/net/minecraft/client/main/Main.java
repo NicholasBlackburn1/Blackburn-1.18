@@ -21,6 +21,7 @@ import joptsimple.ArgumentAcceptingOptionSpec;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
+import net.arikia.dev.drpc.DiscordRPC;
 import net.minecraft.CrashReport;
 import net.minecraft.CrashReportCategory;
 import net.minecraft.DefaultUncaughtExceptionHandler;
@@ -38,6 +39,8 @@ import net.minecraft.util.NativeModuleLister;
 import net.minecraft.util.profiling.jfr.Environment;
 import net.minecraft.util.profiling.jfr.JvmProfiler;
 import net.minecraft.world.entity.player.Player;
+import space.nickyblackburn.discord.RichPresents;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -48,6 +51,10 @@ public class Main
     @DontObfuscate
     public static void main(String[] pArgs)
     {
+
+        RichPresents.setup();
+        RichPresents.StartingPresence();
+    
         SharedConstants.tryDetectVersion();
         OptionParser optionparser = new OptionParser();
         optionparser.allowsUnrecognizedOptions();

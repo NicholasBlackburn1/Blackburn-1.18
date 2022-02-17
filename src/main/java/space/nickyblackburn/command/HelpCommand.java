@@ -32,7 +32,8 @@ public class HelpCommand implements ICommandRegister{
                     startup = new TextComponent(I18n.a("blackburn.commands.help"));
                         startup.setStyle(Style.EMPTY);
                         mc.gui.getChat().addMessage(startup);
-
+                    
+                    Consts.log("Size of commands list is "+ " "+ Consts.commands.size());
                     for (int i = 0;  i < Consts.commands.size(); i++)
                     {   
                         

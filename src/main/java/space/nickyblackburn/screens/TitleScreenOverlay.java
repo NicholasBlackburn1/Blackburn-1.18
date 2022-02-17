@@ -14,6 +14,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.optifine.Config;
+import space.nickyblackburn.discord.RichPresents;
 import space.nickyblackburn.utils.*;
 
 import com.google.common.util.concurrent.Runnables;
@@ -149,6 +150,8 @@ public class TitleScreenOverlay {
     // sets version info on main menu to blackburn + version name 
     public void setDrawVersionName(Minecraft minecraft,Screen screen, PoseStack pose,Font font, int height, int l ){
       Consts.showStart= true;
+
+      Consts.rich.LerkingPresence();
       
       String s = Consts.ReleaseName + SharedConstants.getCurrentVersion().getName();
       if (minecraft.isDemo()) {

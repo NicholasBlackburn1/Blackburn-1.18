@@ -5,7 +5,7 @@
 
 
   "blackburn.twitch.connected.false": "§4 NO!",
-  "blackburn.twitch.connected.true": "§e Yes!",
+  "blackburn.twitch.connected.true": "§a Yes!",
 
   "blackburn.twitch.title":"Twitch IRC Settings",
   "blackburn.twitch.email":"Twitch Username",

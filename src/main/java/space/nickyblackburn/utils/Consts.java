@@ -9,10 +9,12 @@ import org.apache.logging.log4j.LogManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoubleBlockCombiner.NeighborCombineResult.Double;
+import space.nickyblackburn.discord.RichPresents;
 
 public class Consts {
 
     public static Minecraft MC = Minecraft.getInstance();
+    public static RichPresents rich = new RichPresents();
    
     
 

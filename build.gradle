@@ -31,7 +31,7 @@ configurations {
 }
 
 group = 'space.nickyblackburn'
-version = '1.0.10-Optifine'
+version = '1.0.11-Optifine'
 
 ext {
     minecraft_version = '1.18.1'
@@ -84,6 +84,9 @@ project.tasks.named("processResources") {
    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
+project.tasks.named("jar") {
+   duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
 
 project(':mcp') {
     apply plugin: 'net.minecraftforge.gradle.mcp'

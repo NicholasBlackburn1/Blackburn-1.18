@@ -52,7 +52,8 @@ public class TwitchOptionsScreen extends GuiScreenOF{
     }
     // intis the screen
     public void init(){
- 
+        
+        Consts.rich.CustomPresenceWithImage("In the Twitch Irc Menus....", "OwO nuzzles ur Oauth Code~","puzzel_piece");
 
         Consts.twitchlog.add("Twitch irc: Starting... ");
 
