@@ -9,16 +9,16 @@ buildscript {
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:5+'
-        classpath "org.ajoberstar.grgit:grgit-gradle:5.0.0-rc.3"
+        //classpath "org.ajoberstar.grgit:grgit-gradle:5.0.0-rc.3"
     }
 }
 
 import net.minecraftforge.forge.tasks.*
-import org.ajoberstar.grgit.Grgit
+//import org.ajoberstar.grgit.Grgit
 
 apply plugin: 'eclipse'
 apply plugin: 'net.minecraftforge.gradle.patcher'
-apply plugin: "org.ajoberstar.grgit"
+//apply plugin: "org.ajoberstar.grgit"
 println(' Java: ' + System.getProperty('java.version') +
         ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ')' +
         ' Arch: ' + System.getProperty('os.arch'))
@@ -31,7 +31,7 @@ configurations {
 }
 
 group = 'space.nickyblackburn'
-version = '1.0.9-Optifine'
+version = '1.0.10-Optifine'
 
 ext {
     minecraft_version = '1.18.1'
@@ -65,13 +65,13 @@ dependencies {
     // YAML Parser
 	implementation group: "com.fasterxml.jackson.dataformat", name: "jackson-dataformat-yaml", version: "2.13.0"
   
-    compile group: "com.github.twitch4j", name: "twitch4j", version: "1.8.0"
+    shade group: "com.github.twitch4j", name: "twitch4j", version: "1.8.0"
 
 	// Logging Implementation
-	compile group: "ch.qos.logback", name: "logback-classic", version: "1.2.10"
+	shade group: "ch.qos.logback", name: "logback-classic", version: "1.2.10"
 
     // YAML Parser
-	compile group: "com.fasterxml.jackson.dataformat", name: "jackson-dataformat-yaml", version: "2.13.0"
+	shade group: "com.fasterxml.jackson.dataformat", name: "jackson-dataformat-yaml", version: "2.13.0"
 
 
 
@@ -100,6 +100,8 @@ patcher {
 }
 
 jar {
+    duplicatesStrategy = 'include'
+
     configurations.shade.each { dep ->
         from(project.zipTree(dep)) {
             
@@ -122,16 +124,9 @@ jar {
         }
         
 
-}
-}
-task printDepsTreeInJson {
-  doLast {
-      
-    configurations.compile.incoming.getResolutionResult().getAllDependencies().each { depResult  ->
-       new File(projectDir, "src/main/resources/assets/minecraft/blackburn/tool/libs_required.json").text = "{\"lib\":\"" + depResult.getFrom()  + "\"}"
     }
-  }
 }
+
 
 
 task runclient(type: JavaExec) {
