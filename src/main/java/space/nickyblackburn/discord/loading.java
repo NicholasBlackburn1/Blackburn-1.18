@@ -28,16 +28,16 @@ public class loading {
             Consts.log("Windows is detected loading RPC dll");
 
             this.lib = getClass().getResource("/assets/minecraft/blackburn/discord/win32-x86-64/discord-rpc.dll");
-            this.dest= new File(Minecraft.getInstance().gameDirectory.getAbsolutePath()+"discord-rpc.dll");
+            this.dest= new File(Minecraft.getInstance().gameDirectory.getAbsolutePath()+"\\"+"discord-rpc.dll");
             
-            Consts.log("Copying files... to "+Minecraft.getInstance().gameDirectory.getAbsolutePath()+"discord-rpc.dll");
+            Consts.log("Copying files... to "+Minecraft.getInstance().gameDirectory.getAbsolutePath()+"\\"+"discord-rpc.dll");
             try {
 
                 Consts.log("Copyting dll");
                 FileUtils.copyURLToFile(lib, dest);
                 Consts.error("copyed successfully");
 
-                Consts.rpcdll =(Minecraft.getInstance().gameDirectory.getAbsolutePath()+"discord-rpc.dll");
+                Consts.rpcdll =(Minecraft.getInstance().gameDirectory.getAbsolutePath()+"\\"+"discord-rpc.dll");
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -51,13 +51,13 @@ public class loading {
             Consts.log("Linux is detected loading RPC so");
 
             this.lib = getClass().getResource("/assets/minecraft/blackburn/discord/linux-x86-64/libdiscord-rpc.so");
-            this.dest= new File(Minecraft.getInstance().gameDirectory.getAbsolutePath()+"libdiscord-rpc.so");
+            this.dest= new File(Minecraft.getInstance().gameDirectory.getAbsolutePath()+"/"+"libdiscord-rpc.so");
             
-            Consts.log("Copying files... to "+Minecraft.getInstance().gameDirectory.getAbsolutePath()+"libdiscord-rpc.so");
+            Consts.log("Copying files... to "+Minecraft.getInstance().gameDirectory.getAbsolutePath()+"/"+"libdiscord-rpc.so");
             try {
                 FileUtils.copyURLToFile(lib, dest);
                 Consts.error("copyed successfully");
-                Consts.rpcdll =(Minecraft.getInstance().gameDirectory.getAbsolutePath()+"libdiscord-rpc.so");
+                Consts.rpcdll =(Minecraft.getInstance().gameDirectory.getAbsolutePath()+"/"+"libdiscord-rpc.so");
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -70,13 +70,13 @@ public class loading {
             Consts.log("Linux is detected loading RPC so");
 
             this.lib = getClass().getResource("/assets/minecraft/blackburn/discord/darwin/libdiscord-rpc.dylib");
-            this.dest= new File(Minecraft.getInstance().gameDirectory.getAbsolutePath()+"libdiscord-rpc.dylib");
+            this.dest= new File(Minecraft.getInstance().gameDirectory.getAbsolutePath()+"/"+"libdiscord-rpc.dylib");
             
-            Consts.log("Copying files... to "+Minecraft.getInstance().gameDirectory.getAbsolutePath()+"libdiscord-rpc.dylib");
+            Consts.log("Copying files... to "+Minecraft.getInstance().gameDirectory.getAbsolutePath()+"/"+"libdiscord-rpc.dylib");
             try {
                 FileUtils.copyURLToFile(lib, dest);
                 Consts.error("copyed successfully");
-                Consts.rpcdll =(Minecraft.getInstance().gameDirectory.getAbsolutePath()+"libdiscord-rpc.dylib");
+                Consts.rpcdll =(Minecraft.getInstance().gameDirectory.getAbsolutePath()+"/"+"libdiscord-rpc.dylib");
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
