@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.DoubleBlockCombiner.NeighborCombineResult
 public class Consts {
 
     public static Minecraft MC = Minecraft.getInstance();
+   
     
 
     public static List background = new ArrayList<Integer>();
@@ -74,6 +75,7 @@ public class Consts {
     public static String TwitchUsername; 
     public static String TwitchPass;
 
+    public static String TwitchConnected;
 
     public static String ReleaseName = "§cB§6l§ea§ac§9k§bb§5u§cr§6n§e'§as§r";
 

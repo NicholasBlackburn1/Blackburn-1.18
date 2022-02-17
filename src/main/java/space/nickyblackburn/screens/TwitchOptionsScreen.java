@@ -52,6 +52,8 @@ public class TwitchOptionsScreen extends GuiScreenOF{
     }
     // intis the screen
     public void init(){
+        Consts.TwitchConnected = "blackburn.twitch.connected.false";
+        
         Consts.twitchlog.add("Twitch irc: Starting... ");
 
         int l = this.height / 6 + 21 * 5 / 2 - 12;
@@ -123,6 +125,7 @@ public class TwitchOptionsScreen extends GuiScreenOF{
 
         drawCenteredString(pPoseStack, this.minecraft.font, "the username entered is §6"+Consts.TwitchUsername, this.width / 2 + 100, 15+20, 16777215);
         drawCenteredString(pPoseStack, this.minecraft.font, "the password entered is §6"+Consts.TwitchPass, this.width / 2 + 100, 15+30, 16777215);
+        drawCenteredString(pPoseStack, this.minecraft.font, "Is The irc connected?"+I18n.a(Consts.TwitchConnected), this.width / 2 + 100, 15+30, 16777215);
 
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
       
@@ -161,14 +164,19 @@ public class TwitchOptionsScreen extends GuiScreenOF{
 
     public boolean keyPressed(int pKeyCode, int pScanCode, int pModifiers)
     {
+
+        int l = this.height / 6 + 21 * 5 / 2 - 12;
+
         if (!this.connect.active || this.getFocused() != this.password || pKeyCode != 257 && pKeyCode != 335)
         {
-          
+
             return super.keyPressed(pKeyCode, pScanCode, pModifiers);
         }
         else
         {
+            Consts.TwitchConnected = "blackburn.twitch.connected.true";
             this.onSelect();
+            
             return true;
         }
     }

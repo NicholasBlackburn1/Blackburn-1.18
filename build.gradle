@@ -47,14 +47,6 @@ repositories {
     
 }
 
-sourceSets {
-    main {
-        java {
-            srcDir 'src/libs'
-        }
-    }
-}
-
 dependencies {
     implementation 'net.minecraftforge:forgespi:' + spi_version
     implementation group: "com.github.twitch4j", name: "twitch4j", version: "1.8.0"
@@ -63,6 +55,7 @@ dependencies {
 	implementation group: "ch.qos.logback", name: "logback-classic", version: "1.2.10"
 
     implementation 'club.minnced:java-discord-rpc:2.0.1'
+
 
     // YAML Parser
 	implementation group: "com.fasterxml.jackson.dataformat", name: "jackson-dataformat-yaml", version: "2.13.0"
@@ -73,6 +66,7 @@ dependencies {
 	shade group: "ch.qos.logback", name: "logback-classic", version: "1.2.10"
 
     shade 'club.minnced:java-discord-rpc:2.0.1'
+
 
     // YAML Parser
 	shade group: "com.fasterxml.jackson.dataformat", name: "jackson-dataformat-yaml", version: "2.13.0"
@@ -85,6 +79,11 @@ dependencies {
 //    shade 'package-here'
 //    compile 'package-here'
 }
+
+project.tasks.named("processResources") {
+   duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
 
 project(':mcp') {
     apply plugin: 'net.minecraftforge.gradle.mcp'
@@ -104,8 +103,7 @@ patcher {
 }
 
 jar {
-    duplicatesStrategy = 'include'
-
+    
     configurations.shade.each { dep ->
         from(project.zipTree(dep)) {
             
@@ -160,9 +158,10 @@ task setup() {
     }
 }
 
-task copyAssets {
+task copyAssets (type: Copy){
     group = "MCP"
     description = "Download and place the assets into the run folder"
+    
     dependsOn ':downloadAssets'
     mkdir 'run/assets'
     copy {
