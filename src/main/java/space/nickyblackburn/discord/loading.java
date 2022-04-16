@@ -67,7 +67,7 @@ public class loading {
 
         if(System.getProperty("os.name").startsWith("Darwin")){
 
-            Consts.log("Linux is detected loading RPC so");
+            Consts.log("Macosx is detected loading RPC so");
 
             this.lib = getClass().getResource("/assets/minecraft/blackburn/discord/darwin/libdiscord-rpc.dylib");
             this.dest= new File(Minecraft.getInstance().gameDirectory.getAbsolutePath()+"/"+"libdiscord-rpc.dylib");
