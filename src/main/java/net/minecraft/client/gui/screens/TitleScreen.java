@@ -48,6 +48,7 @@ import net.optifine.reflect.ReflectorForge;
 import space.nickyblackburn.screens.CopyRightScreen;
 import space.nickyblackburn.screens.TitleScreenOverlay;
 import space.nickyblackburn.utils.Consts;
+import space.nickyblackburn.utils.TitleScreenUtils;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -112,58 +113,9 @@ public class TitleScreen extends Screen
   
      // Chnaged the copy right text out side of the main minecarft version
      protected void init() {
-        i++;
-        Consts.showStart = true;
-        
-        TitleScreenOverlay overlay = new TitleScreenOverlay();
-  
-        if (splash == null) {
-           splash = minecraft.getSplashManager().getSplash();
-        }
-  
-        // runs only on 2nd startup of main menu
-        if(i == 1){
-           overlay.BlackburnTitleInit();
-        }
-  
-        this.PANORAMA_OVERLAY = new ResourceLocation(overlay.setBackgroundScreen());
-  
-        copyrightWidth = font.width(Consts.copyright);
-        this.copyrightX = width - copyrightWidth - 2;
-  
-        int i = 24;
-        int j = this.height / 4 + 48;
-  
-        // Creates my custom 
-        if (this.minecraft.isDemo()) {
-  
-           if(Consts.background.size() == 0){
-              Consts.warn("Cannot Register new Main menu  because list is 0");
-  
-           } else{
-              Consts.log("Registering main menu");
-              overlay.LoadCustomMainMenu(minecraft,this,width, j);
-  
-  
-              //overlay.setUpCustomMainMenu(minecraft, this, width,height, j, realmsNotificationsScreen);
-              Consts.log("Registered main menu");
-           }
-  
-        } else {
-  
-           if(Consts.background.size() == 0){
-              Consts.warn("Cannot Register new Main menu  because list is 0");
-  
-           } else{
-              Consts.log("Registering main menu");
-              overlay.LoadCustomMainMenu(minecraft,this,width, j);
-  
-  
-              //overlay.setUpCustomMainMenu(minecraft, this, width,height, j, realmsNotificationsScreen);
-              Consts.log("Registered main menu");
-           }
-        }
-  
+      
+      TitleScreenUtils utils = new TitleScreenUtils();
+      utils.titlescrenInit(this.font, this.splash, this.minecraft, this.PANORAMA_OVERLAY, this.i, this.copyrightX, this.copyrightWidth, this.height, this.width);
   
      }
   
@@ -172,6 +124,7 @@ public class TitleScreen extends Screen
      }
   
      public void render(PoseStack p_96739_, int p_96740_, int p_96741_, float p_96742_) {
+        
         TitleScreenOverlay overlay = new TitleScreenOverlay();
    
          // Shows the Lurking presents 
