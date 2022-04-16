@@ -79,14 +79,41 @@ public class ChatColorCodes {
     }
 // this is for formatting codes
     public String formmatingCodes(FormatCodes codes){
+
+        String formatcode = "";
+
         switch (codes) {
             case Obfuscated:
-                
+                formatcode = "§k";
                 break;
+
+                case Bold:
+                formatcode = "§l";
+                break;
+
+                case Strikethrough:
+                formatcode = "§m";
+                break;
+
+                case Underline:
+                formatcode = "§n";
+                break;
+
+                case Italic:
+                formatcode = "§o";
+                break;
+
+                case Reset:
+                formatcode = "§r";
+                break;
+
+                
         
             default:
                 break;
         }
-        return null;
+        return formatcode;
     }
+
+
 }

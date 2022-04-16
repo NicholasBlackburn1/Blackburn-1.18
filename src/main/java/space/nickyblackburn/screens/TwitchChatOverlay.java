@@ -44,15 +44,15 @@ public class TwitchChatOverlay extends GuiComponent{
     //TODO: actually get twitch chat working 
     protected void drawTwitchChat(PoseStack pose){
 
-        GuiPoint[] aguipoint = new GuiPoint[ Consts.chatmessage.size()];
-        GuiRect[] aguirect = new GuiRect[ Consts.chatmessage.size()];
+        GuiPoint[] aguipoint = new GuiPoint[ Consts.finalmessage.size()];
+        GuiRect[] aguirect = new GuiRect[ Consts.finalmessage.size()];
 
     
       
-        for (int i = 0; i < Consts.chatmessage.size(); ++i)
+        for (int i = 0; i < Consts.finalmessage.size(); ++i)
         {
             
-            String s =  (String) Consts.chatmessage.get(i);
+            String s =  (String) Consts.finalmessage.get(i);
 
             if (!Strings.isNullOrEmpty(s))
             {
@@ -66,16 +66,16 @@ public class TwitchChatOverlay extends GuiComponent{
                 
             }
 
-            if(Consts.chatmessage.size() == 11){
+            if(Consts.finalmessage.size() == 11){
                 pose.translate(-4.0D, 0.0D, 0.0D);
-                Consts.chatmessage.clear();
+                Consts.finalmessage.clear();
             }
 
         }
 
       
         GuiUtils.fill(pose.last().pose(), aguirect, -1873784752);
-        this.font.renderStrings(, aguipoint, 14737632, pose.last().pose(), false, this.font.isBidirectional());
+        this.font.renderStrings(Consts.finalmessage, aguipoint, 14737632, pose.last().pose(), false, this.font.isBidirectional());
     
         
     }

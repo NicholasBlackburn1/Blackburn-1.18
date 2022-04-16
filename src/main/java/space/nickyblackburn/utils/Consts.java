@@ -34,7 +34,8 @@ public class Consts {
     public static List blocklistseenpos = new LinkedList<Double>();
 
  // Tewitch chat
-
+    public static List chatmessage = new LinkedList<String>();
+    public static List chatuser = new LinkedList<String>();
     public static List finalmessage = new LinkedList<String>();
 
     public static Minecraft minecraft  = Minecraft.getInstance();
