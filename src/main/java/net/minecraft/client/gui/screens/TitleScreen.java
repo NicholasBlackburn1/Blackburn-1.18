@@ -113,12 +113,63 @@ public class TitleScreen extends Screen
   
      // Chnaged the copy right text out side of the main minecarft version
      protected void init() {
+  
+      i++;
+      Consts.showStart = true;
       
-      TitleScreenUtils utils = new TitleScreenUtils();
-      utils.titlescrenInit(this.font, this.splash, this.minecraft, this.PANORAMA_OVERLAY, this.i, this.copyrightX, this.copyrightWidth, this.height, this.width);
-  
-     }
-  
+      TitleScreenOverlay overlay = new TitleScreenOverlay();
+
+      if (this.splash == null) {
+         this.splash = minecraft.getSplashManager().getSplash();
+      }
+
+      // runs only on 2nd startup of main menu
+      if(i == 1){
+         overlay.BlackburnTitleInit();
+      }
+    
+      this.PANORAMA_OVERLAY = new ResourceLocation(overlay.setBackgroundScreen());
+
+      this.copyrightWidth = font.width(Consts.copyright);
+      this.copyrightX = width - copyrightWidth - 2;
+
+       i = 24;
+      int j = height / 4 + 48;
+
+      // Creates my custom 
+      if (minecraft.isDemo()) {
+
+         if(Consts.background.size() == 0){
+            Consts.warn("Cannot Register new Main menu  because list is 0");
+
+         } else{
+            Consts.log("Registering main menu");
+            overlay.LoadCustomMainMenu(minecraft,this, width, j);
+
+
+            //overlay.setUpCustomMainMenu(minecraft, this, width,height, j, realmsNotificationsScreen);
+            Consts.log("Registered main menu");
+         }
+
+      } else {
+
+         if(Consts.background.size() == 0){
+            Consts.warn("Cannot Register new Main menu  because list is 0");
+
+         } else{
+            Consts.log("Registering main menu");
+            overlay.LoadCustomMainMenu(minecraft,this,width, j);
+
+
+            //overlay.setUpCustomMainMenu(minecraft, this, width,height, j, realmsNotificationsScreen);
+            Consts.log("Registered main menu");
+
+            
+         }
+      }
+
+    }
+     
      private void realmsButtonClicked() {
         this.minecraft.setScreen(new RealmsMainScreen(this));
      }

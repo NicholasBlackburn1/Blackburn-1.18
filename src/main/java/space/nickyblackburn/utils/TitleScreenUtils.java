@@ -2,6 +2,7 @@ package space.nickyblackburn.utils;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.resources.ResourceLocation;
 import space.nickyblackburn.screens.TitleScreenOverlay;
 
@@ -20,7 +21,7 @@ public class TitleScreenUtils {
  * @param height hight  fpr screen
  * @param width withd 
  */
-    public void titlescrenInit(Font font, String splash, Minecraft minecraft,ResourceLocation PANORAMA_OVERLAY, int i, int copyrightX, int copyrightWidth,int height, int width) {
+    public void titlescrenInit(Font font, String splash, Minecraft minecraft,ResourceLocation PANORAMA_OVERLAY, Screen screen, int i, int copyrightX, int copyrightWidth,int height, int width) {
         i++;
         Consts.showStart = true;
         
@@ -34,7 +35,7 @@ public class TitleScreenUtils {
         if(i == 1){
            overlay.BlackburnTitleInit();
         }
-  
+      
         PANORAMA_OVERLAY = new ResourceLocation(overlay.setBackgroundScreen());
   
         copyrightWidth = font.width(Consts.copyright);
@@ -51,7 +52,7 @@ public class TitleScreenUtils {
   
            } else{
               Consts.log("Registering main menu");
-              overlay.LoadCustomMainMenu(minecraft,width, j);
+              overlay.LoadCustomMainMenu(minecraft,screen, width, j);
   
   
               //overlay.setUpCustomMainMenu(minecraft, this, width,height, j, realmsNotificationsScreen);
@@ -65,13 +66,18 @@ public class TitleScreenUtils {
   
            } else{
               Consts.log("Registering main menu");
-              overlay.LoadCustomMainMenu(minecraft,width, j);
+              overlay.LoadCustomMainMenu(minecraft,screen,width, j);
   
   
               //overlay.setUpCustomMainMenu(minecraft, this, width,height, j, realmsNotificationsScreen);
               Consts.log("Registered main menu");
+
+              
            }
         }
+
+      }
+   }
   
   
-     }
+   
