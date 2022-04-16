@@ -418,8 +418,8 @@ public class Minecraft extends ReentrantBlockableEventLoop<Runnable> implements 
         Consts.loader.getOS();
         
         // Discord rich 
-        RichPresents.setup();
-        RichPresents.StartingPresence();
+       // RichPresents.setup();
+       // RichPresents.StartingPresence();
     
 
         if (this.allowsMultiplayer() && pGameConfig.server.hostname != null)

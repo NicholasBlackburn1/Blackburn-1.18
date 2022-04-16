@@ -60,14 +60,14 @@ public class ClientStartup {
             if(mine.player.isAlive()){
                 
                 try {
-                    Consts.rich.CustomPresenceWithImage("Yaaa Playing Minecrafty~", "UwU~ Love all you Furries uwu~", "gamer", "OwO Gamer foxy~");                    
+                   // Consts.rich.CustomPresenceWithImage("Yaaa Playing Minecrafty~", "UwU~ Love all you Furries uwu~", "gamer", "OwO Gamer foxy~");                    
 
                     if(mine.getCurrentServer().isLan()){
                 }
                 else{
 
                         // this aallows me to send rpc when some one is alive
-                        Consts.rich.ImageWithoutDescPersantes("In a Server Named "+mine.getCurrentServer().name, "gamer", mine.getCurrentServer().playerList.size(), 0);
+                      //  Consts.rich.ImageWithoutDescPersantes("In a Server Named "+mine.getCurrentServer().name, "gamer", mine.getCurrentServer().playerList.size(), 0);
                     }
 
 

@@ -15,7 +15,7 @@ public class ChatColorCodes {
             break;
     
             case RED:
-            colorres = "4";
+            colorres = "§4";
             break;
     
             case BLUE:

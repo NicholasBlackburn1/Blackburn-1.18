@@ -39,8 +39,7 @@ import net.minecraft.util.NativeModuleLister;
 import net.minecraft.util.profiling.jfr.Environment;
 import net.minecraft.util.profiling.jfr.JvmProfiler;
 import net.minecraft.world.entity.player.Player;
-import space.nickyblackburn.discord.RichPresents;
-import space.nickyblackburn.utils.Consts;
+
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

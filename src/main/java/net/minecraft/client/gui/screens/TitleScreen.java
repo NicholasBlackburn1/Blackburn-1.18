@@ -179,7 +179,7 @@ public class TitleScreen extends Screen
         TitleScreenOverlay overlay = new TitleScreenOverlay();
    
          // Shows the Lurking presents 
-         Consts.rich.LerkingPresence();
+         //Consts.rich.LerkingPresence();
          
         if (this.fadeInStart == 0L && this.fading) {
            this.fadeInStart = Util.getMillis();
