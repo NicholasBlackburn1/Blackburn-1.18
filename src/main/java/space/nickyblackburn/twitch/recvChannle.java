@@ -23,7 +23,10 @@ public class recvChannle {
             if (event.getMessage() == null){
 
             }else{
-                Consts.chatmessage.add(event.getUser().getName() + " : "+event.getMessage());
+                Consts.finalmessage.add(event.getUser().getName());
+                 
+                
+            
             }
         
         });

@@ -72,10 +72,10 @@ public class TwitchChatOverlay extends GuiComponent{
             }
 
         }
-        
 
+      
         GuiUtils.fill(pose.last().pose(), aguirect, -1873784752);
-        this.font.renderStrings(Consts.chatmessage, aguipoint, 14737632, pose.last().pose(), false, this.font.isBidirectional());
+        this.font.renderStrings(, aguipoint, 14737632, pose.last().pose(), false, this.font.isBidirectional());
     
         
     }
