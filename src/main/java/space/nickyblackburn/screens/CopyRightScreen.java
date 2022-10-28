@@ -31,6 +31,7 @@ public class CopyRightScreen extends Screen{
         this.drawCenteredString(p_96295_, this.font,"§6Blackburn Software Stats UwU",this.width/2 ,140, 16777215);
         this.drawCenteredString(p_96295_, this.font,"§6Version:"+"§r "+Consts.VERSION+Consts.RELEASE,this.width/2 ,150, 16777215);
         this.drawCenteredString(p_96295_, this.font,"§6Build:"+"§r "+Consts.RELEASE,this.width/2 ,160, 16777215);
+        this.drawCenteredString(p_96295_, this.font,"§6:"+"§r "+Consts.commands.size()+ " are Loaded!",this.width/2 ,160, 16777215);
         try {
 			File jarFile = new File
 			(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI());

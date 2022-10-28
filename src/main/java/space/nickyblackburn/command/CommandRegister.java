@@ -18,6 +18,7 @@ public class CommandRegister {
     HelpCommand help = new HelpCommand();
     VersionCommand version = new VersionCommand();
     PlayerCritCommand crit = new PlayerCritCommand();
+    NoFallCommand nofall = new NoFallCommand();
 
 
     public void registerCommands(Minecraft mc){
@@ -28,6 +29,8 @@ public class CommandRegister {
         help.register(command, mc);
         version.register(command, mc);
         crit.register(command, mc);
+        nofall.register(command, mc);
+
 
 
 
@@ -41,10 +44,12 @@ public class CommandRegister {
                 
     }
 
+    // adds commands 
     public void addToCommandList(){
         Consts.commands.add(0,help.getName());
         Consts.commands.add(1,version.getName());
         Consts.commands.add(2,crit.getName());
+        Consts.commands.add(3,nofall.getName());
         
     }
 

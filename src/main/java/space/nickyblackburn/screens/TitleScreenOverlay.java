@@ -120,6 +120,8 @@ public class TitleScreenOverlay {
          
    }
 
+
+   // creates the copy right 
    public void setCopyRightTexT(String splash, Minecraft minecraft, int copyrightWidth, int copyrightX, int width,Font font,Screen screen){
        
       
