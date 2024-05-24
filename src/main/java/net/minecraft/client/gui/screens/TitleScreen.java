@@ -201,6 +201,11 @@ public class TitleScreen extends Screen
         int l = Mth.ceil(f1 * 255.0F) << 24;
         if ((l & -67108864) != 0) {
            RenderSystem.setShader(GameRenderer::getPositionTexShader);
+
+
+           /***
+            * we set up the redering for the title screen here 
+            */
   
            // Renders adition
            RenderSystem.setShaderTexture(0, MINECRAFT_EDITION);

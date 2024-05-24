@@ -59,6 +59,7 @@ import net.minecraft.network.chat.CommonComponents;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.levelgen.WorldGenSettings;
 import net.minecraft.world.level.storage.LevelStorageSource;
@@ -316,6 +317,10 @@ public class TitleScreenOverlay {
       x = (JsonPrimitive) Consts.background.get(10);
       y = (JsonPrimitive) Consts.background.get(9);
       gui.CreatebuttonwithoutImageQuit(minecraft, titlescreen, buttonwidth, j, x.getAsInt(), y.getAsInt(), 20, "menu.quit");
+
+      
+      // trying to load custom sound for background 
+      
       
      
       
