@@ -21,13 +21,13 @@ public class Music
     private final int minDelay;
     private final int maxDelay;
     private final boolean replaceCurrentMusic;
-
-    public Music(SoundEvent p_11627_, int p_11628_, int p_11629_, boolean p_11630_)
+    
+    public Music(SoundEvent _event, int _minDelay, int _maxDelay, boolean _replaceCurrentMusic)
     {
-        this.event = p_11627_;
-        this.minDelay = p_11628_;
-        this.maxDelay = p_11629_;
-        this.replaceCurrentMusic = p_11630_;
+        this.event = _event;
+        this.minDelay = _minDelay;
+        this.maxDelay = _maxDelay;
+        this.replaceCurrentMusic = _replaceCurrentMusic;
     }
 
     public SoundEvent getEvent()

@@ -3025,6 +3025,9 @@ public class Minecraft extends ReentrantBlockableEventLoop<Runnable> implements 
         {
             return Musics.CREDITS;
         }
+
+            
+      
         else if (this.player != null)
         {
             if (this.player.level.dimension() == Level.END)

@@ -1,0 +1,12 @@
+These songs will play when you're in:
+Menu
+
+menu1.ogg
+menu2.ogg
+menu3.ogg
+menu4.ogg
+
+-----------------------------------------------
+Resources put together by: TomConn
+https://www.planetminecraft.com/member/TomConn/
+-----------------------------------------------

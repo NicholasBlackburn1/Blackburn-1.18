@@ -1211,6 +1211,12 @@ public class SoundEvents
     public static final SoundEvent ZOMBIE_VILLAGER_HURT = register("entity.zombie_villager.hurt");
     public static final SoundEvent ZOMBIE_VILLAGER_STEP = register("entity.zombie_villager.step");
 
+    // trying register custom audio
+
+    public static final SoundEvent nickybackground = register("blackburn.sound.main");
+
+    
+
     private static SoundEvent register(String pKey)
     {
         return Registry.register(Registry.SOUND_EVENT, pKey, new SoundEvent(new ResourceLocation(pKey)));

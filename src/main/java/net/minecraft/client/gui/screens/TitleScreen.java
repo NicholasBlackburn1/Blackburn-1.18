@@ -33,6 +33,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.PanoramaRenderer;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.client.sounds.SoundEngine;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -233,7 +234,8 @@ public class TitleScreen extends Screen
   
            // this sets the copyright text
            overlay.drawCopyRightString(this, p_96739_, this.font, Consts.copyright, this.height, this.width, this.copyrightX, this.copyrightWidth, p_96740_, p_96741_,f1);
-  
+         
+           
            for(GuiEventListener guieventlistener : this.children()) {
               if (guieventlistener instanceof AbstractWidget) {
                  ((AbstractWidget)guieventlistener).setAlpha(f1);
